@@ -9,7 +9,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)  
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#contributing)  
 [![Build Status](https://img.shields.io/badge/status-under_construction-orange.svg)](#status)  
-[![Open Issues](https://img.shields.io/github/issues/yourusername/updapi)](https://github.com/yourusername/updapi/issues)  
+[![Open Issues](https://img.shields.io/github/issues/in-c0/updapi)](https://github.com/in-c0/updapi/issues)  
 
 ---
 > Like the project? Please give it a Star so it can reach more people >>>>> [![Star on GitHub](https://img.shields.io/badge/⭐-Star_on_GitHub-blue?style=flat)](https://github.com/UpdAPI/updAPI/stargazers)
@@ -29,7 +29,7 @@ api-docs-url.csv:
 | OpenAI API           | [Documentation](https://platform.openai.com/docs)   | [Privacy](https://openai.com/privacy) | [Terms](https://openai.com/terms) | [Rate Limits](https://platform.openai.com/docs/guides/rate-limits) | [Changelog](https://platform.openai.com/docs/release-notes) | [Security](https://openai.com/security) | [Community](https://community.openai.com/) |
 ...
 
-> ⚠️ **the URLs are auto-generated and require manual verification**  
+> ⚠️ **The URLs are auto-generated and require manual verification**  
 > We aim to maintain these URLs to be pointing to the **current** document (TODO: Set up cron jobs/GitHub Actions to periodically re-run the scrapers and keep the dataset up-to-date)
 
 
@@ -194,7 +194,7 @@ Contributions are welcome! Here's how you can contribute:
      
 2. **Verify API Entries**:
    - Is the URL up-to-date?
-   - Is the URL root-level for the relevant page? (api.com/docs/, not api.com/docs/nested)
+   - Is the URL root-level for the relevant page? (`api.com/docs/`, not `api.com/docs/nested`)
    - Is the API doc public and does it comply with "robots.txt"?
    - Does the URL provide all the expected information (changelogs, rate limits, etc) ?
    - Is there any dynamically loaded page content that the scraper is able to extract?
@@ -238,7 +238,7 @@ This repository is licensed under the [MIT License](LICENSE).
 - Limited API support.  
 - Some features may not work as expected.  
 
-Check the [Open Issues](https://github.com/yourusername/updapi/issues) for more details.
+Check the [Open Issues](https://github.com/in-c0/updapi/issues) for more details.
 
 ---
 
@@ -258,8 +258,8 @@ Check the [Open Issues](https://github.com/yourusername/updapi/issues) for more 
 
 ## Community  
 
-- [Discussions](https://github.com/yourusername/updapi/discussions)  
-- [Bug Reports](https://github.com/yourusername/updapi/issues)  
+- [Discussions](https://github.com/in-c0/updapi/discussions)  
+- [Bug Reports](https://github.com/in-c0/updapi/issues)  
 
 ---
 
