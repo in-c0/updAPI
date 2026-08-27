@@ -30,8 +30,110 @@ api-docs-urls.csv:
 ...
 
 > ⚠️ **The URLs are auto-generated and require manual verification**  
-> We aim to maintain these URLs to be pointing to the **current** document (TODO: Set up cron jobs/GitHub Actions to periodically re-run the scrapers and keep the dataset up-to-date)
+> They are now re-verified weekly — see [Dataset freshness](#-dataset-freshness) below.
 
+
+## 🔄 Dataset freshness
+
+A table of URLs is only worth what its URLs are worth, and URLs rot. Documentation
+sites reorganise, whole doc platforms migrate (`api.slack.com` → `docs.slack.dev`,
+`stripe.com/docs` → `docs.stripe.com`), and pages are retired. So the dataset
+re-verifies itself.
+
+```bash
+npm run check-links        # probe every URL in every column, write reports
+npm run check-links:fix    # also rewrite rows whose URL now redirects elsewhere
+```
+
+[`.github/workflows/link-freshness.yml`](.github/workflows/link-freshness.yml)
+runs this every Monday and opens a pull request with whatever it can repair.
+
+**What it does and does not repair.** A URL that now redirects somewhere else has
+a known-good replacement — the place it redirects to — so those rows are rewritten
+automatically. A dead URL does not; inventing a plausible replacement would put a
+fabrication in the dataset, so 404s are reported for a human to resolve rather
+than guessed at. `403` and `429` are recorded as `blocked`, never as dead: being
+refused by a bot-detecting CDN says nothing about whether the page exists, and
+treating a Cloudflare challenge as rot would silently delete good rows.
+
+### Outputs
+
+| file | what it holds |
+|---|---|
+| `datasets/link-health.json` | full snapshot — per-column tallies, every non-OK finding, `/llms.txt` availability per host |
+| `datasets/link-health-history.csv` | one row per column per run, appended forever |
+
+The history file is the point. A single snapshot says the dataset is stale today;
+the series says how fast documentation rots, which is a question nobody seems to
+have measured.
+
+### Two caveats on reading the numbers
+
+**Per-column statistics cover structurally complete rows only.** Most rows in this
+dataset omit fields rather than leaving them empty, which shifts every later value
+one column to the left — so a privacy-policy URL can end up sitting in the
+documentation column. Counting those rows would make "documentation URLs are N%
+healthy" partly a statement about privacy policies. The checker reports the
+alignment problem separately under `alignment` rather than folding it into rot.
+
+**`ok` is a strict test.** It means the stored URL returned 200 at exactly that
+address. A URL that resolves only after a redirect is counted as `moved`, not
+`ok`, because for a dataset whose product *is* the URL, pointing at a redirect
+stub is a defect even when a human following it lands somewhere fine.
+
+---
+
+## 🔌 MCP server
+
+The index is most useful to a coding agent, so it is exposed over the
+[Model Context Protocol](https://modelcontextprotocol.io). Any MCP client —
+Claude Code, Claude Desktop, Cursor, VS Code, Windsurf, Zed — can query it.
+
+```bash
+npm install
+npm run mcp          # stdio server
+```
+
+Client configuration:
+
+```json
+{
+  "mcpServers": {
+    "updapi": {
+      "command": "node",
+      "args": ["/absolute/path/to/updAPI/mcp/server.mjs"]
+    }
+  }
+}
+```
+
+### Tools
+
+| tool | what it answers |
+|---|---|
+| `search_apis` | "which entries match *stripe*?" — name search, returns the documentation URL |
+| `get_api_resources` | "give me everything indexed for this API" — docs, privacy, terms, rate limits, release notes, security, community |
+| `index_health` | "how much should I trust the answers above?" — freshness and per-column health |
+
+**Every URL is returned with its freshness.** Each resource carries when it was
+last verified and what the verifier saw (`ok`, `moved` with the redirect target,
+`dead`, `blocked`). Handing a model a link without saying how old the claim is
+invites it to trust a 404 — worse than returning nothing, because a tool result
+reads as authoritative. When no `link-health.json` is present the server reports
+`"verified": "unknown"` rather than implying the data is current.
+
+The `Rate Limiting Policy`, `Terms of Service` and `Security Policy` columns are
+the ones worth reaching for. General web search handles "where are the Stripe API
+docs" perfectly well; it does much worse on policy pages, which rank below
+marketing pages and are exactly where a model will confidently invent a number.
+
+To verify the server end-to-end after a change:
+
+```bash
+node tools/verify-mcp.mjs
+```
+
+---
 
 ## 🛠 Adding More APIs to the Dataset
 
@@ -237,6 +339,10 @@ This repository is licensed under the [MIT License](LICENSE).
 ### 📌 Known Issues:  
 - Limited API support.  
 - Some features may not work as expected.  
+- **Most rows are missing columns.** Fields are omitted rather than blanked, so the
+  remaining values shift left and land under the wrong heading. `npm run check-links`
+  reports the scale of this under `alignment` in `datasets/link-health.json`; repairing
+  it is the highest-value contribution available right now.  
 
 Check the [Open Issues](https://github.com/in-c0/updapi/issues) for more details.
 
@@ -248,6 +354,8 @@ Check the [Open Issues](https://github.com/in-c0/updapi/issues) for more details
 - Basic search and browse functionality.  
 - JSON exports for select APIs.  
 - Direct links to official API documentation.  
+- Weekly automated link verification ([`link-freshness.yml`](.github/workflows/link-freshness.yml)).  
+- MCP server, so coding agents can query the index directly.  
 
 ### 🔜 Future Enhancements  
 - IDE integrations (e.g., VS Code plugin).  
