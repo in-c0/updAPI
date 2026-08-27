@@ -82,3 +82,50 @@ describe('probeable values', function () {
     assert.ok(!mod.isProbeableUrl(undefined));
   });
 });
+
+// This detector regressed once: it originally keyed off rows having too few
+// fields, but writing the CSV back out pads every row to the full column count,
+// so after one --fix pass the structural signal was gone and the defect went
+// unreported while it was still present. It is content-based for that reason.
+describe('column misalignment', function () {
+  it('flags a privacy policy sitting in the documentation column', function () {
+    assert.strictEqual(
+      mod.misalignedAs({
+        Official_Documentation_URL: 'https://privacy.microsoft.com/en-us/privacystatement',
+      }),
+      'Privacy Policy'
+    );
+  });
+
+  it('flags a community forum sitting in the documentation column', function () {
+    assert.strictEqual(
+      mod.misalignedAs({ Official_Documentation_URL: 'https://community.openai.com/' }),
+      'Developer Community/Forum'
+    );
+  });
+
+  it('flags a rate-limit page sitting in the documentation column', function () {
+    assert.strictEqual(
+      mod.misalignedAs({
+        Official_Documentation_URL: 'https://learn.microsoft.com/en-us/graph/throttling',
+      }),
+      'Rate Limiting Policy'
+    );
+  });
+
+  it('leaves a genuine documentation URL alone', function () {
+    assert.strictEqual(
+      mod.misalignedAs({ Official_Documentation_URL: 'https://docs.stripe.com/api' }),
+      null
+    );
+    assert.strictEqual(
+      mod.misalignedAs({ Official_Documentation_URL: 'https://platform.openai.com/docs/overview' }),
+      null
+    );
+  });
+
+  it('ignores an empty or missing cell', function () {
+    assert.strictEqual(mod.misalignedAs({ Official_Documentation_URL: '' }), null);
+    assert.strictEqual(mod.misalignedAs({}), null);
+  });
+});

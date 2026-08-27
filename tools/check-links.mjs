@@ -255,9 +255,20 @@ const main = async () => {
         fieldCountHistogram[filled] = (fieldCountHistogram[filled] || 0) + 1;
     }
 
-    const shifted = incompleteRows
+    // Content-based, and deliberately run over *every* row rather than only the
+    // structurally incomplete ones. Writing the CSV back out pads short rows to
+    // the full column count, so the structural signal does not survive a --fix
+    // pass — but the shifted values do. A detector that depends on the missing
+    // fields would report the defect once and then go quiet while it persists.
+    const shifted = rows
         .map((row) => ({ api: row[NAME_COLUMN], looksLike: misalignedAs(row) }))
         .filter((entry) => entry.looksLike);
+    const shiftedNames = new Set(shifted.map((entry) => entry.api));
+
+    // A row is trustworthy for per-column statistics only if it carries every
+    // column AND its documentation cell does not obviously belong to another one.
+    const isAligned = (row) => isComplete(row) && !shiftedNames.has(row[NAME_COLUMN]);
+    const alignedRows = rows.filter(isAligned);
 
     // One probe per distinct URL, however many rows share it.
     const distinct = new Set();
@@ -285,7 +296,7 @@ const main = async () => {
     for (const column of urlColumns) byColumn[column] = emptyTally();
 
     for (const row of sample) {
-        const rowIsComplete = isComplete(row);
+        const rowIsComplete = isAligned(row);
         for (const column of urlColumns) {
             const value = (row[column] || '').trim();
             if (!isProbeableUrl(value)) continue;
@@ -336,12 +347,14 @@ const main = async () => {
         alignment: {
             rowsComplete: completeRows.length,
             rowsIncomplete: incompleteRows.length,
+            rowsUsableForStatistics: alignedRows.length,
             shareComplete: rows.length ? Number((completeRows.length / rows.length).toFixed(4)) : 0,
             fieldCountHistogram,
             documentationCellLooksLikeAnotherColumn: shifted.length,
             shiftedExamples: shifted.slice(0, 25),
             note:
-                'Per-column statistics cover structurally complete rows only. Incomplete ' +
+                'Per-column statistics cover rows that carry every column AND whose '  +
+                'documentation cell does not look like another column. Incomplete ' +
                 'rows omit fields rather than blanking them, so their columns are shifted ' +
                 'and cannot be attributed to a named column.',
         },
@@ -372,7 +385,7 @@ const main = async () => {
         return [
             date, column, t.checked, t[OUTCOME.OK], t[OUTCOME.MOVED], t[OUTCOME.DEAD],
             t[OUTCOME.BLOCKED], t[OUTCOME.ERROR], t[OUTCOME.OTHER],
-            hosts.length, llmsServing, completeRows.length, rows.length,
+            hosts.length, llmsServing, alignedRows.length, rows.length,
         ];
     });
     fs.appendFileSync(historyPath, stringify(historyRows));
@@ -413,7 +426,8 @@ const main = async () => {
     console.error(`llms.txt     ${llmsServing}/${hosts.length} hosts serve one`);
     console.error(
         `alignment    ${completeRows.length}/${rows.length} rows carry all columns; ` +
-        `${shifted.length} have a non-doc URL in the documentation column`
+        `${shifted.length} have a non-doc URL in the documentation column; ` +
+        `${alignedRows.length} usable for statistics`
     );
     if (APPLY_FIXES) console.error(`corrections  ${corrections} applied to ${path.basename(CSV_PATH)}`);
 
@@ -422,7 +436,7 @@ const main = async () => {
     process.exitCode = 0;
 };
 
-export { classify, normalise, isProbeableUrl, OUTCOME };
+export { classify, normalise, isProbeableUrl, misalignedAs, OUTCOME };
 
 if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith('check-links.mjs')) {
     main().catch((err) => {
