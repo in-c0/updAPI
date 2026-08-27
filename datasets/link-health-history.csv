@@ -1,0 +1,8 @@
+date,column,checked,ok,moved,dead,blocked,error,other,llms_txt_hosts,llms_txt_serving,rows_complete,rows_total
+2026-08-27,Official_Documentation_URL,176,67,76,29,1,0,3,164,74,176,562
+2026-08-27,Privacy Policy,176,130,44,0,1,0,1,164,74,176,562
+2026-08-27,Terms of Service,176,101,71,1,1,0,2,164,74,176,562
+2026-08-27,Rate Limiting Policy,176,52,117,4,1,0,2,164,74,176,562
+2026-08-27,Release Notes,176,62,96,15,1,0,2,164,74,176,562
+2026-08-27,Security Policy,176,135,38,0,1,0,2,164,74,176,562
+2026-08-27,Developer Community/Forum,176,100,72,0,1,1,2,164,74,176,562
