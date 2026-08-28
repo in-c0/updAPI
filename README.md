@@ -83,6 +83,64 @@ stub is a defect even when a human following it lands somewhere fine.
 
 ---
 
+## 🧭 Column alignment
+
+Rot was not this dataset's worst defect. `utils/verify_and_clean_csv.py` used to
+**drop** a URL it judged broken rather than blanking it:
+
+```python
+for url in urls:
+    if is_broken_url(url):
+        print(f"URL for {api_name} is invalid: {url}")
+    else:
+        cleaned_row.append(url)   # broken URLs simply vanish
+```
+
+Dropping shortens the row, so every later value slides one column left and gets
+filed under the wrong heading. `Microsoft Graph People API` ended up serving its
+privacy statement as its documentation URL. Those rows were not stale — they were
+**mislabelled**, which is worse: a consumer gets a confident wrong answer with
+nothing to indicate a problem.
+
+It compounded, too, because `is_broken_url` returned `True` on *any* request
+exception with a five-second timeout. A slow host, a TLS hiccup or a 403 from a
+bot-detecting CDN permanently deleted a good URL — and shifted everything after it.
+
+Both bugs are fixed: broken URLs are blanked in place, rows are padded to the full
+width, and only a confirmed `404`/`410` counts as broken.
+
+### Repairing what was already damaged
+
+```bash
+npm run realign            # dry run — report what would move
+npm run realign:apply      # write the repaired CSV
+npm run verify-alignment   # prove no shifted rows remain
+```
+
+Dropping preserves order, so the surviving URLs are still in their original
+relative sequence, just compressed leftward. Repair is therefore an
+**order-preserving assignment** of the observed URLs back onto the column slots,
+solved exactly with dynamic programming and scored on what each URL looks like.
+A URL that contradicts every column still free is left blank and recorded in
+`datasets/realignment.json` rather than filed somewhere wrong — the entire point
+being that a mislabelled URL is worse than a missing one.
+
+The first pass moved **1,089 URLs across 369 rows**.
+
+### On trusting the verification
+
+`verify-alignment` runs a **negative control before it reports anything**: it
+deliberately re-breaks a copy of the data the way the old cleaner did and requires
+the detector to catch it. A detector that always returns zero also reports zero,
+so a clean result only means something once the control has fired.
+
+```
+negative control (data deliberately re-shifted): 147 rows detected
+api-docs-urls.csv:                               0 rows detected
+```
+
+---
+
 ## 🔌 MCP server
 
 The index is most useful to a coding agent, so it is exposed over the
@@ -339,10 +397,9 @@ This repository is licensed under the [MIT License](LICENSE).
 ### 📌 Known Issues:  
 - Limited API support.  
 - Some features may not work as expected.  
-- **Most rows are missing columns.** Fields are omitted rather than blanked, so the
-  remaining values shift left and land under the wrong heading. `npm run check-links`
-  reports the scale of this under `alignment` in `datasets/link-health.json`; repairing
-  it is the highest-value contribution available right now.  
+- ~~Most rows are missing columns, so values shift left and land under the wrong
+  heading.~~ **Fixed** — the cause was `utils/verify_and_clean_csv.py` dropping
+  broken URLs instead of blanking them; see [Column alignment](#-column-alignment).  
 
 Check the [Open Issues](https://github.com/in-c0/updapi/issues) for more details.
 

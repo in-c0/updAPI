@@ -129,3 +129,38 @@ describe('column misalignment', function () {
     assert.strictEqual(mod.misalignedAs({}), null);
   });
 });
+
+describe('API-name-aware hints', function () {
+  // "AWS Security Hub API" has `security` in its documentation URL because that
+  // is what the product is called. Without discounting the API's own name, such
+  // rows look permanently misfiled and no repair can drive the count to zero.
+  it('does not flag a policy word that comes from the API name', function () {
+    assert.strictEqual(
+      mod.misalignedAs({
+        API_Name: 'AWS Security Hub API',
+        Official_Documentation_URL: 'https://docs.aws.amazon.com/securityhub/latest/userguide/',
+      }),
+      null
+    );
+  });
+
+  it('still flags the same word when the name does not explain it', function () {
+    assert.strictEqual(
+      mod.misalignedAs({
+        API_Name: 'Dropbox File Request API',
+        Official_Documentation_URL: 'https://www.dropbox.com/security',
+      }),
+      'Security Policy'
+    );
+  });
+
+  it('does not treat a vendor documentation host as a community link', function () {
+    assert.strictEqual(mod.hintMatches('Developer Community/Forum', 'https://docs.slack.dev/reference/'), false);
+    assert.strictEqual(mod.hintMatches('Developer Community/Forum', 'https://slackcommunity.com/'), true);
+  });
+
+  it('does not match "tos" inside an unrelated word', function () {
+    assert.strictEqual(mod.hintMatches('Terms of Service', 'https://developers.google.com/photos'), false);
+    assert.strictEqual(mod.hintMatches('Terms of Service', 'https://openai.com/policies/terms-of-use/'), true);
+  });
+});

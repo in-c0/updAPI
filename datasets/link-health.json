@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-27T08:22:38.533Z",
+  "generatedAt": "2026-08-28T01:49:04.712Z",
   "csv": "api-docs-urls.csv",
   "rows": 562,
   "columns": [
@@ -11,192 +11,91 @@
     "Security Policy",
     "Developer Community/Forum"
   ],
-  "distinctUrls": 889,
+  "distinctUrls": 888,
   "alignment": {
     "rowsComplete": 562,
     "rowsIncomplete": 0,
-    "rowsUsableForStatistics": 371,
+    "rowsUsableForStatistics": 562,
     "shareComplete": 1,
     "fieldCountHistogram": {
       "8": 562
     },
-    "documentationCellLooksLikeAnotherColumn": 191,
-    "shiftedExamples": [
-      {
-        "api": "Microsoft Graph People API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Slack Interactivity API",
-        "looksLike": "Developer Community/Forum"
-      },
-      {
-        "api": "Dropbox File Request API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Zendesk Support API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Google Places API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Slack App Directory API",
-        "looksLike": "Developer Community/Forum"
-      },
-      {
-        "api": "Dropbox API Explorer",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Zendesk Guide API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Microsoft Graph Notifications API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Slack Usergroups API",
-        "looksLike": "Developer Community/Forum"
-      },
-      {
-        "api": "Zendesk SLA API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Uber API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Slack Files API",
-        "looksLike": "Developer Community/Forum"
-      },
-      {
-        "api": "Twilio Media Streams API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Dropbox Transfer API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Zendesk Search API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Shopify Bulk Operations API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Slack SCIM API",
-        "looksLike": "Developer Community/Forum"
-      },
-      {
-        "api": "Slack Shortcuts API",
-        "looksLike": "Release Notes"
-      },
-      {
-        "api": "Dropbox Team API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Zendesk Messaging API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Microsoft Graph Tasks API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "Slack Channels API",
-        "looksLike": "Developer Community/Forum"
-      },
-      {
-        "api": "Dropbox File Requests API",
-        "looksLike": "Privacy Policy"
-      },
-      {
-        "api": "YouTube Live Broadcasts API",
-        "looksLike": "Privacy Policy"
-      }
-    ],
+    "documentationCellLooksLikeAnotherColumn": 0,
+    "shiftedExamples": [],
     "note": "Per-column statistics cover rows that carry every column AND whose documentation cell does not look like another column. Incomplete rows omit fields rather than blanking them, so their columns are shifted and cannot be attributed to a named column."
   },
   "totals": {
-    "checked": 2181,
-    "ok": 2003,
-    "moved": 48,
-    "dead": 68,
-    "blocked": 17,
-    "error": 5,
+    "checked": 2984,
+    "ok": 2790,
+    "moved": 17,
+    "dead": 105,
+    "blocked": 26,
+    "error": 6,
     "other": 40
   },
   "byColumn": {
     "Official_Documentation_URL": {
-      "checked": 371,
-      "ok": 314,
-      "moved": 18,
+      "checked": 415,
+      "ok": 360,
+      "moved": 11,
       "dead": 30,
-      "blocked": 2,
+      "blocked": 7,
       "error": 0,
       "other": 7
     },
     "Privacy Policy": {
-      "checked": 369,
-      "ok": 358,
+      "checked": 530,
+      "ok": 522,
       "moved": 0,
       "dead": 1,
-      "blocked": 5,
+      "blocked": 4,
       "error": 0,
-      "other": 5
+      "other": 3
     },
     "Terms of Service": {
-      "checked": 366,
-      "ok": 352,
+      "checked": 432,
+      "ok": 422,
+      "moved": 0,
+      "dead": 2,
+      "blocked": 2,
+      "error": 0,
+      "other": 6
+    },
+    "Rate Limiting Policy": {
+      "checked": 309,
+      "ok": 286,
+      "moved": 6,
+      "dead": 8,
+      "blocked": 7,
+      "error": 0,
+      "other": 2
+    },
+    "Release Notes": {
+      "checked": 363,
+      "ok": 294,
+      "moved": 0,
+      "dead": 60,
+      "blocked": 2,
+      "error": 0,
+      "other": 7
+    },
+    "Security Policy": {
+      "checked": 434,
+      "ok": 419,
       "moved": 0,
       "dead": 4,
       "blocked": 3,
       "error": 0,
-      "other": 7
-    },
-    "Rate Limiting Policy": {
-      "checked": 361,
-      "ok": 309,
-      "moved": 29,
-      "dead": 13,
-      "blocked": 3,
-      "error": 0,
-      "other": 7
-    },
-    "Release Notes": {
-      "checked": 307,
-      "ok": 275,
-      "moved": 1,
-      "dead": 19,
-      "blocked": 2,
-      "error": 3,
-      "other": 7
-    },
-    "Security Policy": {
-      "checked": 233,
-      "ok": 225,
-      "moved": 0,
-      "dead": 1,
-      "blocked": 1,
-      "error": 1,
-      "other": 5
+      "other": 8
     },
     "Developer Community/Forum": {
-      "checked": 174,
-      "ok": 170,
+      "checked": 501,
+      "ok": 487,
       "moved": 0,
       "dead": 0,
       "blocked": 1,
-      "error": 1,
-      "other": 2
+      "error": 6,
+      "other": 7
     }
   },
   "llmsTxt": {
@@ -204,17 +103,12 @@
     "hostsServing": 79,
     "share": 0.4731,
     "byHost": {
-      "docs.aws.amazon.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
       "developers.openai.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "login.microsoftonline.com": {
+      "platform.openai.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -224,17 +118,52 @@
         "serves": false,
         "outcome": "dead"
       },
+      "aws.amazon.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "docs.aws.amazon.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "login.microsoftonline.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "developers.google.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
       "repost.aws": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "platform.openai.com": {
+      "www.dropbox.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "slack.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "community.openai.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "aws.amazon.com": {
+      "openai.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "groups.google.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -249,47 +178,7 @@
         "serves": false,
         "outcome": "dead"
       },
-      "slack.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.dropbox.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "community.openai.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "developers.google.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "groups.google.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "www.zendesk.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
       "slackcommunity.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "openai.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "docs.slack.dev": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -299,37 +188,17 @@
         "serves": false,
         "outcome": "dead"
       },
-      "cloud.google.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "api.slack.com": {
+      "docs.slack.dev": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
-      },
-      "www.dropboxforum.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "community.dropbox.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
       },
       "docs.stripe.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "devcenter.heroku.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.heroku.com": {
+      "stripe.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -339,12 +208,22 @@
         "serves": true,
         "outcome": "ok"
       },
-      "adobedocs.github.io": {
+      "cloud.google.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "stripe.com": {
+      "community.zendesk.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "api.slack.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "devcenter.heroku.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -354,10 +233,40 @@
         "serves": false,
         "outcome": "dead"
       },
-      "community.zendesk.com": {
+      "www.heroku.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "community.dropbox.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
+      },
+      "www.zendesk.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "www.dropboxforum.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "adobedocs.github.io": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.whatsapp.com": {
+        "status": 400,
+        "serves": false,
+        "outcome": "other"
+      },
+      "www.salesforce.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "moved"
       },
       "legal.hubspot.com": {
         "status": 404,
@@ -374,27 +283,12 @@
         "serves": true,
         "outcome": "ok"
       },
-      "www.salesforce.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "moved"
-      },
-      "www.whatsapp.com": {
-        "status": 400,
-        "serves": false,
-        "outcome": "other"
-      },
-      "www.linkedin.com": {
+      "www.yelp.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "www.intuit.com": {
-        "status": 400,
-        "serves": false,
-        "outcome": "other"
-      },
-      "www.yelp.com": {
+      "www.linkedin.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -404,12 +298,27 @@
         "serves": true,
         "outcome": "ok"
       },
+      "www.eventbrite.com.au": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.intuit.com": {
+        "status": 400,
+        "serves": false,
+        "outcome": "other"
+      },
       "developer.intuit.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "www.eventbrite.com.au": {
+      "www.eventbrite.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.uber.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -419,10 +328,10 @@
         "serves": false,
         "outcome": "dead"
       },
-      "www.uber.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
+      "docs.x.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "developer.zendesk.com": {
         "status": 404,
@@ -434,30 +343,40 @@
         "serves": false,
         "outcome": "dead"
       },
-      "www.eventbrite.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
       "www.zillow.com": {
         "status": 403,
         "serves": false,
         "outcome": "blocked"
+      },
+      "www.paypal.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "techcommunity.microsoft.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "docs.x.com": {
+      "developer.paypal.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
+      },
+      "support.google.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "moved"
       },
       "docs.cloud.google.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
+      },
+      "x.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "policy.pinterest.com": {
         "status": 403,
@@ -469,12 +388,17 @@
         "serves": true,
         "outcome": "ok"
       },
-      "www.shopify.com": {
+      "devcommunity.x.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "cloud.ibm.com": {
         "status": 200,
         "serves": true,
-        "outcome": "ok"
+        "outcome": "moved"
       },
-      "www.paypal.com": {
+      "community.shopify.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -484,32 +408,12 @@
         "serves": false,
         "outcome": "other"
       },
-      "x.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "devcommunity.x.com": {
-        "status": 404,
+      "www.facebook.com": {
+        "status": 400,
         "serves": false,
-        "outcome": "dead"
+        "outcome": "other"
       },
-      "www.ibm.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "community.shopify.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "cloud.ibm.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "moved"
-      },
-      "developer.paypal.com": {
+      "www.shopify.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -519,47 +423,32 @@
         "serves": false,
         "outcome": "dead"
       },
-      "shopify.dev": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "www.facebook.com": {
-        "status": 400,
-        "serves": false,
-        "outcome": "other"
-      },
       "www.atlassian.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
+      },
+      "www.ibm.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "shopify.dev": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
       },
       "help.twilio.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "developers.asana.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developer.atlassian.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
       "www.wix.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "help.twitter.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "community.atlassian.com": {
+      "trello.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -569,27 +458,27 @@
         "serves": false,
         "outcome": "dead"
       },
-      "trello.com": {
+      "community.atlassian.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "support.google.com": {
+      "developer.atlassian.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "help.twitter.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "developers.asana.com": {
         "status": 200,
         "serves": true,
-        "outcome": "moved"
+        "outcome": "ok"
       },
       "www.zoominfo.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developers.intercom.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developer.payoneer.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -599,7 +488,12 @@
         "serves": false,
         "outcome": "dead"
       },
-      "asana.com": {
+      "developer.payoneer.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "developers.intercom.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -609,12 +503,7 @@
         "serves": true,
         "outcome": "ok"
       },
-      "forum.asana.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "plaid.com": {
+      "asana.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -624,7 +513,17 @@
         "serves": true,
         "outcome": "ok"
       },
+      "forum.asana.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
       "docs.github.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "plaid.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -634,12 +533,7 @@
         "serves": true,
         "outcome": "ok"
       },
-      "developers.notion.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "github.blog": {
+      "developers.tiktok.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -649,32 +543,12 @@
         "serves": true,
         "outcome": "ok"
       },
-      "www.tiktok.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "moved"
-      },
-      "community.intercom.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "calendly.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
       "www.notion.so": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "help.instagram.com": {
-        "status": 400,
-        "serves": false,
-        "outcome": "other"
-      },
-      "redditinc.com": {
+      "privacycenter.instagram.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -684,17 +558,32 @@
         "serves": true,
         "outcome": "ok"
       },
-      "developer.withairbnb.com": {
+      "community.intercom.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
+      },
+      "help.instagram.com": {
+        "status": 400,
+        "serves": false,
+        "outcome": "other"
+      },
+      "www.tiktok.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "moved"
       },
       "advertising.amazon.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "community.withairbnb.com": {
+      "github.blog": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "developer.withairbnb.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -704,12 +593,17 @@
         "serves": false,
         "outcome": "dead"
       },
-      "privacycenter.instagram.com": {
+      "developers.notion.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "community.withairbnb.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "www.etsy.com": {
+      "redditinc.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -724,42 +618,37 @@
         "serves": true,
         "outcome": "ok"
       },
-      "developer.calendly.com": {
+      "calendly.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
+      },
+      "www.etsy.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
       },
       "community.etsy.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "developers.tiktok.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
+      "medium.engineering": {
+        "status": 200,
+        "serves": true,
+        "outcome": "moved"
       },
       "docs.foursquare.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "www.airbnb.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "medium.engineering": {
-        "status": 200,
-        "serves": true,
-        "outcome": "moved"
-      },
       "dev.twitch.tv": {
         "status": 403,
         "serves": false,
         "outcome": "blocked"
       },
-      "www.zoom.com": {
+      "www.airbnb.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -769,12 +658,17 @@
         "serves": false,
         "outcome": "dead"
       },
+      "www.zoom.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
       "foursquare.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "sendbird.com": {
+      "www.twitch.tv": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -784,7 +678,12 @@
         "serves": true,
         "outcome": "ok"
       },
-      "developer.spotify.com": {
+      "help.netflix.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "sendbird.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -799,27 +698,22 @@
         "serves": false,
         "outcome": "dead"
       },
-      "about.gitlab.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.twitch.tv": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "help.netflix.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
       "developers.zoom.us": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "sign.dropbox.com": {
+      "about.gitlab.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "developer.spotify.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "bitly.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -829,42 +723,37 @@
         "serves": false,
         "outcome": "dead"
       },
-      "bitly.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
       "legal.twitch.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
-      },
-      "netflixtechblog.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "moved"
-      },
-      "cloudinary.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
       },
       "www.spotify.com": {
         "status": 200,
         "serves": true,
         "outcome": "moved"
       },
-      "docs.gitlab.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
       "secure.na1.adobesign.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
+      "docs.gitlab.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "netflixtechblog.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "moved"
+      },
       "community.dynamics.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "sign.dropbox.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -874,27 +763,37 @@
         "serves": false,
         "outcome": "dead"
       },
+      "cloudinary.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
       "www.ringcentral.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
-      },
-      "developers.hellosign.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developers.ringcentral.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
       },
       "jira.atlassian.com": {
         "status": 200,
         "serves": true,
         "outcome": "moved"
       },
+      "developers.docusign.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
       "community.ringcentral.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "trust.okta.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "developer.okta.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -904,15 +803,20 @@
         "serves": true,
         "outcome": "ok"
       },
-      "developer.okta.com": {
+      "developers.ringcentral.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "trust.okta.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
+      "openweather.co.uk": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "openweathermap.org": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "www.docusign.com": {
         "status": 404,
@@ -924,30 +828,15 @@
         "serves": false,
         "outcome": "blocked"
       },
-      "docs.discord.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developers.docusign.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "openweather.co.uk": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
       "security.salesforce.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "openweathermap.org": {
+      "support.docusign.com": {
         "status": 200,
         "serves": true,
-        "outcome": "ok"
+        "outcome": "moved"
       },
       "developers.cloudflare.com": {
         "status": 200,
@@ -964,37 +853,22 @@
         "serves": true,
         "outcome": "ok"
       },
-      "www.figma.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
       "developer.ebay.com": {
         "status": 403,
         "serves": false,
         "outcome": "blocked"
-      },
-      "mailchimp.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.mongodb.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
       },
       "discord.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "support.docusign.com": {
+      "docs.discord.com": {
         "status": 200,
         "serves": true,
-        "outcome": "moved"
+        "outcome": "ok"
       },
-      "www.xero.com": {
+      "mailchimp.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -1004,20 +878,30 @@
         "serves": true,
         "outcome": "ok"
       },
+      "www.mongodb.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "www.xero.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
       "developers.figma.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "developer.xero.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
       "trailhead.salesforce.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
+      },
+      "www.figma.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
       },
       "forum.figma.com": {
         "status": 404,
@@ -1033,6 +917,21 @@
         "status": 404,
         "serves": false,
         "outcome": "dead"
+      },
+      "developer.xero.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "developers.hellosign.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "developer.calendly.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "www.paypal-community.com": {
         "status": 0,
@@ -1052,7 +951,7 @@
     },
     {
       "api": "Amazon Advertising API",
-      "column": "Release Notes",
+      "column": "Security Policy",
       "url": "https://advertising.amazon.com/security",
       "outcome": "other",
       "status": 504,
@@ -1084,7 +983,7 @@
     },
     {
       "api": "Asana API",
-      "column": "Release Notes",
+      "column": "Security Policy",
       "url": "https://asana.com/security",
       "outcome": "blocked",
       "status": 403,
@@ -1132,8 +1031,7 @@
     },
     {
       "api": "Dropbox Activity API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1141,8 +1039,7 @@
     },
     {
       "api": "Dropbox Admin API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1150,8 +1047,7 @@
     },
     {
       "api": "Dropbox API Explorer",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1159,7 +1055,7 @@
     },
     {
       "api": "Dropbox API v1",
-      "column": "Rate Limiting Policy",
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1167,7 +1063,7 @@
     },
     {
       "api": "Dropbox API v2",
-      "column": "Rate Limiting Policy",
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1175,8 +1071,7 @@
     },
     {
       "api": "Dropbox App Folder API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1184,8 +1079,7 @@
     },
     {
       "api": "Dropbox Audit Logs API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1193,8 +1087,7 @@
     },
     {
       "api": "Dropbox Authentication API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1202,8 +1095,7 @@
     },
     {
       "api": "Dropbox Badge API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1211,7 +1103,7 @@
     },
     {
       "api": "Dropbox Business API",
-      "column": "Rate Limiting Policy",
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1219,7 +1111,7 @@
     },
     {
       "api": "Dropbox Chooser API",
-      "column": "Rate Limiting Policy",
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1227,8 +1119,7 @@
     },
     {
       "api": "Dropbox Collaboration API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1236,8 +1127,7 @@
     },
     {
       "api": "Dropbox Contacts API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1245,8 +1135,7 @@
     },
     {
       "api": "Dropbox Content API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1254,8 +1143,7 @@
     },
     {
       "api": "Dropbox Content Explorer API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1263,8 +1151,7 @@
     },
     {
       "api": "Dropbox Content Management API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1272,8 +1159,7 @@
     },
     {
       "api": "Dropbox Core API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1281,8 +1167,7 @@
     },
     {
       "api": "Dropbox Data Loss Prevention API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1290,8 +1175,7 @@
     },
     {
       "api": "Dropbox Discovery API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1299,8 +1183,7 @@
     },
     {
       "api": "Dropbox Events API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1308,8 +1191,7 @@
     },
     {
       "api": "Dropbox File Metadata API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1317,8 +1199,7 @@
     },
     {
       "api": "Dropbox File Request API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1326,8 +1207,7 @@
     },
     {
       "api": "Dropbox File Requests API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1335,8 +1215,7 @@
     },
     {
       "api": "Dropbox Files API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1344,8 +1223,7 @@
     },
     {
       "api": "Dropbox Folder API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1353,8 +1231,7 @@
     },
     {
       "api": "Dropbox Metadata API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1362,8 +1239,7 @@
     },
     {
       "api": "Dropbox Notifications API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1371,8 +1247,7 @@
     },
     {
       "api": "Dropbox Paper API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1380,8 +1255,7 @@
     },
     {
       "api": "Dropbox Revisions API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1389,8 +1263,7 @@
     },
     {
       "api": "Dropbox Search API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1398,8 +1271,7 @@
     },
     {
       "api": "Dropbox Security API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1407,8 +1279,7 @@
     },
     {
       "api": "Dropbox Shared Links API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1416,8 +1287,7 @@
     },
     {
       "api": "Dropbox Sharing API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1433,8 +1303,7 @@
     },
     {
       "api": "Dropbox Spaces API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1442,8 +1311,7 @@
     },
     {
       "api": "Dropbox Sync API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1451,8 +1319,7 @@
     },
     {
       "api": "Dropbox Team API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1460,8 +1327,7 @@
     },
     {
       "api": "Dropbox Team Auditing API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1469,8 +1335,7 @@
     },
     {
       "api": "Dropbox Thumbnails API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1478,8 +1343,7 @@
     },
     {
       "api": "Dropbox Transfer API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1487,8 +1351,7 @@
     },
     {
       "api": "Dropbox User API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Release Notes",
       "url": "https://www.dropboxforum.com/t5/Announcements/bg-p/101003000",
       "outcome": "dead",
       "status": 404,
@@ -1504,7 +1367,7 @@
     },
     {
       "api": "eBay API",
-      "column": "Privacy Policy",
+      "column": "Rate Limiting Policy",
       "url": "https://developer.ebay.com/api-docs/static/rate-limits.html",
       "outcome": "blocked",
       "status": 403,
@@ -1512,7 +1375,7 @@
     },
     {
       "api": "eBay API",
-      "column": "Terms of Service",
+      "column": "Release Notes",
       "url": "https://developer.ebay.com/api-docs/static/release-notes.html",
       "outcome": "blocked",
       "status": 403,
@@ -1616,7 +1479,7 @@
     },
     {
       "api": "Facebook Marketing API",
-      "column": "Rate Limiting Policy",
+      "column": "Release Notes",
       "url": "https://developers.facebook.com/docs/marketing-api/changelog",
       "outcome": "other",
       "status": 400,
@@ -1624,7 +1487,7 @@
     },
     {
       "api": "Facebook Marketing API",
-      "column": "Release Notes",
+      "column": "Security Policy",
       "url": "https://www.facebook.com/help/238318146535333",
       "outcome": "other",
       "status": 400,
@@ -1632,7 +1495,7 @@
     },
     {
       "api": "Facebook Marketing API",
-      "column": "Security Policy",
+      "column": "Developer Community/Forum",
       "url": "https://developers.facebook.com/community/",
       "outcome": "other",
       "status": 400,
@@ -1664,7 +1527,7 @@
     },
     {
       "api": "Facebook Messenger API",
-      "column": "Rate Limiting Policy",
+      "column": "Release Notes",
       "url": "https://developers.facebook.com/docs/messenger-platform/changelog",
       "outcome": "other",
       "status": 400,
@@ -1672,7 +1535,7 @@
     },
     {
       "api": "Facebook Messenger API",
-      "column": "Release Notes",
+      "column": "Security Policy",
       "url": "https://www.facebook.com/help/238318146535333",
       "outcome": "other",
       "status": 400,
@@ -1680,7 +1543,7 @@
     },
     {
       "api": "Facebook Messenger API",
-      "column": "Security Policy",
+      "column": "Developer Community/Forum",
       "url": "https://developers.facebook.com/community/",
       "outcome": "other",
       "status": 400,
@@ -1688,7 +1551,7 @@
     },
     {
       "api": "Figma API",
-      "column": "Terms of Service",
+      "column": "Rate Limiting Policy",
       "url": "https://www.figma.com/developers/api-rate-limits",
       "outcome": "dead",
       "status": 404,
@@ -1696,7 +1559,7 @@
     },
     {
       "api": "Figma API",
-      "column": "Rate Limiting Policy",
+      "column": "Release Notes",
       "url": "https://www.figma.com/developers/changelog",
       "outcome": "dead",
       "status": 404,
@@ -1704,7 +1567,7 @@
     },
     {
       "api": "Figma File API",
-      "column": "Terms of Service",
+      "column": "Rate Limiting Policy",
       "url": "https://www.figma.com/developers/api/rate-limits",
       "outcome": "dead",
       "status": 404,
@@ -1712,27 +1575,27 @@
     },
     {
       "api": "Figma File API",
-      "column": "Rate Limiting Policy",
+      "column": "Release Notes",
       "url": "https://www.figma.com/developers/changelog",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://www.figma.com/developers/changelog/"
     },
     {
-      "api": "Google Ads API",
+      "api": "Firebase API",
       "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/google-ads/api",
+      "url": "https://firebase.google.com/docs",
       "outcome": "moved",
       "status": 200,
-      "finalUrl": "https://developers.google.com/google-ads/api?hl=he"
+      "finalUrl": "https://firebase.google.com/docs?hl=ja"
     },
     {
-      "api": "Google Ads API",
+      "api": "Google BigQuery API",
       "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/google-ads/api/docs/release-notes",
+      "url": "https://docs.cloud.google.com/bigquery/quotas",
       "outcome": "moved",
       "status": 200,
-      "finalUrl": "https://developers.google.com/google-ads/api/docs/release-notes?hl=fr"
+      "finalUrl": "https://docs.cloud.google.com/bigquery/quotas?hl=ja"
     },
     {
       "api": "Google BigQuery API",
@@ -1744,6 +1607,14 @@
     },
     {
       "api": "Google Cloud BigQuery API",
+      "column": "Rate Limiting Policy",
+      "url": "https://docs.cloud.google.com/bigquery/quotas",
+      "outcome": "moved",
+      "status": 200,
+      "finalUrl": "https://docs.cloud.google.com/bigquery/quotas?hl=ja"
+    },
+    {
+      "api": "Google Cloud BigQuery API",
       "column": "Release Notes",
       "url": "https://cloud.google.com/bigquery/release-notes",
       "outcome": "dead",
@@ -1752,27 +1623,11 @@
     },
     {
       "api": "Google Cloud Datastore API",
-      "column": "Rate Limiting Policy",
+      "column": "Release Notes",
       "url": "https://cloud.google.com/datastore/release-notes",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://cloud.google.com/datastore/release-notes"
-    },
-    {
-      "api": "Google Cloud Monitoring API",
-      "column": "Official_Documentation_URL",
-      "url": "https://docs.cloud.google.com/monitoring/api/v3",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://docs.cloud.google.com/monitoring/api/v3?hl=de"
-    },
-    {
-      "api": "Google Cloud Natural Language API",
-      "column": "Official_Documentation_URL",
-      "url": "https://docs.cloud.google.com/natural-language/docs",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://docs.cloud.google.com/natural-language/docs?hl=it"
     },
     {
       "api": "Google Cloud Natural Language API",
@@ -1784,11 +1639,43 @@
     },
     {
       "api": "Google Cloud Pub/Sub API",
+      "column": "Rate Limiting Policy",
+      "url": "https://docs.cloud.google.com/pubsub/quotas",
+      "outcome": "moved",
+      "status": 200,
+      "finalUrl": "https://docs.cloud.google.com/pubsub/quotas?hl=id"
+    },
+    {
+      "api": "Google Cloud Pub/Sub API",
       "column": "Release Notes",
       "url": "https://cloud.google.com/pubsub/release-notes",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://cloud.google.com/pubsub/release-notes"
+    },
+    {
+      "api": "Google Cloud Run API",
+      "column": "Official_Documentation_URL",
+      "url": "https://docs.cloud.google.com/run/docs",
+      "outcome": "moved",
+      "status": 200,
+      "finalUrl": "https://docs.cloud.google.com/run/docs?hl=fr"
+    },
+    {
+      "api": "Google Cloud Run API",
+      "column": "Rate Limiting Policy",
+      "url": "https://docs.cloud.google.com/run/quotas",
+      "outcome": "moved",
+      "status": 200,
+      "finalUrl": "https://docs.cloud.google.com/run/quotas?hl=de"
+    },
+    {
+      "api": "Google Cloud Speech-to-Text API",
+      "column": "Rate Limiting Policy",
+      "url": "https://docs.cloud.google.com/speech-to-text/docs/v1/quotas",
+      "outcome": "moved",
+      "status": 200,
+      "finalUrl": "https://docs.cloud.google.com/speech-to-text/docs/v1/quotas?hl=pt-br"
     },
     {
       "api": "Google Cloud Speech-to-Text API",
@@ -1797,14 +1684,6 @@
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://cloud.google.com/speech-to-text/release-notes"
-    },
-    {
-      "api": "Google Cloud Storage API",
-      "column": "Official_Documentation_URL",
-      "url": "https://docs.cloud.google.com/storage/docs",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://docs.cloud.google.com/storage/docs?hl=id"
     },
     {
       "api": "Google Cloud Translation API",
@@ -1816,14 +1695,6 @@
     },
     {
       "api": "Google Cloud Vision API",
-      "column": "Rate Limiting Policy",
-      "url": "https://docs.cloud.google.com/vision/quotas",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://docs.cloud.google.com/vision/quotas?hl=pt"
-    },
-    {
-      "api": "Google Cloud Vision API",
       "column": "Release Notes",
       "url": "https://cloud.google.com/vision/release-notes",
       "outcome": "dead",
@@ -1831,69 +1702,12 @@
       "finalUrl": "https://cloud.google.com/vision/release-notes"
     },
     {
-      "api": "Google Custom Search API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/custom-search/v1/overview#limits",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/custom-search/v1/overview?hl=fr"
-    },
-    {
-      "api": "Google Drive API",
+      "api": "Google People API",
       "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/workspace/drive",
+      "url": "https://developers.google.com/people",
       "outcome": "moved",
       "status": 200,
-      "finalUrl": "https://developers.google.com/workspace/drive?hl=th"
-    },
-    {
-      "api": "Google Firebase Cloud Messaging API",
-      "column": "Official_Documentation_URL",
-      "url": "https://firebase.google.com/docs/cloud-messaging",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://firebase.google.com/docs/cloud-messaging?hl=pt-br"
-    },
-    {
-      "api": "Google Firebase Realtime Database API",
-      "column": "Official_Documentation_URL",
-      "url": "https://firebase.google.com/docs/database",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://firebase.google.com/docs/database?hl=he"
-    },
-    {
-      "api": "Google Maps Elevation API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/maps/documentation/elevation/usage-and-billing",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/maps/documentation/elevation/usage-and-billing?hl=bn"
-    },
-    {
-      "api": "Google Maps Roads API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/maps/documentation/roads/usage-and-billing",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/maps/documentation/roads/usage-and-billing?hl=zh-cn"
-    },
-    {
-      "api": "Google My Business API",
-      "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/my-business/",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/my-business?hl=hi"
-    },
-    {
-      "api": "Google Photos API",
-      "column": "Official_Documentation_URL",
-      "rowIncomplete": true,
-      "url": "https://developers.google.com/photos",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/photos?hl=bn"
+      "finalUrl": "https://developers.google.com/people?hl=zh-tw"
     },
     {
       "api": "Google Translate API",
@@ -1902,14 +1716,6 @@
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://cloud.google.com/translate/release-notes"
-    },
-    {
-      "api": "Google Vision API",
-      "column": "Official_Documentation_URL",
-      "url": "https://docs.cloud.google.com/vision/docs",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://docs.cloud.google.com/vision/docs?hl=he"
     },
     {
       "api": "HubSpot Analytics API",
@@ -2201,7 +2007,7 @@
     },
     {
       "api": "Instagram Graph API",
-      "column": "Rate Limiting Policy",
+      "column": "Release Notes",
       "url": "https://developers.facebook.com/docs/instagram-api/changelog",
       "outcome": "other",
       "status": 400,
@@ -2209,7 +2015,7 @@
     },
     {
       "api": "Instagram Graph API",
-      "column": "Release Notes",
+      "column": "Security Policy",
       "url": "https://help.instagram.com/519522125107875",
       "outcome": "other",
       "status": 400,
@@ -2217,7 +2023,7 @@
     },
     {
       "api": "Instagram Graph API",
-      "column": "Security Policy",
+      "column": "Developer Community/Forum",
       "url": "https://developers.facebook.com/community/",
       "outcome": "other",
       "status": 400,
@@ -2226,27 +2032,18 @@
     {
       "api": "Medium API",
       "column": "Official_Documentation_URL",
-      "url": "https://medium.engineering/?gi=9069274de046",
+      "url": "https://medium.engineering/?gi=3a0cda371a6b",
       "outcome": "moved",
       "status": 200,
-      "finalUrl": "https://medium.engineering/?gi=3a0cda371a6b"
-    },
-    {
-      "api": "Medium API",
-      "column": "Rate Limiting Policy",
-      "url": "https://security.medium.com/",
-      "outcome": "blocked",
-      "status": 403,
-      "finalUrl": "https://security.medium.com/"
+      "finalUrl": "https://medium.engineering/?gi=610082dfd8d2"
     },
     {
       "api": "Netflix API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
-      "url": "https://netflixtechblog.com/?gi=9f707bc7f1a4",
+      "column": "Rate Limiting Policy",
+      "url": "https://netflixtechblog.com/?gi=9cd173bbda48",
       "outcome": "moved",
       "status": 200,
-      "finalUrl": "https://netflixtechblog.com/?gi=9cd173bbda48"
+      "finalUrl": "https://netflixtechblog.com/?gi=0b3f2cdbfda2"
     },
     {
       "api": "Notion API",
@@ -2314,7 +2111,7 @@
     },
     {
       "api": "PayPal API",
-      "column": "Security Policy",
+      "column": "Developer Community/Forum",
       "url": "https://www.paypal-community.com/",
       "outcome": "error",
       "status": 0,
@@ -2323,7 +2120,7 @@
     },
     {
       "api": "PayPal Checkout API",
-      "column": "Release Notes",
+      "column": "Developer Community/Forum",
       "url": "https://www.paypal-community.com/",
       "outcome": "error",
       "status": 0,
@@ -2365,8 +2162,7 @@
     },
     {
       "api": "PayPal Payments API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
+      "column": "Rate Limiting Policy",
       "url": "https://developer.paypal.com/docs/api-basics/rate-limiting/",
       "outcome": "dead",
       "status": 404,
@@ -2374,8 +2170,7 @@
     },
     {
       "api": "PayPal Payments API",
-      "column": "Release Notes",
-      "rowIncomplete": true,
+      "column": "Developer Community/Forum",
       "url": "https://www.paypal-community.com/",
       "outcome": "error",
       "status": 0,
@@ -2392,7 +2187,7 @@
     },
     {
       "api": "PayPal Payouts API",
-      "column": "Release Notes",
+      "column": "Developer Community/Forum",
       "url": "https://www.paypal-community.com/",
       "outcome": "error",
       "status": 0,
@@ -2401,7 +2196,7 @@
     },
     {
       "api": "PayPal Subscriptions API",
-      "column": "Release Notes",
+      "column": "Developer Community/Forum",
       "url": "https://www.paypal-community.com/",
       "outcome": "error",
       "status": 0,
@@ -2411,7 +2206,6 @@
     {
       "api": "Slack Access Logs API",
       "column": "Official_Documentation_URL",
-      "rowIncomplete": true,
       "url": "https://api.slack.com/admin/access-logs",
       "outcome": "blocked",
       "status": 403,
@@ -2419,8 +2213,7 @@
     },
     {
       "api": "Slack Access Logs API",
-      "column": "Privacy Policy",
-      "rowIncomplete": true,
+      "column": "Rate Limiting Policy",
       "url": "https://api.slack.com/admin/access-logs#rate-limits",
       "outcome": "blocked",
       "status": 403,
@@ -2429,7 +2222,6 @@
     {
       "api": "Slack Admin API",
       "column": "Official_Documentation_URL",
-      "rowIncomplete": true,
       "url": "https://api.slack.com/admin",
       "outcome": "blocked",
       "status": 403,
@@ -2437,8 +2229,7 @@
     },
     {
       "api": "Slack Admin API",
-      "column": "Privacy Policy",
-      "rowIncomplete": true,
+      "column": "Rate Limiting Policy",
       "url": "https://api.slack.com/admin#rate-limits",
       "outcome": "blocked",
       "status": 403,
@@ -2447,7 +2238,6 @@
     {
       "api": "Slack Admin Audit API",
       "column": "Official_Documentation_URL",
-      "rowIncomplete": true,
       "url": "https://api.slack.com/admin/audit-logs",
       "outcome": "blocked",
       "status": 403,
@@ -2455,8 +2245,7 @@
     },
     {
       "api": "Slack Admin Audit API",
-      "column": "Privacy Policy",
-      "rowIncomplete": true,
+      "column": "Rate Limiting Policy",
       "url": "https://api.slack.com/admin/audit-logs#rate-limits",
       "outcome": "blocked",
       "status": 403,
@@ -2465,7 +2254,6 @@
     {
       "api": "Slack Audit Logs API",
       "column": "Official_Documentation_URL",
-      "rowIncomplete": true,
       "url": "https://api.slack.com/admin/audit-logs",
       "outcome": "blocked",
       "status": 403,
@@ -2473,8 +2261,7 @@
     },
     {
       "api": "Slack Audit Logs API",
-      "column": "Privacy Policy",
-      "rowIncomplete": true,
+      "column": "Rate Limiting Policy",
       "url": "https://api.slack.com/admin/audit-logs#rate-limits",
       "outcome": "blocked",
       "status": 403,
@@ -2483,7 +2270,6 @@
     {
       "api": "Slack SCIM API",
       "column": "Official_Documentation_URL",
-      "rowIncomplete": true,
       "url": "https://api.slack.com/scim",
       "outcome": "blocked",
       "status": 403,
@@ -2491,8 +2277,7 @@
     },
     {
       "api": "Slack SCIM API",
-      "column": "Privacy Policy",
-      "rowIncomplete": true,
+      "column": "Rate Limiting Policy",
       "url": "https://api.slack.com/scim#rate-limits",
       "outcome": "blocked",
       "status": 403,
@@ -2500,7 +2285,7 @@
     },
     {
       "api": "Twitter Ads API",
-      "column": "Rate Limiting Policy",
+      "column": "Security Policy",
       "url": "https://help.twitter.com/en/rules-and-policies/report-security-vulnerability",
       "outcome": "dead",
       "status": 404,
@@ -2508,7 +2293,7 @@
     },
     {
       "api": "Twitter API",
-      "column": "Release Notes",
+      "column": "Security Policy",
       "url": "https://help.twitter.com/en/rules-and-policies/report-security-vulnerability",
       "outcome": "dead",
       "status": 404,
@@ -2516,7 +2301,7 @@
     },
     {
       "api": "Twitter API v2",
-      "column": "Release Notes",
+      "column": "Security Policy",
       "url": "https://help.twitter.com/en/rules-and-policies/report-security-vulnerability",
       "outcome": "dead",
       "status": 404,
@@ -2532,7 +2317,7 @@
     },
     {
       "api": "WhatsApp Business API",
-      "column": "Privacy Policy",
+      "column": "Terms of Service",
       "url": "https://www.whatsapp.com/legal/business-terms",
       "outcome": "other",
       "status": 400,
@@ -2540,7 +2325,7 @@
     },
     {
       "api": "WhatsApp Business API",
-      "column": "Terms of Service",
+      "column": "Release Notes",
       "url": "https://developers.facebook.com/docs/whatsapp/changelog",
       "outcome": "other",
       "status": 400,
@@ -2548,7 +2333,7 @@
     },
     {
       "api": "WhatsApp Business API",
-      "column": "Rate Limiting Policy",
+      "column": "Security Policy",
       "url": "https://www.whatsapp.com/security",
       "outcome": "other",
       "status": 400,
@@ -2556,7 +2341,7 @@
     },
     {
       "api": "WhatsApp Business API",
-      "column": "Release Notes",
+      "column": "Developer Community/Forum",
       "url": "https://developers.facebook.com/community",
       "outcome": "other",
       "status": 400,
@@ -2572,7 +2357,7 @@
     },
     {
       "api": "WhatsApp Cloud API",
-      "column": "Privacy Policy",
+      "column": "Release Notes",
       "url": "https://developers.facebook.com/docs/whatsapp/cloud-api/changelog",
       "outcome": "other",
       "status": 400,
@@ -2580,7 +2365,7 @@
     },
     {
       "api": "WhatsApp Cloud API",
-      "column": "Terms of Service",
+      "column": "Security Policy",
       "url": "https://www.whatsapp.com/security",
       "outcome": "other",
       "status": 400,
@@ -2588,347 +2373,67 @@
     },
     {
       "api": "WhatsApp Cloud API",
-      "column": "Rate Limiting Policy",
+      "column": "Developer Community/Forum",
       "url": "https://developers.facebook.com/community",
       "outcome": "other",
       "status": 400,
       "finalUrl": "https://developers.facebook.com/community"
     },
     {
-      "api": "YouTube Analytics API",
+      "api": "YouTube Caption Tracks API",
       "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/analytics",
+      "url": "https://developers.google.com/youtube/v3/docs/captions",
       "outcome": "moved",
       "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/analytics?hl=id"
-    },
-    {
-      "api": "YouTube API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube API for Broadcasts",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
+      "finalUrl": "https://developers.google.com/youtube/v3/docs/captions?hl=es-419"
     },
     {
       "api": "YouTube Captions API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Categories API",
       "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/v3/docs/videoCategories",
+      "url": "https://developers.google.com/youtube/v3/docs/captions",
       "outcome": "moved",
       "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/docs/videoCategories?hl=fa"
-    },
-    {
-      "api": "YouTube Categories API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Channel API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Channel Branding API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Channel Sections API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Comment Threads API",
-      "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/v3/docs/commentThreads",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/docs/commentThreads?hl=ja"
-    },
-    {
-      "api": "YouTube Comment Threads API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Comments API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
+      "finalUrl": "https://developers.google.com/youtube/v3/docs/captions?hl=es-419"
     },
     {
       "api": "YouTube Data API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
+      "column": "Official_Documentation_URL",
+      "url": "https://developers.google.com/youtube/v3",
       "outcome": "moved",
       "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
+      "finalUrl": "https://developers.google.com/youtube/v3?hl=pt-br"
     },
     {
       "api": "YouTube Data API v3",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Data Insights API",
       "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/analytics",
+      "url": "https://developers.google.com/youtube/v3",
       "outcome": "moved",
       "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/analytics?hl=id"
+      "finalUrl": "https://developers.google.com/youtube/v3?hl=pt-br"
     },
     {
       "api": "YouTube Data v3 API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Embeds API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/iframe_api_reference#Quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/iframe_api_reference?hl=pl"
-    },
-    {
-      "api": "YouTube Embeds API",
-      "column": "Release Notes",
-      "url": "https://developers.google.com/youtube/iframe_api_reference#Changelog",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/iframe_api_reference?hl=id"
-    },
-    {
-      "api": "YouTube Live Broadcasts API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Live Events API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Livestreaming API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Livestreams API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Notifications API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Playlist API",
       "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/v3/docs/playlists",
+      "url": "https://developers.google.com/youtube/v3",
       "outcome": "moved",
       "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/docs/playlists?hl=es-419"
+      "finalUrl": "https://developers.google.com/youtube/v3?hl=pt-br"
     },
     {
-      "api": "YouTube Playlist API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Playlist Items API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Playlists API",
+      "api": "YouTube Partner API",
       "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/v3/docs/playlists",
+      "url": "https://developers.google.com/youtube/partner/",
       "outcome": "moved",
       "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/docs/playlists?hl=es-419"
-    },
-    {
-      "api": "YouTube Playlists API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Search API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Subscription API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Subscriptions API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Super Chat API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
+      "finalUrl": "https://developers.google.com/youtube/partner?hl=bn"
     },
     {
       "api": "YouTube Thumbnails API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Video Abilities API",
-      "column": "Terms of Service",
-      "rowIncomplete": true,
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Video Abuses API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Video API",
       "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/v3/docs/videos",
+      "url": "https://developers.google.com/youtube/v3/docs/thumbnails",
       "outcome": "moved",
       "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/docs/videos?hl=zh-tw"
-    },
-    {
-      "api": "YouTube Video API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Video Categories API",
-      "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/v3/docs/videoCategories",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/docs/videoCategories?hl=fa"
-    },
-    {
-      "api": "YouTube Video Categories API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Watermark API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
-    },
-    {
-      "api": "YouTube Watermarks API",
-      "column": "Rate Limiting Policy",
-      "url": "https://developers.google.com/youtube/v3/getting-started#quota",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/getting-started?hl=pt-br"
+      "finalUrl": "https://developers.google.com/youtube/v3/docs/thumbnails?hl=ar"
     },
     {
       "api": "Zillow API",
@@ -2988,7 +2493,7 @@
     },
     {
       "api": "ZoomInfo API",
-      "column": "Rate Limiting Policy",
+      "column": "Security Policy",
       "url": "https://www.zoominfo.com/security",
       "outcome": "blocked",
       "status": 403,

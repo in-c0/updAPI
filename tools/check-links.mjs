@@ -91,19 +91,39 @@ const isProbeableUrl = (value) => typeof value === 'string' && /^https?:\/\//i.t
  */
 const COLUMN_HINTS = {
     'Privacy Policy': /privacy/i,
-    'Terms of Service': /(terms|tos|legal|conditions)/i,
+    'Terms of Service': /(terms|[\/-]tos([\/.?#-]|$)|legal|conditions)/i,
     'Rate Limiting Policy': /(rate.?limit|throttl|quota|limits)/i,
-    'Release Notes': /(release|changelog|change-log|whats-new|news)/i,
+    'Release Notes': /(release|changelog|change-log|whats-new|what-s-new|announcement|announce)/i,
     'Security Policy': /(security|trust|vulnerab)/i,
-    'Developer Community/Forum': /(community|forum|discuss|groups|stackoverflow|slack|discord)/i,
+    // Bare `slack`/`discord` matched the vendors' own documentation hosts
+    // (docs.slack.dev), and bare `groups` is too broad; match the community
+    // surfaces themselves instead.
+    'Developer Community/Forum':
+        /(community|forum|discuss|groups\.google\.com|stackoverflow|discord\.(gg|com\/invite))/i,
+};
+
+/**
+ * Does `url` signal that it belongs in `column`?
+ *
+ * The API's own name is discounted: "AWS Security Hub API" has `security` in its
+ * documentation URL because that is what the product is called, not because the
+ * cell is misfiled. Without this, every API named after a policy word looks
+ * permanently broken and no repair can ever drive the count to zero.
+ */
+const hintMatches = (column, url, apiName = '') => {
+    const hint = COLUMN_HINTS[column];
+    if (!hint || !hint.test(url)) return false;
+    if (apiName && hint.test(apiName)) return false;
+    return true;
 };
 
 /** Does this row's documentation cell actually look like some other column? */
 const misalignedAs = (row) => {
     const value = (row.Official_Documentation_URL || '').trim();
     if (!isProbeableUrl(value)) return null;
-    for (const [column, pattern] of Object.entries(COLUMN_HINTS)) {
-        if (pattern.test(value)) return column;
+    const apiName = row[NAME_COLUMN] || '';
+    for (const column of Object.keys(COLUMN_HINTS)) {
+        if (hintMatches(column, value, apiName)) return column;
     }
     return null;
 };
@@ -436,7 +456,7 @@ const main = async () => {
     process.exitCode = 0;
 };
 
-export { classify, normalise, isProbeableUrl, misalignedAs, OUTCOME };
+export { classify, normalise, isProbeableUrl, misalignedAs, hintMatches, COLUMN_HINTS, OUTCOME };
 
 if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith('check-links.mjs')) {
     main().catch((err) => {

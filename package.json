@@ -8,7 +8,10 @@
     "test": "mocha",
     "check-links": "node tools/check-links.mjs",
     "check-links:fix": "node tools/check-links.mjs --fix",
-    "mcp": "node mcp/server.mjs"
+    "mcp": "node mcp/server.mjs",
+    "realign": "node tools/realign-columns.mjs",
+    "realign:apply": "node tools/realign-columns.mjs --apply",
+    "verify-alignment": "node tools/verify-alignment.mjs"
   },
   "keywords": [],
   "author": "",
