@@ -60,10 +60,31 @@ const APPLY_FIXES = hasFlag('--fix');
 const SAMPLE_LIMIT = flagValue('--limit') ? Number(flagValue('--limit')) : null;
 const ONLY_COLUMN = flagValue('--column');
 
-/** Trailing slashes and fragments are not meaningful differences. */
-const normalise = (url) => {
+/**
+ * Query parameters that select a language rather than a document.
+ *
+ * Google's documentation redirects to whichever locale it infers from the
+ * client, so following redirects from a CI runner turns `/analytics` into
+ * `/analytics?hl=zh-cn`. Recording that as the canonical URL pins an English
+ * dataset to whatever language the runner happened to look like that day.
+ */
+const LOCALE_PARAMS = ['hl', 'lang', 'locale', 'setlang', 'ui_locales'];
+
+/** Drop language-selection parameters, keeping every other part of the query. */
+const stripLocale = (url) => {
     try {
         const u = new URL(url);
+        for (const param of LOCALE_PARAMS) u.searchParams.delete(param);
+        return u.toString();
+    } catch {
+        return url;
+    }
+};
+
+/** Trailing slashes, fragments and locale parameters are not real differences. */
+const normalise = (url) => {
+    try {
+        const u = new URL(stripLocale(url));
         u.hash = '';
         u.pathname = u.pathname.replace(/\/+$/, '') || '/';
         return u.toString();
@@ -143,7 +164,13 @@ const probe = async (url, attempt = 0) => {
         const response = await fetch(url, {
             method: 'GET',
             redirect: 'follow',
-            headers: { 'User-Agent': UA, Accept: 'text/html,application/xhtml+xml,*/*' },
+            headers: {
+                'User-Agent': UA,
+                Accept: 'text/html,application/xhtml+xml,*/*',
+                // Without this the runner's inferred locale decides which
+                // translation we are redirected to.
+                'Accept-Language': 'en-US,en;q=0.9',
+            },
             signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
         });
         // Drain the body so the socket is released promptly; we only need headers.
@@ -414,6 +441,7 @@ const main = async () => {
     // guessing one would put a fabrication in the dataset; those stay in the
     // report for a human (or a search) to resolve.
     let corrections = 0;
+    let localesStripped = 0;
     if (APPLY_FIXES) {
         for (const row of rows) {
             for (const column of urlColumns) {
@@ -421,12 +449,18 @@ const main = async () => {
                 if (!isProbeableUrl(value)) continue;
                 const result = results.get(value);
                 if (result?.outcome === OUTCOME.MOVED && result.finalUrl) {
-                    row[column] = result.finalUrl;
+                    // stripLocale on the way in: a genuine move can still land on
+                    // a localised URL, and that language must not be baked in.
+                    row[column] = stripLocale(result.finalUrl);
                     corrections += 1;
+                } else if (stripLocale(value) !== value) {
+                    // Cleans up locale parameters an earlier pass baked in.
+                    row[column] = stripLocale(value);
+                    localesStripped += 1;
                 }
             }
         }
-        if (corrections > 0) {
+        if (corrections + localesStripped > 0) {
             fs.writeFileSync(
                 CSV_PATH,
                 stringify(rows, { header: true, columns: allColumns, record_delimiter: '\r\n' })
@@ -449,14 +483,17 @@ const main = async () => {
         `${shifted.length} have a non-doc URL in the documentation column; ` +
         `${alignedRows.length} usable for statistics`
     );
-    if (APPLY_FIXES) console.error(`corrections  ${corrections} applied to ${path.basename(CSV_PATH)}`);
+    if (APPLY_FIXES) {
+        console.error(`corrections  ${corrections} applied to ${path.basename(CSV_PATH)}`);
+        console.error(`locales      ${localesStripped} language parameters stripped`);
+    }
 
     // Non-zero exit would fail the weekly workflow on a dataset that is merely
     // stale, which is the normal state. Rot is reported, not treated as an error.
     process.exitCode = 0;
 };
 
-export { classify, normalise, isProbeableUrl, misalignedAs, hintMatches, COLUMN_HINTS, OUTCOME };
+export { classify, normalise, stripLocale, isProbeableUrl, misalignedAs, hintMatches, COLUMN_HINTS, OUTCOME };
 
 if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith('check-links.mjs')) {
     main().catch((err) => {

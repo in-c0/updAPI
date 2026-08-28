@@ -164,3 +164,44 @@ describe('API-name-aware hints', function () {
     assert.strictEqual(mod.hintMatches('Terms of Service', 'https://openai.com/policies/terms-of-use/'), true);
   });
 });
+
+describe('locale parameters', function () {
+  // Google's docs redirect to whichever language they infer from the client, so
+  // following redirects from CI turned /analytics into /analytics?hl=zh-cn and a
+  // --fix pass baked that language into 160 rows of an English dataset.
+  it('does not treat a language redirect as a move', function () {
+    assert.strictEqual(
+      mod.classify(
+        200,
+        'https://developers.google.com/analytics',
+        'https://developers.google.com/analytics?hl=zh-cn'
+      ),
+      mod.OUTCOME.OK
+    );
+  });
+
+  it('strips language parameters and keeps the rest of the query', function () {
+    assert.strictEqual(
+      mod.stripLocale('https://developers.google.com/analytics?hl=pt-br'),
+      'https://developers.google.com/analytics'
+    );
+    assert.strictEqual(
+      mod.stripLocale('https://example.com/a?hl=he&version=2'),
+      'https://example.com/a?version=2'
+    );
+  });
+
+  it('leaves a URL without language parameters untouched', function () {
+    assert.strictEqual(
+      mod.stripLocale('https://docs.stripe.com/api?v=2'),
+      'https://docs.stripe.com/api?v=2'
+    );
+  });
+
+  it('still sees a genuine move that also carries a locale', function () {
+    assert.strictEqual(
+      mod.classify(200, 'https://api.slack.com/scopes', 'https://docs.slack.dev/scopes?hl=en'),
+      mod.OUTCOME.MOVED
+    );
+  });
+});
