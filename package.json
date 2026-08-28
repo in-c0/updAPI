@@ -6,6 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha",
+    "bench:validate": "node tools/bench/validate-data.mjs",
+    "bench:controls": "node tools/bench/run-controls.mjs",
+    "bench:evidence": "node tools/bench/capture-registry-evidence.mjs",
     "check-links": "node tools/check-links.mjs",
     "check-links:fix": "node tools/check-links.mjs --fix",
     "mcp": "node mcp/server.mjs",
@@ -31,5 +34,9 @@
     "mocha": "^11.1.0",
     "playwright": "^1.49.1",
     "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
   }
 }

@@ -1,0 +1,46 @@
+{
+  "schema_version": "0.1.0",
+  "id": "anthropic.anthropic-ai-sdk.2026-08-19.files-skills-ga",
+  "provider": "anthropic",
+  "ecosystem": "npm",
+  "package": "@anthropic-ai/sdk",
+  "interface": "client.files / client.skills",
+  "version_before": "0.118.0",
+  "version_after": "0.119.0",
+  "published_at": "2026-08-19T16:56:08.720Z",
+  "first_observed_at": "2026-08-28T02:53:02Z",
+  "change": {
+    "type": "new_api",
+    "secondary_types": ["capability_change"],
+    "summary": "@anthropic-ai/sdk 0.119.0 promotes the Files and Skills APIs to GA (non-beta resources) and adds computer-use and browser-use toolsets. Code written against pre-0.119 knowledge reaches these only under beta namespaces or not at all.",
+    "old": "Files/Skills reachable only under beta namespaces (client.beta.*)",
+    "new": "GA resources: client.files and client.skills, plus tools/agent-toolset (computer use, browser use)"
+  },
+  "sources": [
+    {
+      "kind": "official_release",
+      "url": "https://github.com/anthropics/anthropic-sdk-typescript/releases/tag/sdk-v0.119.0",
+      "retrieved_at": "2026-08-28T03:35:00Z",
+      "note": "Published 2026-08-19T16:50:57Z: 'Files and Skills APIs are now GA; add computer use and browser use toolsets'."
+    },
+    {
+      "kind": "package_registry",
+      "url": "https://registry.npmjs.org/@anthropic-ai/sdk",
+      "retrieved_at": "2026-08-28T03:44:00Z",
+      "note": "time['0.119.0'] = 2026-08-19T16:56:08.720Z; 0.118.0 published the same day at 13:34Z."
+    },
+    {
+      "kind": "source_diff",
+      "url": "https://unpkg.com/@anthropic-ai/sdk@0.119.0/?meta",
+      "retrieved_at": "2026-08-28T03:55:00Z",
+      "note": "Published 0.119.0 tarball contains non-beta resources/files.js and resources/skills/* alongside the beta variants, plus tools/agent-toolset/* including skills and computer-use tooling."
+    }
+  ],
+  "verification": {
+    "kind": "versioned_source",
+    "notes": "Verified against the published tarball's file tree (non-beta files/skills resources present at 0.119.0). Candidate for a credential-free compile/type fixture per issue #24 case suggestion 5; a live-API fixture only if credential and cost semantics are clean."
+  },
+  "status": "verified",
+  "revision": 1,
+  "notes": "Temporal-cohort value: this event was 9 days old at first observation."
+}

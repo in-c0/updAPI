@@ -1,0 +1,47 @@
+{
+  "schema_version": "0.1.0",
+  "id": "modelcontextprotocol.server.2026-07-27.serverinfo-into-result-meta",
+  "provider": "modelcontextprotocol",
+  "ecosystem": "npm",
+  "package": "@modelcontextprotocol/server",
+  "interface": "DiscoverResult.serverInfo",
+  "version_before": "2.0.0-beta.5",
+  "version_after": "2.0.0",
+  "published_at": "2026-07-27T23:55:22.239Z",
+  "first_observed_at": "2026-08-28T02:53:02Z",
+  "change": {
+    "type": "return_shape_change",
+    "secondary_types": ["version_migration"],
+    "summary": "The final MCP 2026-07-28 protocol revision moves server identity out of the DiscoverResult body: servers identify themselves via result _meta under the key io.modelcontextprotocol/serverInfo (exported as SERVER_INFO_META_KEY), DiscoverResult no longer declares a serverInfo field, and the per-request clientInfo envelope field becomes optional. SDK v2 GA (server and client 2.0.0) implements the final wire shape; the 2.0.0 betas implemented the draft shape.",
+    "old": "const info = discoverResult.serverInfo",
+    "new": "const info = discoverResult._meta?.['io.modelcontextprotocol/serverInfo']"
+  },
+  "sources": [
+    {
+      "kind": "official_release",
+      "url": "https://github.com/modelcontextprotocol/typescript-sdk/releases/tag/%40modelcontextprotocol%2Fserver%402.0.0",
+      "retrieved_at": "2026-08-28T03:35:00Z",
+      "note": "Breaking type changes: DiscoverResult no longer declares serverInfo; RequestMetaEnvelope's clientInfo is optional. Release notes also describe a hard connect failure mode when a pre-final peer misclassifies a modern-only server as legacy and attempts an initialize handshake."
+    },
+    {
+      "kind": "migration_guide",
+      "url": "https://github.com/modelcontextprotocol/typescript-sdk/blob/main/docs/migration/support-2026-07-28.md",
+      "retrieved_at": "2026-08-28T03:20:00Z",
+      "note": "Documents SERVER_INFO_META_KEY = 'io.modelcontextprotocol/serverInfo' and that a server stamping no identity is treated as anonymous (getServerVersion() undefined) rather than an error."
+    },
+    {
+      "kind": "package_registry",
+      "url": "https://registry.npmjs.org/@modelcontextprotocol/server",
+      "retrieved_at": "2026-08-28T03:44:00Z",
+      "note": "time['2.0.0'] = 2026-07-27T23:55:22.239Z after five 2.0.0-beta releases; @modelcontextprotocol/client 2.0.0 published the same minute. The pre-v2 @modelcontextprotocol/sdk package line ends at 1.30.0 (2026-07-27)."
+    }
+  ],
+  "verification": {
+    "kind": "executable_fixture",
+    "fixture": "cases/case-mcp-serverinfo-discover-v2",
+    "notes": "Verified with a local client+server pair on the GA v2 packages over an in-memory transport. The case records the empirically observed failure mode of the stale read path; source claims about hard-vs-graceful failure differ by layer, so the fixture is the ground truth."
+  },
+  "status": "case_validated",
+  "revision": 1,
+  "notes": "published_at is the npm publish time (2026-07-27T23:55Z UTC) of the GA packages carrying the final 2026-07-28 protocol revision; the revision itself is dated 2026-07-28."
+}

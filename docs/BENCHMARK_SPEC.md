@@ -277,6 +277,11 @@ Initial taxonomy:
 - `removal`
 - `default_change`
 - `version_migration`
+- `runtime_requirement_change` — a supported-runtime/platform floor change
+  (e.g. an SDK major dropping a Node.js version) that is not itself an
+  interface rename. Added in v0 implementation for the openai-node 7.0 Node-22
+  floor event; measures ecosystem freshness rather than API-call freshness, so
+  events of this type are taxonomy-diversity events rather than headline cases.
 
 ### Behavioral changes
 

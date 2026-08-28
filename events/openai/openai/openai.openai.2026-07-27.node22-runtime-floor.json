@@ -1,0 +1,40 @@
+{
+  "schema_version": "0.1.0",
+  "id": "openai.openai.2026-07-27.node22-runtime-floor",
+  "provider": "openai",
+  "ecosystem": "npm",
+  "package": "openai",
+  "interface": null,
+  "version_before": "6.x",
+  "version_after": "7.0.0",
+  "published_at": "2026-07-27T21:56:56.615Z",
+  "first_observed_at": "2026-08-28T02:53:02Z",
+  "change": {
+    "type": "runtime_requirement_change",
+    "secondary_types": ["version_migration"],
+    "summary": "openai-node 7.0.0 raises the supported Node.js floor to 22, dropping Node 20. A dependency bump alone is an incomplete migration for projects pinned to Node 20; runtime/engines/container configuration must move coherently.",
+    "old": "Node.js 20 supported (openai 6.x)",
+    "new": "engines: { node: '>=22.0.0' } (openai 7.0.0)"
+  },
+  "sources": [
+    {
+      "kind": "official_release",
+      "url": "https://github.com/openai/openai-node/releases/tag/v7.0.0",
+      "retrieved_at": "2026-08-28T03:20:00Z",
+      "note": "Published 2026-07-27T21:56:10Z; release notes: 'require Node.js 22 and codify version support (#2026)'."
+    },
+    {
+      "kind": "package_registry",
+      "url": "https://registry.npmjs.org/openai/7.0.0",
+      "retrieved_at": "2026-08-28T03:55:00Z",
+      "note": "The published 7.0.0 manifest's engines field reads node >=22.0.0."
+    }
+  ],
+  "verification": {
+    "kind": "versioned_source",
+    "notes": "Ground truth is the engines field of the published 7.0.0 registry manifest (node >=22.0.0), corroborated by the release notes. Candidate for a future executable migration case (environment-gated validator); measures ecosystem freshness more than API-call freshness, so it is a taxonomy-diversity event rather than a headline case."
+  },
+  "status": "verified",
+  "revision": 1,
+  "notes": "runtime_requirement_change is a v0 taxonomy extension over BENCHMARK_SPEC.md section 6; flagged for methodology review in PR #25."
+}

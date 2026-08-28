@@ -284,6 +284,25 @@ For now, collection and evaluation runners should be executable locally and in e
 
 The benchmark must record the environment in which each run occurred; scheduler choice must never become hidden methodology.
 
+### Running the benchmark tooling (v0)
+
+Everything runs locally; there is no CI dependency.
+
+```bash
+npm install
+npm run bench:validate     # schemas + dataset cross-reference checks
+npm run bench:controls     # prove every case validator REJECTS its known-stale
+                           # control and ACCEPTS its known-current control (no LLM involved)
+npm test                   # mocha suite, including negative controls that prove
+                           # the validator and the harness can themselves fail
+npm run bench:evidence -- <package> <version>   # re-derive registry evidence for an event
+```
+
+`bench:controls` is BENCHMARK_SPEC section 4.3 made executable: a case whose
+validator cannot reject its stale control is refused, because a detector that
+cannot fail is not evidence. Fixtures are mutated in place during a control
+run and restored byte-identically afterwards.
+
 ---
 
 ## Roadmap

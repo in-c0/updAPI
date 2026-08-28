@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/in-c0/updAPI/blob/main/schemas/change-event.schema.json",
+  "title": "UpdAPI change event",
+  "description": "A verified API change event: a bounded transition between two externally meaningful interface states. See docs/BENCHMARK_SPEC.md sections 2-6. schema_version 0.1.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "provider",
+    "ecosystem",
+    "package",
+    "version_before",
+    "version_after",
+    "published_at",
+    "first_observed_at",
+    "change",
+    "sources",
+    "verification",
+    "status",
+    "revision"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "id": {
+      "type": "string",
+      "description": "Stable once published. Format: <provider>.<package-slug>.<published-date>.<change-slug>, all lowercase.",
+      "pattern": "^[a-z0-9][a-z0-9-]*\\.[a-z0-9][a-z0-9.-]*\\.[0-9]{4}-[0-9]{2}-[0-9]{2}\\.[a-z0-9][a-z0-9-]*$"
+    },
+    "provider": { "type": "string", "minLength": 1 },
+    "ecosystem": {
+      "enum": ["npm", "pypi", "cargo", "rubygems", "maven", "go", "http_api", "protocol", "other"]
+    },
+    "package": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Canonical package/registry name (e.g. an npm name including scope), or API product name for http_api events."
+    },
+    "interface": {
+      "type": ["string", "null"],
+      "description": "The specific interface affected (symbol, endpoint, field), when the change is narrower than the whole package."
+    },
+    "version_before": {
+      "type": ["string", "null"],
+      "description": "Last version exhibiting the old state. null when no meaningful prior version exists (e.g. a brand-new package)."
+    },
+    "version_after": {
+      "type": "string",
+      "minLength": 1,
+      "description": "First version exhibiting the new state."
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Best-supported public availability time of the changed interface. NOT the time UpdAPI noticed it."
+    },
+    "first_observed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When UpdAPI first observed the change. Never backdated."
+    },
+    "change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "summary"],
+      "properties": {
+        "type": { "$ref": "#/$defs/changeType" },
+        "secondary_types": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/changeType" },
+          "uniqueItems": true
+        },
+        "summary": { "type": "string", "minLength": 10 },
+        "old": {
+          "type": ["string", "null"],
+          "description": "Explanatory old-state representation. Not a substitute for evidence."
+        },
+        "new": {
+          "type": ["string", "null"],
+          "description": "Explanatory new-state representation. Not a substitute for evidence."
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "url", "retrieved_at"],
+        "properties": {
+          "kind": {
+            "enum": [
+              "official_changelog",
+              "official_release",
+              "migration_guide",
+              "official_docs",
+              "package_registry",
+              "source_diff",
+              "specification",
+              "maintainer_statement"
+            ]
+          },
+          "url": { "type": "string", "format": "uri" },
+          "retrieved_at": { "type": "string", "format": "date-time" },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": {
+          "enum": ["executable_fixture", "versioned_source", "release_evidence"],
+          "description": "Strongest verification backing this event, per the evidence hierarchy in BENCHMARK_SPEC.md section 3."
+        },
+        "fixture": {
+          "type": "string",
+          "description": "Repo-relative case directory (required when kind is executable_fixture)."
+        },
+        "notes": { "type": "string" }
+      },
+      "if": {
+        "properties": { "kind": { "const": "executable_fixture" } },
+        "required": ["kind"]
+      },
+      "then": {
+        "properties": { "fixture": { "type": "string" } },
+        "required": ["fixture"]
+      }
+    },
+    "status": {
+      "enum": [
+        "discovered",
+        "evidence_collected",
+        "verified",
+        "case_authored",
+        "case_validated",
+        "embargoed",
+        "published",
+        "retired"
+      ]
+    },
+    "revision": { "type": "integer", "minimum": 1 },
+    "revisions": {
+      "type": "array",
+      "description": "Explicit correction history. Material corrections append here; published history is never silently rewritten.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["revision", "at", "reason"],
+        "properties": {
+          "revision": { "type": "integer", "minimum": 2 },
+          "at": { "type": "string", "format": "date-time" },
+          "reason": { "type": "string", "minLength": 5 }
+        }
+      }
+    },
+    "notes": { "type": "string" }
+  },
+  "$defs": {
+    "changeType": {
+      "description": "Taxonomy per BENCHMARK_SPEC.md section 6, plus runtime_requirement_change (v0 extension: a supported-runtime floor/platform change, e.g. dropping a Node.js major, that is not itself an interface rename).",
+      "enum": [
+        "endpoint_rename",
+        "method_rename",
+        "namespace_move",
+        "signature_change",
+        "parameter_add",
+        "parameter_remove",
+        "parameter_rename",
+        "parameter_type_change",
+        "return_shape_change",
+        "authentication_change",
+        "configuration_change",
+        "new_api",
+        "deprecation",
+        "removal",
+        "default_change",
+        "version_migration",
+        "runtime_requirement_change",
+        "semantic_behavior_change",
+        "error_behavior_change",
+        "rate_limit_change",
+        "capability_change"
+      ]
+    }
+  }
+}
