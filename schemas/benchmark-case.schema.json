@@ -73,7 +73,7 @@
       "properties": {
         "kind": {
           "enum": ["command"],
-          "description": "v0 supports command validators: exit 0 = verified success, non-zero = failure. The validator, not an LLM judge, decides."
+          "description": "v0 supports command validators: exit 0 = verified success, non-zero = failure. The validator, not an LLM judge, decides. Verdict-marker contract: a judging validator prints 'RESULT PASS' or 'RESULT FAIL'; the benchmark runner treats a non-zero exit with no rendered verdict as a validator malfunction (invalid experiment), never as a scored model failure."
         },
         "command": { "type": "string" },
         "timeout_ms": { "type": "integer", "minimum": 1000, "default": 120000 }

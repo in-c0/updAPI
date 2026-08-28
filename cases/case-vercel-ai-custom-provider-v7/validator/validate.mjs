@@ -1,5 +1,14 @@
 // Deterministic validator for case-vercel-ai-custom-provider-v7.
 // Exit 0 = verified success; non-zero = failure. No LLM involvement.
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+// The workspace under validation: the case fixture by default, or an isolated
+// copy when the benchmark runner sets UPDAPI_WORKSPACE.
+const wsRoot = process.env.UPDAPI_WORKSPACE
+  ? pathToFileURL(path.resolve(process.env.UPDAPI_WORKSPACE) + path.sep)
+  : new URL('../fixture/', import.meta.url);
+
 const failures = [];
 const ok = (cond, label, detail) => {
   if (cond) console.log(`PASS ${label}`);
@@ -9,7 +18,7 @@ const ok = (cond, label, detail) => {
 let solution = null;
 let loadError = null;
 try {
-  solution = await import(new URL('../fixture/src/solution.mjs', import.meta.url));
+  solution = await import(new URL('src/solution.mjs', wsRoot));
 } catch (err) {
   loadError = err;
 }
@@ -17,11 +26,12 @@ try {
 if (loadError) {
   // A workspace whose solution cannot even load has not implemented the task.
   console.log(`FAIL solution-loads - ${loadError.constructor.name}: ${String(loadError.message).split('\n')[0]}`);
+  console.log('RESULT FAIL (solution failed to load)');
   process.exit(1);
 }
 console.log('PASS solution-loads');
 
-const { stubFastModel } = await import(new URL('../fixture/src/stub-model.mjs', import.meta.url));
+const { stubFastModel } = await import(new URL('src/stub-model.mjs', wsRoot));
 const provider = solution.provider;
 
 ok(provider != null && typeof provider === 'object', 'provider-exported', `got ${typeof provider}`);

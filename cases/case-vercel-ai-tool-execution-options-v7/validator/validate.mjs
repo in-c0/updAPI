@@ -8,7 +8,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const caseDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const fixtureDir = path.join(caseDir, 'fixture');
+// The workspace under validation: the case fixture by default, or an isolated
+// copy when the benchmark runner sets UPDAPI_WORKSPACE.
+const fixtureDir = process.env.UPDAPI_WORKSPACE
+  ? path.resolve(process.env.UPDAPI_WORKSPACE)
+  : path.join(caseDir, 'fixture');
 const tsPkgDir = path.join(fixtureDir, 'node_modules', 'typescript');
 const tsPkg = JSON.parse(fs.readFileSync(path.join(tsPkgDir, 'package.json'), 'utf8'));
 const binRel = typeof tsPkg.bin === 'string' ? tsPkg.bin : tsPkg.bin?.tsc;

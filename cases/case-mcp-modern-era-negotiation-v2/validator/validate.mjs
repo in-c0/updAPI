@@ -8,14 +8,24 @@ const ok = (cond, label, detail) => {
   else { console.log(`FAIL ${label}${detail ? ' - ' + detail : ''}`); failures.push(label); }
 };
 
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+// The workspace under validation: the case fixture by default, or an isolated
+// copy when the benchmark runner sets UPDAPI_WORKSPACE.
+const wsRoot = process.env.UPDAPI_WORKSPACE
+  ? pathToFileURL(path.resolve(process.env.UPDAPI_WORKSPACE) + path.sep)
+  : new URL('../fixture/', import.meta.url);
+
 const { SERVER_NAME, SERVER_VERSION, SERVER_URL, serverFetch } =
-  await import(new URL('../fixture/src/server-harness.mjs', import.meta.url));
+  await import(new URL('src/server-harness.mjs', wsRoot));
 
 let solution = null;
 try {
-  solution = await import(new URL('../fixture/src/solution.mjs', import.meta.url));
+  solution = await import(new URL('src/solution.mjs', wsRoot));
 } catch (err) {
   console.log(`FAIL solution-loads - ${err.constructor.name}: ${String(err.message).split('\n')[0]}`);
+  console.log('RESULT FAIL (solution failed to load)');
   process.exit(1);
 }
 console.log('PASS solution-loads');

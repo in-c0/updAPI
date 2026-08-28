@@ -2,18 +2,21 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/in-c0/updAPI/blob/main/schemas/run-manifest.schema.json",
   "title": "UpdAPI run manifest",
-  "description": "Attributes one benchmark run to the exact system and environment that produced it. Unknown product internals are recorded as \"unknown\", never inferred. See docs/BENCHMARK_SPEC.md section 5.3. schema_version 0.1.0.",
+  "description": "Attributes one benchmark run to the exact system and environment that produced it. Unknown product internals are recorded as \"unknown\", never inferred. See docs/BENCHMARK_SPEC.md section 5.3. schema_version 0.2.0.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "schema_version",
     "benchmark_version",
+    "benchmark_commit",
     "run_id",
     "case_id",
     "case_version",
     "started_at",
     "condition",
     "agent",
+    "adapter",
+    "task_sha256",
     "tools",
     "environment",
     "workspace_hash",
@@ -22,7 +25,33 @@
     "harness_retries_allowed"
   ],
   "properties": {
-    "schema_version": { "const": "0.1.0" },
+    "schema_version": { "const": "0.2.0" },
+    "benchmark_commit": {
+      "type": "string",
+      "description": "Git commit SHA of the benchmark repository that authored this run."
+    },
+    "benchmark_dirty": {
+      "type": "boolean",
+      "description": "true when the benchmark worktree carried uncommitted changes at run time; a bare commit SHA cannot identify a dirty tree."
+    },
+    "benchmark_diff_sha256": {
+      "type": ["string", "null"],
+      "description": "SHA-256 of `git diff HEAD` when benchmark_dirty, so a dirty-tree run is still content-addressable."
+    },
+    "adapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "hash"],
+      "properties": {
+        "name": { "type": "string", "description": "Adapter module name (none for control runs)." },
+        "version": { "type": "string" },
+        "hash": { "type": "string", "description": "SHA-256 of the adapter module source, so adapter drift is attributable." }
+      }
+    },
+    "task_sha256": {
+      "type": "string",
+      "description": "SHA-256 of the exact task/prompt text handed to the agent (or that WOULD be handed to an agent, for control runs)."
+    },
     "benchmark_version": { "type": "string", "minLength": 1 },
     "run_id": { "type": "string", "minLength": 8 },
     "case_id": { "type": "string" },
@@ -74,6 +103,7 @@
       "properties": {
         "os": { "type": "string" },
         "runtime": { "type": "string", "description": "e.g. node 22.12.0" },
+        "package_manager": { "type": "string", "description": "e.g. npm 10.9.0; the tool that materialized dependencies." },
         "container": { "type": "string", "description": "Image/id when containerized, else \"none\"." },
         "endpoint_region": { "type": "string" }
       }
