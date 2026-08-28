@@ -2,7 +2,7 @@
   "name": "updapi-remote",
   "version": "1.0.0",
   "type": "module",
-  "description": "![updAPI](https://github.com/user-attachments/assets/7a67269e-5ce0-480d-95d8-cd7dfe79ca87)",
+  "description": "Living API evolution dataset and frontier coding-agent freshness benchmark",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
@@ -13,9 +13,15 @@
     "realign:apply": "node tools/realign-columns.mjs --apply",
     "verify-alignment": "node tools/verify-alignment.mjs"
   },
-  "keywords": [],
+  "keywords": [
+    "api-evolution",
+    "benchmark",
+    "coding-agents",
+    "llm-evaluation",
+    "api-freshness"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",
     "cheerio": "^1.0.0",
