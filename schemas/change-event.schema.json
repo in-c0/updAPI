@@ -60,6 +60,16 @@
       "format": "date-time",
       "description": "When UpdAPI first observed the change. Never backdated."
     },
+    "effective_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "When the change takes effect for consumers, when that differs from published_at (e.g. an announced deprecation with a future sunset date). Omit or null when identical to published_at."
+    },
+    "verified_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "When UpdAPI verification (section 4.2) completed for the current revision. Expected present once status reaches verified."
+    },
     "change": {
       "type": "object",
       "additionalProperties": false,

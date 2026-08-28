@@ -40,6 +40,7 @@
     "fixture": "cases/case-vercel-ai-tool-execution-options-v7",
     "notes": "Type removals surface at compile time by nature, so this case's deterministic validator is the pinned TypeScript compiler in strict mode - deliberately the only compile-gated case among the first three (see the reviewer constraint on tsc trivia in issue #24)."
   },
+  "verified_at": "2026-08-28T05:10:00Z",
   "status": "case_validated",
   "revision": 1,
   "notes": "Shares the ai@7.0.0 release with vercel.ai.2026-06-25.remove-experimental-custom-provider but exercises the type surface rather than the runtime export surface."

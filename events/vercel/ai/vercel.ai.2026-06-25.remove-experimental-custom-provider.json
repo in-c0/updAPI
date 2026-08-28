@@ -40,6 +40,7 @@
     "fixture": "cases/case-vercel-ai-custom-provider-v7",
     "notes": "The case validator imports the solution against pinned ai@7.0.0 and exercises provider behaviour; the known-stale control fails at import because the export is absent."
   },
+  "verified_at": "2026-08-28T05:10:00Z",
   "status": "case_validated",
   "revision": 1,
   "notes": "version_before is recorded as 6.0.x: the removal ships with the 7.0.0 major while the 6.0.x line continues to receive releases in parallel, so no single 6.0.x version is 'the last before'."

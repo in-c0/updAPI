@@ -34,6 +34,7 @@
     "kind": "versioned_source",
     "notes": "Ground truth is the engines field of the published 7.0.0 registry manifest (node >=22.0.0), corroborated by the release notes. Candidate for a future executable migration case (environment-gated validator); measures ecosystem freshness more than API-call freshness, so it is a taxonomy-diversity event rather than a headline case."
   },
+  "verified_at": "2026-08-28T03:55:00Z",
   "status": "verified",
   "revision": 1,
   "notes": "runtime_requirement_change is a v0 taxonomy extension over BENCHMARK_SPEC.md section 6; flagged for methodology review in PR #25."

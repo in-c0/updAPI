@@ -1,11 +1,7 @@
-// Fixture infrastructure (not part of the task): a local, modern-only MCP
-// endpoint served entirely in-process.
-//
-// createMcpHandler serves the 2026-07-28 protocol revision from a per-request
-// server factory; `legacy: 'reject'` makes the endpoint modern-only strict, so
-// 2025-era traffic (the plain `initialize` handshake) is rejected rather than
-// served. `handler.fetch` is the web-standard face, which means the whole
-// exchange can run through an injected fetch with no sockets and no network.
+// Fixture infrastructure (not part of the task): the project's MCP endpoint,
+// served entirely in-process through an injected fetch - no sockets, no
+// network. Treat this file as the deployed server's configuration: it can be
+// inspected, not modified.
 import { createMcpHandler, McpServer } from '@modelcontextprotocol/server';
 
 export const SERVER_NAME = 'updapi-fixture-server';
@@ -19,3 +15,9 @@ const handler = createMcpHandler(
 
 /** In-process fetch implementation routing every request to the endpoint. */
 export const serverFetch = (input, init) => handler.fetch(new Request(input, init));
+
+// Workspace-boundary note for benchmark runs: this file is legitimately
+// readable infrastructure (a developer can inspect their own server config),
+// so discovering the endpoint's posture from here or from its error responses
+// is fair diagnosis work. What it does not contain is the client-side
+// migration answer.

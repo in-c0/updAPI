@@ -383,9 +383,14 @@ retrieval_lift = success_rate(with_retrieval) - success_rate(control)
 
 Always show absolute rates alongside the delta.
 
-### 8.6 API Knowledge Lag
+### 8.6 API Knowledge Lag (system adoption lag)
 
 Knowledge lag is a longitudinal system/event statistic, not a one-shot score.
+Because the unit under test is the deployed system (agent + model + tools),
+not isolated model weights, the concept is equally correctly called **system
+adoption lag**; a change in the metric can come from a model update, a tool
+change, or a product change, and the run manifest must carry enough
+provenance to attribute which.
 
 Provisional definition:
 

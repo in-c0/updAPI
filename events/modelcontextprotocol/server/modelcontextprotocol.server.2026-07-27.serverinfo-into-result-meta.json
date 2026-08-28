@@ -41,6 +41,7 @@
     "fixture": "cases/case-mcp-serverinfo-discover-v2",
     "notes": "Verified with a local client+server pair on the GA v2 packages over an in-memory transport. The case records the empirically observed failure mode of the stale read path; source claims about hard-vs-graceful failure differ by layer, so the fixture is the ground truth."
   },
+  "verified_at": "2026-08-28T05:10:00Z",
   "status": "case_validated",
   "revision": 1,
   "notes": "published_at is the npm publish time (2026-07-27T23:55Z UTC) of the GA packages carrying the final 2026-07-28 protocol revision; the revision itself is dated 2026-07-28."
