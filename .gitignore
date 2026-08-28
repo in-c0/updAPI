@@ -6,4 +6,5 @@ venv
 backend/utils/temp/
 backend/utils/storage/
 node_modules
+runs/
 
