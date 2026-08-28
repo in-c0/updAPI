@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T02:29:34.788Z",
+  "generatedAt": "2026-08-28T02:32:43.320Z",
   "csv": "api-docs-urls.csv",
   "rows": 562,
   "columns": [
@@ -11,7 +11,7 @@
     "Security Policy",
     "Developer Community/Forum"
   ],
-  "distinctUrls": 888,
+  "distinctUrls": 877,
   "alignment": {
     "rowsComplete": 562,
     "rowsIncomplete": 0,
@@ -26,47 +26,47 @@
   },
   "totals": {
     "checked": 2984,
-    "ok": 2801,
-    "moved": 3,
-    "dead": 105,
-    "blocked": 29,
+    "ok": 2743,
+    "moved": 1,
+    "dead": 102,
+    "blocked": 92,
     "error": 6,
     "other": 40
   },
   "byColumn": {
     "Official_Documentation_URL": {
       "checked": 415,
-      "ok": 369,
-      "moved": 2,
+      "ok": 368,
+      "moved": 0,
       "dead": 30,
-      "blocked": 7,
+      "blocked": 10,
       "error": 0,
       "other": 7
     },
     "Privacy Policy": {
       "checked": 530,
-      "ok": 522,
-      "moved": 0,
+      "ok": 517,
+      "moved": 1,
       "dead": 1,
-      "blocked": 4,
+      "blocked": 8,
       "error": 0,
       "other": 3
     },
     "Terms of Service": {
       "checked": 432,
-      "ok": 422,
+      "ok": 415,
       "moved": 0,
       "dead": 2,
-      "blocked": 2,
+      "blocked": 9,
       "error": 0,
       "other": 6
     },
     "Rate Limiting Policy": {
       "checked": 309,
-      "ok": 291,
-      "moved": 1,
+      "ok": 290,
+      "moved": 0,
       "dead": 8,
-      "blocked": 7,
+      "blocked": 9,
       "error": 0,
       "other": 2
     },
@@ -81,39 +81,44 @@
     },
     "Security Policy": {
       "checked": 434,
-      "ok": 417,
+      "ok": 410,
       "moved": 0,
-      "dead": 4,
-      "blocked": 5,
+      "dead": 1,
+      "blocked": 15,
       "error": 0,
       "other": 8
     },
     "Developer Community/Forum": {
       "checked": 501,
-      "ok": 486,
+      "ok": 449,
       "moved": 0,
       "dead": 0,
-      "blocked": 2,
+      "blocked": 39,
       "error": 6,
       "other": 7
     }
   },
   "llmsTxt": {
     "hostsProbed": 167,
-    "hostsServing": 78,
-    "share": 0.4671,
+    "hostsServing": 72,
+    "share": 0.4311,
     "byHost": {
-      "developers.openai.com": {
+      "openai.com": {
+        "status": 403,
+        "serves": false,
+        "outcome": "blocked"
+      },
+      "docs.aws.amazon.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "www.microsoft.com": {
+      "groups.google.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "docs.aws.amazon.com": {
+      "developers.openai.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -123,52 +128,27 @@
         "serves": false,
         "outcome": "dead"
       },
+      "docs.slack.dev": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
       "platform.openai.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
-      },
-      "login.microsoftonline.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "repost.aws": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "www.dropbox.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
       },
       "slack.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "openai.com": {
+      "repost.aws": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "community.openai.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "developers.google.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "learn.microsoft.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "groups.google.com": {
+      "www.microsoft.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -178,37 +158,32 @@
         "serves": false,
         "outcome": "dead"
       },
-      "www.zendesk.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "slackcommunity.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "cloud.google.com": {
+      "community.openai.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "docs.slack.dev": {
+      "learn.microsoft.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.dropbox.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "support.stripe.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
+      "login.microsoftonline.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
       },
-      "docs.stripe.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
+      "developers.google.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
       },
-      "api.slack.com": {
+      "www.zendesk.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -218,47 +193,107 @@
         "serves": false,
         "outcome": "dead"
       },
-      "devcenter.heroku.com": {
+      "www.twilio.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "community.dropbox.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
+      "api.slack.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
-      "www.dropboxforum.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
+      "docs.stripe.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "stripe.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "community.zendesk.com": {
-        "status": 404,
+      "developers.facebook.com": {
+        "status": 400,
         "serves": false,
-        "outcome": "dead"
+        "outcome": "other"
+      },
+      "slackcommunity.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "www.whatsapp.com": {
         "status": 400,
         "serves": false,
         "outcome": "other"
       },
-      "developers.hubspot.com": {
+      "support.stripe.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "www.heroku.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "devcenter.heroku.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "adobedocs.github.io": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "developers.facebook.com": {
-        "status": 400,
+      "community.dropbox.com": {
+        "status": 404,
         "serves": false,
-        "outcome": "other"
+        "outcome": "dead"
       },
-      "adobedocs.github.io": {
+      "www.linkedin.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "support.google.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "moved"
+      },
+      "www.dropboxforum.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.box.com": {
+        "status": 403,
+        "serves": false,
+        "outcome": "blocked"
+      },
+      "developer.intuit.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "community.zendesk.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "developer.box.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "www.uber.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.yelp.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -273,17 +308,27 @@
         "serves": false,
         "outcome": "dead"
       },
-      "www.box.com": {
-        "status": 403,
+      "developers.pinterest.com": {
+        "status": 500,
         "serves": false,
-        "outcome": "blocked"
+        "outcome": "other"
       },
-      "www.uber.com": {
+      "developers.hubspot.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "www.linkedin.com": {
+      "www.zillow.com": {
+        "status": 403,
+        "serves": false,
+        "outcome": "blocked"
+      },
+      "policy.pinterest.com": {
+        "status": 403,
+        "serves": false,
+        "outcome": "blocked"
+      },
+      "www.eventbrite.com.au": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -293,37 +338,7 @@
         "serves": false,
         "outcome": "dead"
       },
-      "www.heroku.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.eventbrite.com.au": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "developer.intuit.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "www.twilio.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.intuit.com": {
-        "status": 400,
-        "serves": false,
-        "outcome": "other"
-      },
-      "community.box.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "www.yelp.com": {
+      "developer.zendesk.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -333,22 +348,7 @@
         "serves": true,
         "outcome": "ok"
       },
-      "www.zillow.com": {
-        "status": 403,
-        "serves": false,
-        "outcome": "blocked"
-      },
       "firebase.google.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "developer.box.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "docs.cloud.google.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -358,20 +358,15 @@
         "serves": false,
         "outcome": "dead"
       },
-      "policy.pinterest.com": {
-        "status": 403,
-        "serves": false,
-        "outcome": "blocked"
-      },
-      "developer.zendesk.com": {
+      "community.box.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "www.shopify.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
+      "docs.cloud.google.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
       },
       "x.com": {
         "status": 200,
@@ -379,6 +374,11 @@
         "outcome": "ok"
       },
       "www.paypal.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "www.shopify.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -393,47 +393,7 @@
         "serves": false,
         "outcome": "dead"
       },
-      "cloud.ibm.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "moved"
-      },
       "community.shopify.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developers.pinterest.com": {
-        "status": 500,
-        "serves": false,
-        "outcome": "other"
-      },
-      "www.ibm.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "www.facebook.com": {
-        "status": 400,
-        "serves": false,
-        "outcome": "other"
-      },
-      "developer.zoominfo.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "www.atlassian.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "shopify.dev": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "www.wix.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -443,17 +403,47 @@
         "serves": true,
         "outcome": "ok"
       },
-      "community.pinterest.biz": {
+      "www.facebook.com": {
+        "status": 400,
+        "serves": false,
+        "outcome": "other"
+      },
+      "help.twitter.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "community.atlassian.com": {
+      "developer.zoominfo.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.ibm.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "developer.atlassian.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "cloud.ibm.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "moved"
+      },
+      "shopify.dev": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "plaid.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "help.twitter.com": {
+      "community.pinterest.biz": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -468,12 +458,22 @@
         "serves": true,
         "outcome": "ok"
       },
-      "asana.com": {
+      "advertising.amazon.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.atlassian.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "developers.intercom.com": {
+      "community.atlassian.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "asana.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -483,27 +483,12 @@
         "serves": true,
         "outcome": "ok"
       },
-      "developer.payoneer.com": {
+      "developers.intercom.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "developer.atlassian.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "plaid.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "forum.asana.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "www.reddit.com": {
+      "www.zoominfo.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -513,22 +498,7 @@
         "serves": false,
         "outcome": "dead"
       },
-      "docs.github.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "support.google.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "moved"
-      },
-      "github.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "advertising.amazon.com": {
+      "forum.asana.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -538,25 +508,45 @@
         "serves": false,
         "outcome": "other"
       },
-      "core.telegram.org": {
+      "developer.payoneer.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "github.blog": {
-        "status": 404,
+      "www.reddit.com": {
+        "status": 403,
         "serves": false,
-        "outcome": "dead"
+        "outcome": "blocked"
+      },
+      "docs.github.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "github.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "privacycenter.instagram.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "community.intercom.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
+      "core.telegram.org": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "telegram.org": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "developers.notion.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "calendly.com": {
         "status": 200,
@@ -568,67 +558,17 @@
         "serves": true,
         "outcome": "moved"
       },
-      "redditinc.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "telegram.org": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
       "www.notion.so": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "community.withairbnb.com": {
+      "policy.medium.com": {
         "status": 403,
         "serves": false,
         "outcome": "blocked"
       },
-      "developers.notion.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developer.withairbnb.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "developers.etsy.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "policy.medium.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.etsy.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "developers.tiktok.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "security.medium.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "community.etsy.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.airbnb.com": {
+      "community.intercom.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -638,52 +578,57 @@
         "serves": true,
         "outcome": "ok"
       },
-      "docs.foursquare.com": {
+      "security.medium.com": {
+        "status": 403,
+        "serves": false,
+        "outcome": "blocked"
+      },
+      "developer.withairbnb.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
+      "redditinc.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "community.withairbnb.com": {
+        "status": 403,
+        "serves": false,
+        "outcome": "blocked"
+      },
       "medium.engineering": {
-        "status": 200,
-        "serves": true,
-        "outcome": "moved"
+        "status": 403,
+        "serves": false,
+        "outcome": "blocked"
+      },
+      "cloud.google.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "developers.etsy.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
       },
       "dev.twitch.tv": {
         "status": 403,
         "serves": false,
         "outcome": "blocked"
       },
-      "www.zoom.com": {
+      "docs.foursquare.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "www.zoominfo.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "discuss.dev.twitch.com": {
+      "www.etsy.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "sendbird.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "foursquare.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "www.klarna.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "community.adobe.com": {
+      "github.blog": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -693,12 +638,57 @@
         "serves": true,
         "outcome": "ok"
       },
-      "developer.spotify.com": {
+      "www.airbnb.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "help.netflix.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "legal.twitch.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "netflixtechblog.com": {
+        "status": 403,
+        "serves": false,
+        "outcome": "blocked"
+      },
+      "developers.zoom.us": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "about.gitlab.com": {
+      "secure.na1.adobesign.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "discuss.dev.twitch.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.klarna.com": {
+        "status": 202,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "www.zoom.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "community.etsy.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "developer.spotify.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -708,25 +698,45 @@
         "serves": false,
         "outcome": "dead"
       },
-      "developers.zoom.us": {
+      "sendbird.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "help.netflix.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "netflixtechblog.com": {
+      "about.gitlab.com": {
         "status": 200,
         "serves": true,
-        "outcome": "moved"
+        "outcome": "ok"
       },
       "bitly.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
+      },
+      "community.adobe.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "foursquare.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "community.sendbird.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "docs.gitlab.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "developers.hellosign.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "sign.dropbox.com": {
         "status": 404,
@@ -738,32 +748,27 @@
         "serves": true,
         "outcome": "moved"
       },
-      "community.sendbird.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "developers.hellosign.com": {
+      "cloudinary.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "legal.twitch.com": {
+      "developers.docusign.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "docs.gitlab.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "secure.na1.adobesign.com": {
+      "developers.ringcentral.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "community.dynamics.com": {
+      "developers.tiktok.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "forum.gitlab.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -773,7 +778,7 @@
         "serves": true,
         "outcome": "ok"
       },
-      "forum.gitlab.com": {
+      "developer.okta.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -783,32 +788,7 @@
         "serves": true,
         "outcome": "moved"
       },
-      "community.ringcentral.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "developers.docusign.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "developer.okta.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "developer.salesforce.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developers.ringcentral.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "trust.okta.com": {
+      "community.dynamics.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -818,20 +798,45 @@
         "serves": false,
         "outcome": "dead"
       },
-      "www.mongodb.com": {
+      "community.ringcentral.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "support.okta.com": {
+        "status": 401,
+        "serves": false,
+        "outcome": "blocked"
+      },
+      "openweather.co.uk": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
+      },
+      "developer.salesforce.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "trailhead.salesforce.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "trust.okta.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
       },
       "openweathermap.org": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "openweather.co.uk": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
+      "discord.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
       },
       "docs.discord.com": {
         "status": 200,
@@ -848,42 +853,17 @@
         "serves": true,
         "outcome": "ok"
       },
-      "support.okta.com": {
-        "status": 401,
+      "community.cloudflare.com": {
+        "status": 403,
         "serves": false,
         "outcome": "blocked"
-      },
-      "security.salesforce.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
       },
       "www.cloudflare.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "trailhead.salesforce.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "mailchimp.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developers.figma.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.figma.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "discord.com": {
+      "security.salesforce.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -893,42 +873,57 @@
         "serves": false,
         "outcome": "blocked"
       },
-      "community.cloudflare.com": {
+      "mailchimp.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
-      },
-      "community.ebay.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developer.xero.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "forum.figma.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "support.docusign.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "moved"
       },
       "developer.adobe.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "cloudinary.com": {
+      "developers.figma.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
+      "forum.figma.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.figma.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "developer.xero.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
       "www.xero.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "www.mongodb.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "support.docusign.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "moved"
+      },
+      "community.ebay.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "www.wix.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -937,10 +932,23 @@
         "status": 0,
         "serves": false,
         "outcome": "error"
+      },
+      "www.intuit.com": {
+        "status": 0,
+        "serves": false,
+        "outcome": "error"
       }
     }
   },
   "findings": [
+    {
+      "api": "Airbnb API",
+      "column": "Privacy Policy",
+      "url": "https://www.airbnb.com/help/article/2855/privacy-policy",
+      "outcome": "moved",
+      "status": 200,
+      "finalUrl": "https://www.airbnb.com/help/article/2855"
+    },
     {
       "api": "Airbnb API",
       "column": "Developer Community/Forum",
@@ -1031,6 +1039,14 @@
     },
     {
       "api": "Box API",
+      "column": "Terms of Service",
+      "url": "https://www.box.com/legal/termsofservice",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://www.box.com/legal/termsofservice"
+    },
+    {
+      "api": "Box API",
       "column": "Security Policy",
       "url": "https://www.box.com/security-compliance",
       "outcome": "blocked",
@@ -1047,6 +1063,14 @@
     },
     {
       "api": "Box Content API",
+      "column": "Terms of Service",
+      "url": "https://www.box.com/legal/termsofservice",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://www.box.com/legal/termsofservice"
+    },
+    {
+      "api": "Box Content API",
       "column": "Security Policy",
       "url": "https://www.box.com/security-compliance",
       "outcome": "blocked",
@@ -1054,12 +1078,12 @@
       "finalUrl": "https://www.box.com/security-compliance"
     },
     {
-      "api": "Calendly API",
-      "column": "Official_Documentation_URL",
-      "url": "https://developer.calendly.com/",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developer.calendly.com/docs/getting-started/overview"
+      "api": "Cloudflare API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.cloudflare.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.cloudflare.com/"
     },
     {
       "api": "Dropbox Activity API",
@@ -1694,12 +1718,36 @@
       "finalUrl": "https://developers.hubspot.com/docs/api/analytics"
     },
     {
+      "api": "HubSpot Analytics API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
+      "api": "HubSpot API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
       "api": "HubSpot Blogging API",
       "column": "Official_Documentation_URL",
       "url": "https://developers.hubspot.com/docs/api/marketing/blogs",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.hubspot.com/docs/api/marketing/blogs"
+    },
+    {
+      "api": "HubSpot Blogging API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
     },
     {
       "api": "HubSpot Blogs API",
@@ -1710,12 +1758,28 @@
       "finalUrl": "https://developers.hubspot.com/docs/api/blogs"
     },
     {
+      "api": "HubSpot Blogs API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
       "api": "HubSpot Calendar API",
       "column": "Official_Documentation_URL",
       "url": "https://developers.hubspot.com/docs/api/calendar",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.hubspot.com/docs/api/calendar"
+    },
+    {
+      "api": "HubSpot Calendar API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
     },
     {
       "api": "HubSpot Call API",
@@ -1726,12 +1790,36 @@
       "finalUrl": "https://developers.hubspot.com/docs/api/calls"
     },
     {
+      "api": "HubSpot Call API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
+      "api": "HubSpot Campaigns API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
       "api": "HubSpot CMS API",
       "column": "Official_Documentation_URL",
       "url": "https://developers.hubspot.com/docs/api/cms",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.hubspot.com/docs/api/cms"
+    },
+    {
+      "api": "HubSpot CMS API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
     },
     {
       "api": "HubSpot Companies API",
@@ -1742,12 +1830,36 @@
       "finalUrl": "https://developers.hubspot.com/docs/api/companies"
     },
     {
+      "api": "HubSpot Companies API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
       "api": "HubSpot Contact Properties API",
       "column": "Official_Documentation_URL",
       "url": "https://developers.hubspot.com/docs/api/contact-properties",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.hubspot.com/docs/api/contact-properties"
+    },
+    {
+      "api": "HubSpot Contact Properties API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
+      "api": "HubSpot Contacts API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
     },
     {
       "api": "HubSpot CRM API",
@@ -1758,12 +1870,28 @@
       "finalUrl": "https://developers.hubspot.com/docs/api/crm"
     },
     {
+      "api": "HubSpot CRM API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
       "api": "HubSpot CRM Timeline API",
       "column": "Official_Documentation_URL",
       "url": "https://developers.hubspot.com/docs/api/crm-timeline",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.hubspot.com/docs/api/crm-timeline"
+    },
+    {
+      "api": "HubSpot CRM Timeline API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
     },
     {
       "api": "HubSpot Deals API",
@@ -1774,12 +1902,28 @@
       "finalUrl": "https://developers.hubspot.com/docs/api/deals"
     },
     {
+      "api": "HubSpot Deals API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
       "api": "HubSpot E-commerce API",
       "column": "Official_Documentation_URL",
       "url": "https://developers.hubspot.com/docs/api/ecommerce",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.hubspot.com/docs/api/ecommerce"
+    },
+    {
+      "api": "HubSpot E-commerce API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
     },
     {
       "api": "HubSpot Ecommerce API",
@@ -1790,12 +1934,28 @@
       "finalUrl": "https://developers.hubspot.com/docs/api/ecommerce"
     },
     {
+      "api": "HubSpot Ecommerce API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
       "api": "HubSpot Email API",
       "column": "Official_Documentation_URL",
       "url": "https://developers.hubspot.com/docs/api/marketing/email",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.hubspot.com/docs/api/marketing/email"
+    },
+    {
+      "api": "HubSpot Email API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
     },
     {
       "api": "HubSpot Email Marketing API",
@@ -1806,12 +1966,36 @@
       "finalUrl": "https://developers.hubspot.com/docs/api/email-marketing"
     },
     {
+      "api": "HubSpot Email Marketing API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
       "api": "HubSpot Emails API",
       "column": "Official_Documentation_URL",
       "url": "https://developers.hubspot.com/docs/api/marketing/emails",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.hubspot.com/docs/api/marketing/emails"
+    },
+    {
+      "api": "HubSpot Emails API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
+      "api": "HubSpot Engagements API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
     },
     {
       "api": "HubSpot Feedback Surveys API",
@@ -1822,12 +2006,36 @@
       "finalUrl": "https://developers.hubspot.com/docs/api/feedback-surveys"
     },
     {
+      "api": "HubSpot Feedback Surveys API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
       "api": "HubSpot Forms API",
       "column": "Official_Documentation_URL",
       "url": "https://developers.hubspot.com/docs/api/forms",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.hubspot.com/docs/api/forms"
+    },
+    {
+      "api": "HubSpot Forms API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
+      "api": "HubSpot Line Items API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
     },
     {
       "api": "HubSpot Marketing API",
@@ -1838,12 +2046,36 @@
       "finalUrl": "https://developers.hubspot.com/docs/api/marketing"
     },
     {
+      "api": "HubSpot Marketing API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
       "api": "HubSpot Marketing Events API",
       "column": "Official_Documentation_URL",
       "url": "https://developers.hubspot.com/docs/api/marketing/events",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.hubspot.com/docs/api/marketing/events"
+    },
+    {
+      "api": "HubSpot Marketing Events API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
+      "api": "HubSpot Owners API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
     },
     {
       "api": "HubSpot Pipelines API",
@@ -1854,12 +2086,44 @@
       "finalUrl": "https://developers.hubspot.com/docs/api/pipelines"
     },
     {
+      "api": "HubSpot Pipelines API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
+      "api": "HubSpot Properties API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
+      "api": "HubSpot Quotes API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
       "api": "HubSpot Sales API",
       "column": "Official_Documentation_URL",
       "url": "https://developers.hubspot.com/docs/api/crm/sales",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.hubspot.com/docs/api/crm/sales"
+    },
+    {
+      "api": "HubSpot Sales API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
     },
     {
       "api": "HubSpot Social Media API",
@@ -1870,12 +2134,28 @@
       "finalUrl": "https://developers.hubspot.com/docs/api/marketing/social"
     },
     {
+      "api": "HubSpot Social Media API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
       "api": "HubSpot Task Queues API",
       "column": "Official_Documentation_URL",
       "url": "https://developers.hubspot.com/docs/api/tasks/queues",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.hubspot.com/docs/api/tasks/queues"
+    },
+    {
+      "api": "HubSpot Task Queues API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
     },
     {
       "api": "HubSpot Tasks API",
@@ -1886,6 +2166,14 @@
       "finalUrl": "https://developers.hubspot.com/docs/api/tasks"
     },
     {
+      "api": "HubSpot Tasks API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
       "api": "HubSpot Tickets API",
       "column": "Official_Documentation_URL",
       "url": "https://developers.hubspot.com/docs/api/tickets",
@@ -1894,12 +2182,36 @@
       "finalUrl": "https://developers.hubspot.com/docs/api/tickets"
     },
     {
+      "api": "HubSpot Tickets API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
+      "api": "HubSpot Workflow API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
+    },
+    {
       "api": "HubSpot Workflows API",
       "column": "Official_Documentation_URL",
       "url": "https://developers.hubspot.com/docs/api/workflows",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.hubspot.com/docs/api/workflows"
+    },
+    {
+      "api": "HubSpot Workflows API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.hubspot.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.hubspot.com/"
     },
     {
       "api": "IBM Watson API",
@@ -2000,17 +2312,33 @@
     {
       "api": "Medium API",
       "column": "Official_Documentation_URL",
-      "url": "https://medium.engineering/?gi=610082dfd8d2",
-      "outcome": "moved",
-      "status": 200,
+      "url": "https://medium.engineering/?gi=376729a62546",
+      "outcome": "blocked",
+      "status": 403,
       "finalUrl": "https://medium.engineering/?gi=376729a62546"
+    },
+    {
+      "api": "Medium API",
+      "column": "Terms of Service",
+      "url": "https://policy.medium.com/medium-terms-of-service-9db0094a1e0f",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://policy.medium.com/medium-terms-of-service-9db0094a1e0f"
+    },
+    {
+      "api": "Medium API",
+      "column": "Security Policy",
+      "url": "https://security.medium.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://security.medium.com/"
     },
     {
       "api": "Netflix API",
       "column": "Rate Limiting Policy",
-      "url": "https://netflixtechblog.com/?gi=0b3f2cdbfda2",
-      "outcome": "moved",
-      "status": 200,
+      "url": "https://netflixtechblog.com/?gi=615959a9e4f5",
+      "outcome": "blocked",
+      "status": 403,
       "finalUrl": "https://netflixtechblog.com/?gi=615959a9e4f5"
     },
     {
@@ -2047,11 +2375,83 @@
     },
     {
       "api": "OpenAI API",
+      "column": "Official_Documentation_URL",
+      "url": "https://platform.openai.com/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://platform.openai.com/"
+    },
+    {
+      "api": "OpenAI API",
+      "column": "Privacy Policy",
+      "url": "https://openai.com/policies/privacy-policy/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://openai.com/policies/privacy-policy/"
+    },
+    {
+      "api": "OpenAI API",
+      "column": "Terms of Service",
+      "url": "https://openai.com/policies/terms-of-use/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://openai.com/policies/terms-of-use/"
+    },
+    {
+      "api": "OpenAI API",
+      "column": "Security Policy",
+      "url": "https://openai.com/security-and-privacy/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://openai.com/security-and-privacy/"
+    },
+    {
+      "api": "OpenAI API",
+      "column": "Privacy Policy",
+      "url": "https://openai.com/policies/privacy-policy/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://openai.com/policies/privacy-policy/"
+    },
+    {
+      "api": "OpenAI API",
+      "column": "Terms of Service",
+      "url": "https://openai.com/policies/terms-of-use/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://openai.com/policies/terms-of-use/"
+    },
+    {
+      "api": "OpenAI API",
       "column": "Release Notes",
       "url": "https://platform.openai.com/docs/release-notes",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.openai.com/api/docs/release-notes"
+    },
+    {
+      "api": "OpenAI API",
+      "column": "Security Policy",
+      "url": "https://openai.com/security-and-privacy/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://openai.com/security-and-privacy/"
+    },
+    {
+      "api": "OpenAI DALL-E API",
+      "column": "Privacy Policy",
+      "url": "https://openai.com/policies/privacy-policy/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://openai.com/policies/privacy-policy/"
+    },
+    {
+      "api": "OpenAI DALL-E API",
+      "column": "Terms of Service",
+      "url": "https://openai.com/policies/terms-of-use/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://openai.com/policies/terms-of-use/"
     },
     {
       "api": "OpenAI DALL-E API",
@@ -2070,12 +2470,44 @@
       "finalUrl": "https://developers.openai.com/api/docs/release-notes"
     },
     {
+      "api": "OpenAI DALL-E API",
+      "column": "Security Policy",
+      "url": "https://openai.com/security-and-privacy/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://openai.com/security-and-privacy/"
+    },
+    {
+      "api": "OpenAI GPT API",
+      "column": "Privacy Policy",
+      "url": "https://openai.com/policies/privacy-policy/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://openai.com/policies/privacy-policy/"
+    },
+    {
+      "api": "OpenAI GPT API",
+      "column": "Terms of Service",
+      "url": "https://openai.com/policies/terms-of-use/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://openai.com/policies/terms-of-use/"
+    },
+    {
       "api": "OpenAI GPT API",
       "column": "Release Notes",
       "url": "https://platform.openai.com/docs/release-notes",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://developers.openai.com/api/docs/release-notes"
+    },
+    {
+      "api": "OpenAI GPT API",
+      "column": "Security Policy",
+      "url": "https://openai.com/security-and-privacy/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://openai.com/security-and-privacy/"
     },
     {
       "api": "PayPal API",
@@ -2172,6 +2604,38 @@
       "error": "fetch failed"
     },
     {
+      "api": "Reddit API",
+      "column": "Security Policy",
+      "url": "https://www.reddit.com/r/redditdev/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://www.reddit.com/r/redditdev/"
+    },
+    {
+      "api": "Reddit OAuth API",
+      "column": "Official_Documentation_URL",
+      "url": "https://www.reddit.com/dev/api/oauth",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://www.reddit.com/dev/api/oauth"
+    },
+    {
+      "api": "Reddit OAuth API",
+      "column": "Rate Limiting Policy",
+      "url": "https://www.reddit.com/dev/api/oauth#limits",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://www.reddit.com/dev/api/oauth"
+    },
+    {
+      "api": "Reddit OAuth API",
+      "column": "Security Policy",
+      "url": "https://www.reddit.com/r/redditdev/",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://www.reddit.com/r/redditdev/"
+    },
+    {
       "api": "Slack Access Logs API",
       "column": "Official_Documentation_URL",
       "url": "https://api.slack.com/admin/access-logs",
@@ -2255,25 +2719,25 @@
       "api": "Twitter Ads API",
       "column": "Security Policy",
       "url": "https://help.twitter.com/en/rules-and-policies/report-security-vulnerability",
-      "outcome": "dead",
-      "status": 404,
-      "finalUrl": "https://help.x.com/en/rules-and-policies/report-security-vulnerability"
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://help.twitter.com/en/rules-and-policies/report-security-vulnerability"
     },
     {
       "api": "Twitter API",
       "column": "Security Policy",
       "url": "https://help.twitter.com/en/rules-and-policies/report-security-vulnerability",
-      "outcome": "dead",
-      "status": 404,
-      "finalUrl": "https://help.x.com/en/rules-and-policies/report-security-vulnerability"
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://help.twitter.com/en/rules-and-policies/report-security-vulnerability"
     },
     {
       "api": "Twitter API v2",
       "column": "Security Policy",
       "url": "https://help.twitter.com/en/rules-and-policies/report-security-vulnerability",
-      "outcome": "dead",
-      "status": 404,
-      "finalUrl": "https://help.x.com/en/rules-and-policies/report-security-vulnerability"
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://help.twitter.com/en/rules-and-policies/report-security-vulnerability"
     },
     {
       "api": "WhatsApp Business API",
