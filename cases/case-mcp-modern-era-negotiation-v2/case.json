@@ -1,7 +1,7 @@
 {
   "schema_version": "0.1.0",
-  "case_id": "case-mcp-serverinfo-discover-v2",
-  "event_id": "modelcontextprotocol.server.2026-07-27.serverinfo-into-result-meta",
+  "case_id": "case-mcp-modern-era-negotiation-v2",
+  "event_id": "modelcontextprotocol.client.2026-07-27.opt-in-version-negotiation",
   "case_version": 1,
   "task": "The workspace pins @modelcontextprotocol/client and @modelcontextprotocol/server at 2.0.0. src/server-harness.mjs serves a local, current-generation MCP endpoint entirely in-process and exports its URL plus a fetch implementation that reaches it. Implement getServerIdentity({ url, fetch }) in src/solution.mjs: connect an MCP client to that endpoint (route all HTTP through the provided fetch), obtain the server's declared identity from the connection exchange, close cleanly, and return { name, version }. No sockets, no network, no credentials.",
   "workspace_fixture": "fixture",

@@ -38,9 +38,9 @@
   ],
   "verification": {
     "kind": "versioned_source",
-    "notes": "Verified against the published tarball's file tree (non-beta files/skills resources present at 0.119.0). Candidate for a credential-free compile/type fixture per issue #24 case suggestion 5; a live-API fixture only if credential and cost semantics are clean."
+    "notes": "Verified against the published tarball's file tree (non-beta files/skills resources present at 0.119.0). verified_at is the retrieval time of a `npm run bench:evidence -- @anthropic-ai/sdk 0.119.0` re-verification run against the registry manifest. Candidate for a credential-free compile/type fixture per issue #24 case suggestion 5; a live-API fixture only if credential and cost semantics are clean."
   },
-  "verified_at": "2026-08-28T03:55:00Z",
+  "verified_at": "2026-08-28T04:41:04Z",
   "status": "verified",
   "revision": 1,
   "notes": "Temporal-cohort value: this event was 9 days old at first observation."

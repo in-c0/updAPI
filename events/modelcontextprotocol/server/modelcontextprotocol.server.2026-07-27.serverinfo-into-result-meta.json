@@ -37,12 +37,11 @@
     }
   ],
   "verification": {
-    "kind": "executable_fixture",
-    "fixture": "cases/case-mcp-serverinfo-discover-v2",
-    "notes": "Verified with a local client+server pair on the GA v2 packages over an in-memory transport. The case records the empirically observed failure mode of the stale read path; source claims about hard-vs-graceful failure differ by layer, so the fixture is the ground truth."
+    "kind": "versioned_source",
+    "notes": "Verified against the published GA packages: both @modelcontextprotocol/client@2.0.0 and /server@2.0.0 export SERVER_INFO_META_KEY = 'io.modelcontextprotocol/serverInfo' (observed via package import), DiscoverResult in the published typings declares no serverInfo body field, and the migration guide documents the _meta location with graceful anonymous fallback. Corroborated behaviourally: on a negotiated modern connection (case-mcp-modern-era-negotiation-v2 passing path) the SDK-derived server identity is readable. No dedicated executable case yet - a clean discriminating oracle for the field relocation alone (stale body-read vs current _meta-read on an established modern connection) is future work; see PR #25 round-1 review."
   },
-  "verified_at": "2026-08-28T05:10:00Z",
-  "status": "case_validated",
+  "verified_at": "2026-08-28T04:21:22Z",
+  "status": "verified",
   "revision": 1,
   "notes": "published_at is the npm publish time (2026-07-27T23:55Z UTC) of the GA packages carrying the final 2026-07-28 protocol revision; the revision itself is dated 2026-07-28."
 }

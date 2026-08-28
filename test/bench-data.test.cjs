@@ -41,6 +41,20 @@ describe('bench dataset validation', function () {
       const broken = { ...goodEvent, change: { ...goodEvent.change, type: 'not-a-real-change-type' } };
       fs.writeFileSync(path.join(eventsDir, `${broken.id}.json`), JSON.stringify(broken));
 
+      // Second broken event: claims verified status while carrying no verified_at.
+      const broken2 = { ...goodEvent, id: 'openai.openai.2026-07-27.no-verified-at', status: 'verified' };
+      delete broken2.verified_at;
+      fs.writeFileSync(path.join(eventsDir, `${broken2.id}.json`), JSON.stringify(broken2));
+
+      // Third broken event: schema-valid but future-dated verified_at, so the
+      // temporal-integrity check (not the schema) must be what rejects it.
+      const broken3 = {
+        ...goodEvent,
+        id: 'openai.openai.2026-07-27.future-verified-at',
+        verified_at: new Date(Date.now() + 86_400_000).toISOString()
+      };
+      fs.writeFileSync(path.join(eventsDir, `${broken3.id}.json`), JSON.stringify(broken3));
+
       const caseDir = path.join(root, 'cases', 'case-dangling');
       fs.mkdirSync(caseDir, { recursive: true });
       fs.writeFileSync(path.join(caseDir, 'case.json'), JSON.stringify({
@@ -61,6 +75,8 @@ describe('bench dataset validation', function () {
       assert.match(r.output, /not-a-real-change-type|must be equal to one of the allowed values/);
       assert.match(r.output, /does not match any event/);
       assert.match(r.output, /workspace_fixture missing/);
+      assert.match(r.output, /verified_at is future-dated/);
+      assert.match(r.output, /status verified requires verified_at/);
     } finally {
       fs.rmSync(root, { recursive: true, force: true });
     }

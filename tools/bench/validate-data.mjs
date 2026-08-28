@@ -60,6 +60,34 @@ for (const file of jsonFilesUnder(path.join(repoRoot, 'events'))) {
   events.set(data.id, { file, data });
   const expectedBasename = `${data.id}.json`;
   if (path.basename(file) !== expectedBasename) note(file, `filename should be ${expectedBasename}`);
+
+  // Temporal integrity (PR #25 round-1 gate): nothing may be future-dated
+  // except effective_at (announced future changes), and where the fields
+  // exist they must satisfy published_at <= first_observed_at <= verified_at.
+  const skewMs = 5 * 60 * 1000; // documented clock-skew tolerance
+  const nowMs = Date.now();
+  const parseAt = (label, value) => {
+    if (value == null) return null;
+    const t = Date.parse(value);
+    if (Number.isNaN(t)) { note(file, `${label} is not a parseable date-time: ${value}`); return null; }
+    return t;
+  };
+  const noFuture = (label, value) => {
+    const t = parseAt(label, value);
+    if (t !== null && t > nowMs + skewMs) note(file, `${label} is future-dated: ${value}`);
+    return t;
+  };
+  const pub = noFuture('published_at', data.published_at);
+  const obs = noFuture('first_observed_at', data.first_observed_at);
+  const ver = noFuture('verified_at', data.verified_at);
+  parseAt('effective_at', data.effective_at); // may be future by design
+  (data.sources ?? []).forEach((s, i) => noFuture(`sources[${i}].retrieved_at`, s.retrieved_at));
+  (data.revisions ?? []).forEach((r, i) => noFuture(`revisions[${i}].at`, r.at));
+  if (pub !== null && obs !== null && pub > obs + skewMs) note(file, 'published_at is after first_observed_at');
+  if (obs !== null && ver !== null && obs > ver + skewMs) note(file, 'first_observed_at is after verified_at');
+  if (['verified', 'case_authored', 'case_validated', 'embargoed', 'published'].includes(data.status) && !data.verified_at) {
+    note(file, `status ${data.status} requires verified_at`);
+  }
 }
 
 // ---- cases ----
