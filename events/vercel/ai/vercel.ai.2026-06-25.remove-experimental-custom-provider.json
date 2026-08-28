@@ -1,0 +1,47 @@
+{
+  "schema_version": "0.1.0",
+  "id": "vercel.ai.2026-06-25.remove-experimental-custom-provider",
+  "provider": "vercel",
+  "ecosystem": "npm",
+  "package": "ai",
+  "interface": "experimental_customProvider",
+  "version_before": "6.0.x",
+  "version_after": "7.0.0",
+  "published_at": "2026-06-25T12:47:23.880Z",
+  "first_observed_at": "2026-08-28T02:53:02Z",
+  "change": {
+    "type": "removal",
+    "secondary_types": ["method_rename", "version_migration"],
+    "summary": "AI SDK 7 removes the deprecated experimental_customProvider export; the stable replacement is customProvider. Stale imports fail at module resolution because the named export no longer exists (the ai package is also ESM-only as of 7.0).",
+    "old": "import { experimental_customProvider } from 'ai'",
+    "new": "import { customProvider } from 'ai'"
+  },
+  "sources": [
+    {
+      "kind": "official_release",
+      "url": "https://github.com/vercel/ai/releases/tag/ai%407.0.0",
+      "retrieved_at": "2026-08-28T03:20:00Z"
+    },
+    {
+      "kind": "migration_guide",
+      "url": "https://github.com/vercel/ai/blob/main/content/docs/08-migration-guides/23-migration-guide-7-0.mdx",
+      "retrieved_at": "2026-08-28T03:20:00Z",
+      "note": "States: 'The deprecated experimental_customProvider export has been removed in AI SDK 7. Replace it with customProvider.'"
+    },
+    {
+      "kind": "package_registry",
+      "url": "https://registry.npmjs.org/ai",
+      "retrieved_at": "2026-08-28T03:44:00Z",
+      "note": "time['7.0.0'] = 2026-06-25T12:47:23.880Z. The 6.0.x line remains separately maintained after the 7.0.0 release."
+    }
+  ],
+  "verification": {
+    "kind": "executable_fixture",
+    "fixture": "cases/case-vercel-ai-custom-provider-v7",
+    "notes": "The case validator imports the solution against pinned ai@7.0.0 and exercises provider behaviour; the known-stale control fails at import because the export is absent."
+  },
+  "verified_at": "2026-08-28T04:28:36Z",
+  "status": "case_validated",
+  "revision": 1,
+  "notes": "version_before is recorded as 6.0.x: the removal ships with the 7.0.0 major while the 6.0.x line continues to receive releases in parallel, so no single 6.0.x version is 'the last before'."
+}

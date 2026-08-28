@@ -1,0 +1,30 @@
+{
+  "schema_version": "0.1.0",
+  "case_id": "case-vercel-ai-custom-provider-v7",
+  "event_id": "vercel.ai.2026-06-25.remove-experimental-custom-provider",
+  "case_version": 1,
+  "task": "The workspace pins ai@7.0.0. Using the ai package's provider-construction API, expose the stub model exported by src/stub-model.mjs as a provider under the language model id 'fast', and export the provider object as `provider` from src/solution.mjs. Do not call any network API. The deterministic validator must pass (it checks that resolving 'fast' yields the stub's model identity and that unknown ids are rejected).",
+  "workspace_fixture": "fixture",
+  "solution_path": "src/solution.mjs",
+  "target_environment": {
+    "runtime": "node",
+    "runtime_version": ">=22",
+    "dependencies": {
+      "ai": "7.0.0"
+    }
+  },
+  "setup": {
+    "install_command": "npm install --no-audit --no-fund"
+  },
+  "validator": {
+    "kind": "command",
+    "command": "node validator/validate.mjs",
+    "timeout_ms": 180000
+  },
+  "controls": {
+    "known_stale_fixture": "controls/stale",
+    "known_current_fixture": "controls/current"
+  },
+  "expected_stale_failure": "Module load fails: ai@7 no longer provides the named export 'experimental_customProvider' (ESM named-export resolution error). Recorded from observation by the control harness.",
+  "notes": "The task deliberately says 'provider-construction API' without naming the symbol; stale knowledge reaches for the removed experimental_ alias, current knowledge uses the stable name."
+}

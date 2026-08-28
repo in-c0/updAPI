@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/in-c0/updAPI/blob/main/schemas/run-manifest.schema.json",
+  "title": "UpdAPI run manifest",
+  "description": "Attributes one benchmark run to the exact system and environment that produced it. Unknown product internals are recorded as \"unknown\", never inferred. See docs/BENCHMARK_SPEC.md section 5.3. schema_version 0.1.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "benchmark_version",
+    "run_id",
+    "case_id",
+    "case_version",
+    "started_at",
+    "condition",
+    "agent",
+    "tools",
+    "environment",
+    "workspace_hash",
+    "dependency_lock_hash",
+    "budgets",
+    "harness_retries_allowed"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "benchmark_version": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 8 },
+    "case_id": { "type": "string" },
+    "case_version": { "type": "integer", "minimum": 1 },
+    "started_at": { "type": "string", "format": "date-time" },
+    "condition": {
+      "description": "Evaluation condition per BENCHMARK_SPEC.md section 7.",
+      "enum": [
+        "agent_default",
+        "no_web",
+        "no_external_retrieval",
+        "authoritative_docs_supplied",
+        "updapi_mcp",
+        "no_execution",
+        "control_stale",
+        "control_current",
+        "control_human_fixed"
+      ]
+    },
+    "agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["product", "product_version", "model"],
+      "properties": {
+        "product": { "type": "string", "description": "e.g. claude-code, codex-cli, cursor, none (control runs)." },
+        "product_version": { "type": "string" },
+        "model": { "type": "string", "description": "Underlying model id when exposed, else \"unknown\"." },
+        "model_version": { "type": "string" },
+        "reasoning_setting": { "type": "string", "description": "Effort/reasoning knob when exposed, else \"unknown\"." }
+      }
+    },
+    "tools": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["web_search", "repository_access", "execution", "retrieval_mcp"],
+      "properties": {
+        "web_search": { "$ref": "#/$defs/capability" },
+        "repository_access": { "$ref": "#/$defs/capability" },
+        "execution": { "$ref": "#/$defs/capability" },
+        "package_install": { "$ref": "#/$defs/capability" },
+        "retrieval_mcp": { "$ref": "#/$defs/capability" },
+        "notes": { "type": "string" }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["os", "runtime"],
+      "properties": {
+        "os": { "type": "string" },
+        "runtime": { "type": "string", "description": "e.g. node 22.12.0" },
+        "container": { "type": "string", "description": "Image/id when containerized, else \"none\"." },
+        "endpoint_region": { "type": "string" }
+      }
+    },
+    "workspace_hash": {
+      "type": "string",
+      "description": "Content hash of the starting workspace (fixture) the run began from."
+    },
+    "dependency_lock_hash": {
+      "type": "string",
+      "description": "Hash of the dependency lockfile in effect, or \"none\"."
+    },
+    "budgets": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "timeout_ms": { "type": ["integer", "null"] },
+        "max_turns": { "type": ["integer", "null"] },
+        "max_tokens": { "type": ["integer", "null"] }
+      }
+    },
+    "harness_retries_allowed": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Harness-level reruns permitted. Agent-native retries inside one product run are part of the trajectory, not counted here."
+    },
+    "duration_ms": { "type": ["integer", "null"] },
+    "usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tokens_in": { "type": ["integer", "null"] },
+        "tokens_out": { "type": ["integer", "null"] },
+        "tool_calls": { "type": ["integer", "null"] },
+        "cost_usd_estimate": { "type": ["number", "null"] }
+      }
+    },
+    "notes": { "type": "string" }
+  },
+  "$defs": {
+    "capability": {
+      "enum": ["allowed", "denied", "unavailable", "unknown"]
+    }
+  }
+}

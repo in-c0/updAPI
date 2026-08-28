@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/in-c0/updAPI/blob/main/schemas/benchmark-case.schema.json",
+  "title": "UpdAPI benchmark case",
+  "description": "Binds a verified change event to a concrete developer task with a deterministic validator and stale/current controls. See docs/BENCHMARK_SPEC.md section 5.2. schema_version 0.1.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "case_id",
+    "event_id",
+    "case_version",
+    "task",
+    "workspace_fixture",
+    "target_environment",
+    "setup",
+    "validator",
+    "controls"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "case_id": {
+      "type": "string",
+      "pattern": "^case-[a-z0-9][a-z0-9-]*$"
+    },
+    "event_id": {
+      "type": "string",
+      "description": "Must reference an existing change event id."
+    },
+    "case_version": { "type": "integer", "minimum": 1 },
+    "task": {
+      "type": "string",
+      "minLength": 40,
+      "description": "The developer objective given to an agent. Must reproduce a plausible task for which stale API knowledge can affect implementation; must not gratuitously reveal the changed syntax."
+    },
+    "workspace_fixture": {
+      "type": "string",
+      "description": "Case-relative path to the workspace an agent starts from."
+    },
+    "solution_path": {
+      "type": "string",
+      "description": "Fixture-relative path of the file(s) the agent is expected to produce/modify. Controls replace exactly these paths."
+    },
+    "target_environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runtime", "runtime_version", "dependencies"],
+      "properties": {
+        "runtime": { "enum": ["node", "python", "deno", "bun"] },
+        "runtime_version": { "type": "string" },
+        "dependencies": {
+          "type": "object",
+          "description": "Exact pinned versions, matching the fixture manifest.",
+          "additionalProperties": { "type": "string" }
+        }
+      }
+    },
+    "setup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["install_command"],
+      "properties": {
+        "install_command": {
+          "type": "string",
+          "description": "Command that makes the fixture runnable offline-deterministically (run in the fixture directory)."
+        }
+      }
+    },
+    "validator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "command"],
+      "properties": {
+        "kind": {
+          "enum": ["command"],
+          "description": "v0 supports command validators: exit 0 = verified success, non-zero = failure. The validator, not an LLM judge, decides."
+        },
+        "command": { "type": "string" },
+        "timeout_ms": { "type": "integer", "minimum": 1000, "default": 120000 }
+      }
+    },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["known_stale_fixture", "known_current_fixture"],
+      "properties": {
+        "known_stale_fixture": {
+          "type": "string",
+          "description": "Case-relative dir whose files, overlaid on the fixture, implement the task the pre-change way. The validator MUST reject it."
+        },
+        "known_current_fixture": {
+          "type": "string",
+          "description": "Case-relative dir whose files, overlaid on the fixture, implement the task the post-change way. The validator MUST accept it."
+        }
+      }
+    },
+    "expected_stale_failure": {
+      "type": "string",
+      "description": "What the stale control's failure looks like (error class/message family), recorded after observation - never guessed."
+    },
+    "notes": { "type": "string" }
+  }
+}

@@ -2,10 +2,13 @@
   "name": "updapi-remote",
   "version": "1.0.0",
   "type": "module",
-  "description": "![updAPI](https://github.com/user-attachments/assets/7a67269e-5ce0-480d-95d8-cd7dfe79ca87)",
+  "description": "Living API evolution dataset and frontier coding-agent freshness benchmark",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
+    "bench:validate": "node tools/bench/validate-data.mjs",
+    "bench:controls": "node tools/bench/run-controls.mjs",
+    "bench:evidence": "node tools/bench/capture-registry-evidence.mjs",
     "check-links": "node tools/check-links.mjs",
     "check-links:fix": "node tools/check-links.mjs --fix",
     "mcp": "node mcp/server.mjs",
@@ -13,9 +16,15 @@
     "realign:apply": "node tools/realign-columns.mjs --apply",
     "verify-alignment": "node tools/verify-alignment.mjs"
   },
-  "keywords": [],
+  "keywords": [
+    "api-evolution",
+    "benchmark",
+    "coding-agents",
+    "llm-evaluation",
+    "api-freshness"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.0",
     "cheerio": "^1.0.0",
@@ -25,5 +34,9 @@
     "mocha": "^11.1.0",
     "playwright": "^1.49.1",
     "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
   }
 }

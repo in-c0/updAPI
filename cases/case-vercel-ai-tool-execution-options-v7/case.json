@@ -1,0 +1,31 @@
+{
+  "schema_version": "0.1.0",
+  "case_id": "case-vercel-ai-tool-execution-options-v7",
+  "event_id": "vercel.ai.2026-06-25.remove-toolcalloptions-type",
+  "case_version": 1,
+  "task": "The workspace pins ai@7.0.0 and a current TypeScript. Implement makeAuditedExecute in src/solution.ts: given a tool execute function (input, options) => output and an audit log (src/audit.ts), return a wrapped function with the same signature that records { toolCallId, at } before delegating. Type the options parameter with the type the ai package exports for the second argument of a tool's execute function. Acceptance is strict compilation by the pinned TypeScript.",
+  "workspace_fixture": "fixture",
+  "solution_path": "src/solution.ts",
+  "target_environment": {
+    "runtime": "node",
+    "runtime_version": ">=22",
+    "dependencies": {
+      "ai": "7.0.0",
+      "typescript": "7.0.2"
+    }
+  },
+  "setup": {
+    "install_command": "npm install --no-audit --no-fund"
+  },
+  "validator": {
+    "kind": "command",
+    "command": "node validator/validate.mjs",
+    "timeout_ms": 120000
+  },
+  "controls": {
+    "known_stale_fixture": "controls/stale",
+    "known_current_fixture": "controls/current"
+  },
+  "expected_stale_failure": "TypeScript cannot resolve the removed exported type (TS2305-family error at the import site). Recorded from observation by the control harness.",
+  "notes": "Deliberately the one compile-gated case among the first three: a removed exported TYPE surfaces at compile time by nature, so the pinned compiler in strict mode IS the deterministic oracle. The other two launch cases use runtime/behavioural validators (see issue #24 reviewer constraint)."
+}

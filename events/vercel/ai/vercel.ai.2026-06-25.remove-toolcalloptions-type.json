@@ -1,0 +1,47 @@
+{
+  "schema_version": "0.1.0",
+  "id": "vercel.ai.2026-06-25.remove-toolcalloptions-type",
+  "provider": "vercel",
+  "ecosystem": "npm",
+  "package": "ai",
+  "interface": "ToolCallOptions",
+  "version_before": "6.0.x",
+  "version_after": "7.0.0",
+  "published_at": "2026-06-25T12:47:23.880Z",
+  "first_observed_at": "2026-08-28T02:53:02Z",
+  "change": {
+    "type": "removal",
+    "secondary_types": ["parameter_type_change", "version_migration"],
+    "summary": "AI SDK 7 removes the deprecated ToolCallOptions type; typed code must use ToolExecutionOptions (the second argument of a tool's execute function). The failure surface is compile-time: TypeScript can no longer resolve the removed exported type.",
+    "old": "import type { ToolCallOptions } from 'ai'",
+    "new": "import type { ToolExecutionOptions } from 'ai'"
+  },
+  "sources": [
+    {
+      "kind": "official_release",
+      "url": "https://github.com/vercel/ai/releases/tag/ai%407.0.0",
+      "retrieved_at": "2026-08-28T03:20:00Z"
+    },
+    {
+      "kind": "migration_guide",
+      "url": "https://github.com/vercel/ai/blob/main/content/docs/08-migration-guides/23-migration-guide-7-0.mdx",
+      "retrieved_at": "2026-08-28T03:20:00Z",
+      "note": "States: 'The deprecated ToolCallOptions type has been removed in AI SDK 7. Replace all remaining usages with ToolExecutionOptions.'"
+    },
+    {
+      "kind": "package_registry",
+      "url": "https://registry.npmjs.org/ai",
+      "retrieved_at": "2026-08-28T03:44:00Z",
+      "note": "time['7.0.0'] = 2026-06-25T12:47:23.880Z."
+    }
+  ],
+  "verification": {
+    "kind": "executable_fixture",
+    "fixture": "cases/case-vercel-ai-tool-execution-options-v7",
+    "notes": "Type removals surface at compile time by nature, so this case's deterministic validator is the pinned TypeScript compiler in strict mode - deliberately the only compile-gated case among the first three (see the reviewer constraint on tsc trivia in issue #24)."
+  },
+  "verified_at": "2026-08-28T04:28:36Z",
+  "status": "case_validated",
+  "revision": 1,
+  "notes": "Shares the ai@7.0.0 release with vercel.ai.2026-06-25.remove-experimental-custom-provider but exercises the type surface rather than the runtime export surface."
+}

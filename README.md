@@ -1,442 +1,403 @@
+# UpdAPI
 
-# UpdAPI 🔧
+> **A living benchmark of how quickly frontier coding agents adapt to real API changes.**
 
-### "Update your knowledge base with the latest **API** resources"
-### A free, lightweight tool to streamline the discovery of API documentation, policies, and community resources and enhancing LLMs with accurate, relevant context
+UpdAPI tracks API evolution over time and turns verified, timestamped changes into reproducible evaluation cases for frontier coding models and agents.
 
- ![updAPI](https://github.com/user-attachments/assets/7a67269e-5ce0-480d-95d8-cd7dfe79ca87)
+The long-term goal is a public **API Freshness Observatory**: an independently reproducible view of how well AI coding systems keep pace with the software ecosystem they are increasingly asked to build.
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)  
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](#contributing)  
-[![Build Status](https://img.shields.io/badge/status-under_construction-orange.svg)](#status)  
-[![Open Issues](https://img.shields.io/github/issues/in-c0/updapi)](https://github.com/in-c0/updapi/issues)  
+> **Direction reset — August 2026.** The original UpdAPI index is no longer the product. It is becoming part of the measurement infrastructure.
 
 ---
-> Like the project? Please give it a Star so it can reach more people >>>>> [![Star on GitHub](https://img.shields.io/badge/⭐-Star_on_GitHub-blue?style=flat)](https://github.com/UpdAPI/updAPI/stargazers)
 
+## Why UpdAPI changed direction
 
-> ⚠️ **Under Construction**  
-> This project is in the early stages of development and may not function as intended yet. Contributions, feedback, and ideas are highly welcome!
+UpdAPI was originally created to address a common failure mode in LLM-assisted programming: models frequently relied on outdated API knowledge, producing deprecated methods, invalid endpoints, and code based on old documentation.
 
-## 📋 Links to Public API DOCS
+That environment has changed substantially.
 
-`api-docs-urls.csv` contains a **centralized collection of popular APIs** with **links to their official documentation and associated policies**. It includes tools to scrape, preprocess, and update the dataset for better usability and retrieval.
+Modern coding systems are no longer just static language models answering from training data. Frontier agents can search the web, inspect repositories and installed packages, retrieve official documentation, execute code, observe failures, and iteratively repair their implementations at inference time.
 
-api-docs-urls.csv:
+A useful signal of this shift came from Cursor in August 2026, when it removed its `@Docs` documentation-indexing feature. Cursor explained that agents had become good enough at locating and reading documentation themselves that maintaining a separate documentation index was no longer necessary.
 
-| API Name              | Official Documentation URL                           | Privacy Policy URL                 | Terms of Service URL         | Rate Limiting Policy URL               | Changelog/Release Notes URL             | Security Policy URL               | Developer Community/Forum URL           |
-|-----------------------|-----------------------------------------------------|------------------------------------|-------------------------------|----------------------------------------|------------------------------------------|-----------------------------------|------------------------------------------|
-| OpenAI API           | [Documentation](https://platform.openai.com/docs)   | [Privacy](https://openai.com/privacy) | [Terms](https://openai.com/terms) | [Rate Limits](https://platform.openai.com/docs/guides/rate-limits) | [Changelog](https://platform.openai.com/docs/release-notes) | [Security](https://openai.com/security) | [Community](https://community.openai.com/) |
-...
+Source: [Cursor staff explanation, 5 August 2026](https://forum.cursor.com/t/cursor-3-14-2-sunsetting-docs/167423/7)
 
-> ⚠️ **The URLs are auto-generated and require manual verification**  
-> They are now re-verified weekly — see [Dataset freshness](#-dataset-freshness) below.
+This changes the interesting question.
 
+The original question was:
 
-## 🔄 Dataset freshness
+> **How do we give an LLM current API documentation?**
 
-A table of URLs is only worth what its URLs are worth, and URLs rot. Documentation
-sites reorganise, whole doc platforms migrate (`api.slack.com` → `docs.slack.dev`,
-`stripe.com/docs` → `docs.stripe.com`), and pages are retired. So the dataset
-re-verifies itself.
+UpdAPI now asks:
 
-```bash
-npm run check-links        # probe every URL in every column, write reports
-npm run check-links:fix    # also rewrite rows whose URL now redirects elsewhere
+> **Do frontier coding agents still suffer from stale API knowledge — and if so, how quickly do they adapt when APIs change?**
+
+That is an empirical question, and it should be measured continuously rather than assumed.
+
+---
+
+## What UpdAPI is becoming
+
+UpdAPI has three connected outputs.
+
+### 1. API Evolution Dataset
+
+A timestamped, provenance-rich record of real API and SDK changes:
+
+- newly introduced APIs
+- deprecated APIs
+- removed APIs
+- renamed methods and endpoints
+- signature and schema changes
+- SDK and major-version migrations
+- behavioural changes
+- documentation changes
+- rate-limit, policy, and other developer-relevant changes
+
+Each accepted change event should be traceable to authoritative evidence and, where practical, include executable before/after fixtures.
+
+### 2. Frontier API Freshness Benchmark
+
+Verified API-change events become evaluation cases for contemporary coding systems.
+
+The benchmark evaluates the workflow developers actually use:
+
+```text
+task
+  → agent
+  → search / retrieval / repository inspection
+  → implementation
+  → execution
+  → diagnosis / recovery
+  → verified result
 ```
 
-[`.github/workflows/link-freshness.yml`](.github/workflows/link-freshness.yml)
-runs this every Monday and opens a pull request with whatever it can repair.
+The primary object of study is therefore the **coding agent as a system**, not merely a naked model completion.
 
-**What it does and does not repair.** A URL that now redirects somewhere else has
-a known-good replacement — the place it redirects to — so those rows are rewritten
-automatically. A dead URL does not; inventing a plausible replacement would put a
-fabrication in the dataset, so 404s are reported for a human to resolve rather
-than guessed at. `403` and `429` are recorded as `blocked`, never as dead: being
-refused by a bot-detecting CDN says nothing about whether the page exists, and
-treating a Cloudflare challenge as rot would silently delete good rows.
+Controlled variants can still isolate the contribution of individual capabilities, for example:
 
-### Outputs
+- model without external retrieval
+- agent with its normal tools
+- agent with web search disabled
+- agent with authoritative current documentation supplied
+- agent with a retrieval layer such as MCP/RAG
+- agent with execution and repair enabled
 
-| file | what it holds |
+This lets us measure whether extra documentation infrastructure still provides meaningful value rather than presuming that it does.
+
+### 3. Public API Freshness Observatory
+
+Results should ultimately be published as a continuously updated, drill-downable benchmark rather than buried in repository artifacts.
+
+A public view could compare systems on metrics such as:
+
+| Metric | Question |
 |---|---|
-| `datasets/link-health.json` | full snapshot — per-column tallies, every non-OK finding, `/llms.txt` availability per host |
-| `datasets/link-health-history.csv` | one row per column per run, appended forever |
+| **Verified task success** | Does the final implementation actually work against the target API/version? |
+| **Stale API error rate** | How often does the system use an obsolete interface? |
+| **API knowledge lag** | How long after a real API change until the system reliably succeeds? |
+| **Recovery rate** | When initially wrong, can the agent diagnose and repair the failure? |
+| **Retrieval lift** | How much do web/docs/RAG tools improve verified success? |
+| **Reliability** | Does the system succeed repeatedly, not merely once? |
+| **Cost / latency** | What does successful recovery cost in time, tokens, and tool calls? |
 
-The history file is the point. A single snapshot says the dataset is stale today;
-the series says how fast documentation rots, which is a question nobody seems to
-have measured.
-
-### Two caveats on reading the numbers
-
-**Per-column statistics cover structurally complete rows only.** Most rows in this
-dataset omit fields rather than leaving them empty, which shifts every later value
-one column to the left — so a privacy-policy URL can end up sitting in the
-documentation column. Counting those rows would make "documentation URLs are N%
-healthy" partly a statement about privacy policies. The checker reports the
-alignment problem separately under `alignment` rather than folding it into rot.
-
-**`ok` is a strict test.** It means the stored URL returned 200 at exactly that
-address. A URL that resolves only after a redirect is counted as `moved`, not
-`ok`, because for a dataset whose product *is* the URL, pointing at a redirect
-stub is a defect even when a human following it lands somewhere fine.
+The headline should remain grounded in verified execution, with secondary metrics explaining *why* systems differ.
 
 ---
 
-## 🧭 Column alignment
+## The key idea: temporal evaluation
 
-Rot was not this dataset's worst defect. `utils/verify_and_clean_csv.py` used to
-**drop** a URL it judged broken rather than blanking it:
+Static API benchmarks decay quickly. Once their cases are old, they become increasingly likely to appear in training data, examples, benchmark-specific optimizations, or model memory.
 
-```python
-for url in urls:
-    if is_broken_url(url):
-        print(f"URL for {api_name} is invalid: {url}")
-    else:
-        cleaned_row.append(url)   # broken URLs simply vanish
+UpdAPI instead aims to continuously capture **new, timestamped API changes** and turn them into temporal holdouts.
+
+A simplified lifecycle:
+
+```text
+OBSERVE
+  official changelogs, release notes, SDK releases, specs, docs
+
+VERIFY
+  confirm the change against authoritative sources and/or executable behaviour
+
+FREEZE
+  store provenance, timestamps, before/after states, fixtures, and expected outcome
+
+EVALUATE
+  run the same case across coding systems under defined tool conditions
+
+REPEAT
+  rerun over time to measure adoption and reliability
+
+PUBLISH
+  leaderboard + per-case evidence + methodology + reproducible artifacts
 ```
 
-Dropping shortens the row, so every later value slides one column left and gets
-filed under the wrong heading. `Microsoft Graph People API` ended up serving its
-privacy statement as its documentation URL. Those rows were not stale — they were
-**mislabelled**, which is worse: a consumer gets a confident wrong answer with
-nothing to indicate a problem.
+This makes **time-to-adoption** measurable.
 
-It compounded, too, because `is_broken_url` returned `True` on *any* request
-exception with a five-second timeout. A slow host, a TLS hiccup or a 403 from a
-bot-detecting CDN permanently deleted a good URL — and shifted everything after it.
+Example:
 
-Both bugs are fixed: broken URLs are blanked in place, rows are padded to the full
-width, and only a confirmed `404`/`410` counts as broken.
+```text
+API change published: 2026-08-01
 
-### Repairing what was already damaged
-
-```bash
-npm run realign            # dry run — report what would move
-npm run realign:apply      # write the repaired CSV
-npm run verify-alignment   # prove no shifted rows remain
+2026-08-01   Agent A: fail   Agent B: fail   Agent C: fail
+2026-08-03   Agent A: pass   Agent B: fail   Agent C: fail
+2026-08-07   Agent A: pass   Agent B: pass   Agent C: fail
+2026-08-12   Agent A: pass   Agent B: pass   Agent C: pass
 ```
 
-Dropping preserves order, so the surviving URLs are still in their original
-relative sequence, just compressed leftward. Repair is therefore an
-**order-preserving assignment** of the observed URLs back onto the column slots,
-solved exactly with dynamic programming and scored on what each URL looks like.
-A URL that contradicts every column still free is left blank and recorded in
-`datasets/realignment.json` rather than filed somewhere wrong — the entire point
-being that a mislabelled URL is worse than a missing one.
-
-The first pass moved **1,089 URLs across 369 rows**.
-
-### On trusting the verification
-
-`verify-alignment` runs a **negative control before it reports anything**: it
-deliberately re-breaks a copy of the data the way the old cleaner did and requires
-the detector to catch it. A detector that always returns zero also reports zero,
-so a clean result only means something once the control has fired.
-
-```
-negative control (data deliberately re-shifted): 147 rows detected
-api-docs-urls.csv:                               0 rows detected
-```
+Rather than asking whether a model has memorised an old benchmark, UpdAPI can observe how quickly coding systems absorb or recover from changes occurring in the live software ecosystem.
 
 ---
 
-## 🔌 MCP server
+## Benchmark principles
 
-The index is most useful to a coding agent, so it is exposed over the
-[Model Context Protocol](https://modelcontextprotocol.io). Any MCP client —
-Claude Code, Claude Desktop, Cursor, VS Code, Windsurf, Zed — can query it.
+UpdAPI should optimize for measurement quality before leaderboard scale.
 
-```bash
-npm install
-npm run mcp          # stdio server
-```
+### Verify outcomes, not prose
 
-Client configuration:
+Whenever practical, a benchmark case should end in an executable or otherwise deterministic assertion. "The answer sounds current" is not sufficient evidence.
+
+### Preserve provenance
+
+Every change event should retain:
+
+- canonical API / package identity
+- before and after versions
+- first observed / published timestamps
+- authoritative source URLs
+- archived evidence where licensing permits
+- change classification
+- expected modern usage
+- verification method
+- benchmark-case version
+
+### Separate discovery from evaluation
+
+The system that discovers a change must not silently decide that its interpretation is ground truth. High-value cases need independent verification or deterministic evidence.
+
+### Measure agents as deployed
+
+A coding agent's web search, repository inspection, terminal, package manager, and repair loop are part of the product developers use. Default-agent evaluation should preserve those capabilities and record them explicitly.
+
+### Include controlled ablations
+
+Agent-native evaluation should be complemented by controlled conditions when they answer a useful causal question, especially whether current documentation, web search, or RAG materially improves outcomes.
+
+### Treat reliability as first-class
+
+One lucky pass should not imply robust freshness. Repeated trials should be used where system nondeterminism can materially affect conclusions.
+
+### Keep benchmark versions immutable
+
+Published results must identify the benchmark version, case set, runner configuration, model/agent version, tool permissions, date, and scoring rules. Methodology changes create a new benchmark version rather than silently rewriting history.
+
+### Defend against contamination
+
+Recent change events are the strongest holdouts. Some evaluation cases may need an embargoed/private evaluation window before their full fixtures are released publicly. Public reproducibility and temporal integrity should both be preserved by releasing cases after their live evaluation window where appropriate.
+
+---
+
+## Initial scope
+
+Start small and high-confidence rather than attempting to monitor every API on the internet.
+
+The first corpus should focus on approximately 10–20 fast-moving, developer-relevant ecosystems with authoritative version/changelog evidence and practical executable verification. Candidate families include:
+
+- major AI model/provider SDKs
+- AI application SDKs
+- major web frameworks
+- cloud/edge developer platforms
+- payments
+- databases and hosted data platforms
+- high-usage npm/PyPI libraries with meaningful API evolution
+
+Selection should be based on measurable change frequency, developer relevance, verifiability, and benchmark diversity—not brand prestige alone.
+
+---
+
+## Change-event data model
+
+The durable asset is not a flat list of documentation URLs. It is a corpus of verified change events.
+
+Illustrative shape:
 
 ```json
 {
-  "mcpServers": {
-    "updapi": {
-      "command": "node",
-      "args": ["/absolute/path/to/updAPI/mcp/server.mjs"]
+  "id": "vendor.package.2026-08-01.signature-change",
+  "ecosystem": "npm",
+  "package": "example-sdk",
+  "version_before": "3.8.0",
+  "version_after": "4.0.0",
+  "published_at": "2026-08-01T00:00:00Z",
+  "first_observed_at": "2026-08-01T03:14:00Z",
+  "change": {
+    "type": "signature_change",
+    "old": "client.create(name, options)",
+    "new": "client.create({ name, ...options })"
+  },
+  "sources": [
+    {
+      "type": "official_changelog",
+      "url": "https://example.com/changelog"
     }
+  ],
+  "verification": {
+    "kind": "executable_test",
+    "fixture": "cases/vendor-package-signature-change/"
   }
 }
 ```
 
-### Tools
-
-| tool | what it answers |
-|---|---|
-| `search_apis` | "which entries match *stripe*?" — name search, returns the documentation URL |
-| `get_api_resources` | "give me everything indexed for this API" — docs, privacy, terms, rate limits, release notes, security, community |
-| `index_health` | "how much should I trust the answers above?" — freshness and per-column health |
-
-**Every URL is returned with its freshness.** Each resource carries when it was
-last verified and what the verifier saw (`ok`, `moved` with the redirect target,
-`dead`, `blocked`). Handing a model a link without saying how old the claim is
-invites it to trust a 404 — worse than returning nothing, because a tool result
-reads as authoritative. When no `link-health.json` is present the server reports
-`"verified": "unknown"` rather than implying the data is current.
-
-The `Rate Limiting Policy`, `Terms of Service` and `Security Policy` columns are
-the ones worth reaching for. General web search handles "where are the Stripe API
-docs" perfectly well; it does much worse on policy pages, which rank below
-marketing pages and are exactly where a model will confidently invent a number.
-
-To verify the server end-to-end after a change:
-
-```bash
-node tools/verify-mcp.mjs
-```
+The production schema will be versioned and stricter than this example. See [`docs/BENCHMARK_SPEC.md`](docs/BENCHMARK_SPEC.md).
 
 ---
 
-## 🛠 Adding More APIs to the Dataset
+## What happens to the existing UpdAPI index?
 
-### **Option 1: Manually Add to `api-docs-urls.csv`**
-You can manually add new entries to `api-docs-urls.csv` with the following format:
-```csv
-API_Name,Official_Documentation_URL,Privacy_Policy_URL,Terms_of_Service_URL,Rate_Limiting_Policy_URL,Changelog_Release_Notes_URL,Security_Policy_URL,Developer_Community_Forum_URL
-Example API,https://example.com/docs,https://example.com/privacy,https://example.com/tos,https://example.com/rate-limits,https://example.com/changelog,https://example.com/security,https://example.com/community
-```
+It stays useful, but its role changes.
 
-### **Option 2: Combine Multiple CSV Files**
-If you have additional entries in separate CSV files, use the provided Python utility script to merge them into the main dataset.
+`api-docs-urls.csv`, the URL verifier, alignment repair tooling, scraper experiments, and MCP server are now **legacy/source-acquisition infrastructure**. They can help discover authoritative resources, establish provenance, and study documentation movement over time.
 
-#### Combine CSV Files
-1. Ensure you have Python installed.
-2. Run the script:
-   ```bash
-   python utils/combine_csv.py new_entries.csv api-docs-urls.csv combined_dataset.csv
-   ```
-3. Replace the existing `api-docs-urls.csv` with the new `combined_dataset.csv`.
+They are no longer the core product thesis.
 
----
+In particular, UpdAPI should **not** spend substantial effort manually expanding a generic documentation directory merely so an agent can find documentation it could already locate itself.
 
-## What can we do with the API URLs?
+Existing commands remain useful locally:
 
-**Use Case 1:**
- You can use the scrapers (fast-scraper.js or accurate-scraper.js) to extract content from API docs and enhance your LLM to provide specific and accurate answers about APIs
-
-**Workflow Example:**
-1. Retrieve relevant snippets with a custom script / Query the vector database for a user question
-2. Generate Answers with an LLM: Pass the retrieved snippets as context to the LLM (e.g., GPT-4 or LLaMA-2)
-
-   ```python
-   from transformers import AutoModelForCausalLM, AutoTokenizer
-   from faiss import read_index
-
-   # Load vector index
-   index = read_index('vector_index.faiss')
-
-   # Query embeddings
-   user_query = "What are the rate limits for the OpenAI API?"
-   query_embedding = model.encode(user_query)
-   _, indices = index.search(np.array([query_embedding]), k=5)
-
-   # Retrieve relevant chunks
-   context = " ".join([documents[i] for i in indices[0]])
-
-   # Use an LLM to answer
-   model = AutoModelForCausalLM.from_pretrained('gpt-4')
-   tokenizer = AutoTokenizer.from_pretrained('gpt-4')
-
-   prompt = f"Context: {context}\nQuestion: {user_query}\nAnswer:"
-   inputs = tokenizer(prompt, return_tensors='pt')
-   outputs = model.generate(**inputs, max_new_tokens=200)
-   print(tokenizer.decode(outputs[0], skip_special_tokens=True))
-   ```
-
-**Use Case 2:**
-Maintain offline copies of API documentation for scenarios where internet access is unavailable or restricted. Offline access ensures reliability and speed when querying API documentation.
-
-**How?**
-- Use the scrapers to generate offline copies of the documentation in JSON, HTML, or Markdown formats.
-- Serve these copies locally or integrate them into a lightweight desktop or web application.
-
-
-**Use Case 3:**
-API documentation changes frequently, and outdated information can lead to bugs or misconfigurations. Automating change detection ensures your knowledge base remains up-to-date.
-
-**How?**
-- Compare the current version of a page with its previously saved version.
-- Use hashing (e.g., MD5) or diff-checking tools to detect changes in content.
-
----
-
-## 🚀 How to Use the Scrapers
-
-
-
-### Check Python Version
-**Recommended Python Versions**: Python >=3.7 and <3.10
-
-  1. Check your Python version:
-     ```bash
-     python --version
-     ```
-  2. If your Python version is incompatible, you can:
-     - Install a compatible version (e.g., Python 3.9).
-     - Use a virtual environment:
-       ```bash
-       python3.9 -m venv venv
-       source venv/bin/activate  # Or venv\Scripts\activate on Windows
-       pip install -r requirements.txt
-       ```
-  3. Alternatively, use Conda to install PyTorch and its dependencies:
-     ```bash
-     conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
-     ```
-
-
-
-We provide two scraping tools to suit different needs:
-- **`fast-scraper.js`**: A lightweight Cheerio-based scraper for fast retrieval of static content.
-- **`accurate-scraper.js`**: A Playwright-based scraper for handling JavaScript-loaded pages and more dynamic content.
-
-
-### **1. `fast-scraper.js` (Cheerio-Based)**
-- **Purpose**: For quickly scraping static API documentation pages.
-- **Strengths**:
-  - Lightweight and fast.
-  - Suitable for pages without JavaScript content.
-- **Limitations**:
-  - Does not handle JavaScript-loaded content.
-
-#### Run the Script
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
-2. Run the script:
-   ```bash
-   node fast-scraper.js
-   ```
-3. Results will be saved in `scraped_data_fast.json`.
-
----
-
-### **2. `accurate-scraper.js` (Playwright-Based)**
-- **Purpose**: For scraping API documentation pages that rely on JavaScript for rendering.
-- **Strengths**:
-  - Handles dynamic content and JavaScript-loaded pages.
-  - More accurate for modern, interactive documentation sites.
-- **Limitations**:
-  - Slower compared to `fast-scraper.js`.
-
-#### Run the Script
-1. Install Playwright:
-   ```bash
-   npm install playwright
-   ```
-2. Run the script:
-   ```bash
-   node accurate-scraper.js
-   ```
-3. Results will be saved in `scraped_data_accurate.json`.
-
----
-
-
-
-## 💡 How to Contribute
-
-> For first time contributors, I recommend you to check out https://github.com/firstcontributions/first-contributions and https://www.youtube.com/watch?v=YaToH3s_-nQ
-
-Contributions are welcome! Here's how you can contribute:
-
-
-1. **Add API Entries**:
-   - Add new API entries directly to `api-docs-urls.csv` or via pull request.
-   - Ensure URLs point to the **current version** of the documentation and policies.
-     
-2. **Verify API Entries**:
-   - Is the URL up-to-date?
-   - Is the URL root-level for the relevant page? (`api.com/docs/`, not `api.com/docs/nested`)
-   - Is the API doc public and does it comply with "robots.txt"?
-   - Does the URL provide all the expected information (changelogs, rate limits, etc) ?
-   - Is there any dynamically loaded page content that the scraper is able to extract?
-     
-3. **Improve Scrapers**:
-   - Enhance `fast-scraper.js` or `accurate-scraper.js` for better performance and compatibility.
-   - Add features like advanced error handling or field-specific scraping.
-     
-4. **Submit Pull Requests**:
-   - Fork the repository.
-   - Create a new branch for your changes.
-   - Submit a pull request for review.
-
-If you're using the scripts, first install dependencies:
 ```bash
 npm install
-pip install -r requirements.txt
+npm test
+npm run check-links
+npm run realign
+npm run verify-alignment
+npm run mcp
 ```
-This installs everything listed in package.json and requirements.txt
-
-
-### 🚀 Roadmap Features
-- 🔍 **Search & Browse:** Easily find APIs by keyword or category  (e.g., "Machine Learning APIs," "Finance APIs")  
-- 📄 **Latest API Metadata Retrieval:** Retrieve up-to-date API endpoints and parameters, directly from official documentation.
-- 🛠 **VS Code Integration:** Use the lightweight UpdAPI extension to search and retrieve APIs directly from your terminal.  
 
 ---
 
-## 📜 License
+## Execution model
 
-This repository is licensed under the [MIT License](LICENSE).
+UpdAPI does **not** rely on GitHub Actions for benchmark operation or dataset maintenance.
 
----
+For now, collection and evaluation runners should be executable locally and in explicitly controlled compute environments. The architecture should remain portable so the same jobs can later be scheduled and supervised by persistent agent infrastructure such as XUXI without changing benchmark semantics.
 
-## Status  
+The benchmark must record the environment in which each run occurred; scheduler choice must never become hidden methodology.
 
-### 🛠 Current Phase:  
-- **Under Construction:** We’re building the core MVP features and testing functionality.  
+### Running the benchmark tooling (v0)
 
-### 📌 Known Issues:  
-- Limited API support.  
-- Some features may not work as expected.  
-- ~~Most rows are missing columns, so values shift left and land under the wrong
-  heading.~~ **Fixed** — the cause was `utils/verify_and_clean_csv.py` dropping
-  broken URLs instead of blanking them; see [Column alignment](#-column-alignment).  
+Everything runs locally; there is no CI dependency.
 
-Check the [Open Issues](https://github.com/in-c0/updapi/issues) for more details.
+```bash
+npm install
+npm run bench:validate     # schemas + dataset cross-reference checks
+npm run bench:controls     # prove every case validator REJECTS its known-stale
+                           # control and ACCEPTS its known-current control (no LLM involved)
+npm test                   # mocha suite, including negative controls that prove
+                           # the validator and the harness can themselves fail
+npm run bench:evidence -- <package> <version>   # re-derive registry evidence for an event
+```
 
----
-
-## Roadmap  
-
-### ✅ MVP Goals  
-- Basic search and browse functionality.  
-- JSON exports for select APIs.  
-- Direct links to official API documentation.  
-- Weekly automated link verification ([`link-freshness.yml`](.github/workflows/link-freshness.yml)).  
-- MCP server, so coding agents can query the index directly.  
-
-### 🔜 Future Enhancements  
-- IDE integrations (e.g., VS Code plugin).  
-- API update notifications via email/webhooks.  
-- Support for more APIs.  
+`bench:controls` is BENCHMARK_SPEC section 4.3 made executable: a case whose
+validator cannot reject its stale control is refused, because a detector that
+cannot fail is not evidence. Fixtures are mutated in place during a control
+run and restored byte-identically afterwards.
 
 ---
 
-## Community  
+## Roadmap
 
-- [Discussions](https://github.com/in-c0/updapi/discussions)  
-- [Bug Reports](https://github.com/in-c0/updapi/issues)  
+### Phase 0 — Methodology lock
+
+- define versioned change-event schema
+- define benchmark-case schema
+- define runner/run-manifest schema
+- define evidence and acceptance requirements
+- define scoring and repeated-run policy
+- define temporal holdout / publication policy
+- create a tiny hand-verified gold set
+
+### Phase 1 — First living corpus
+
+- capture 30–50 high-confidence change events across several ecosystems
+- create executable fixtures for the strongest cases
+- validate event ingestion and provenance
+- establish deterministic baseline checks independent of any LLM
+
+### Phase 2 — Agent benchmark
+
+- implement pluggable agent runners
+- run at least three materially different frontier coding systems
+- record complete run manifests and artifacts
+- add default-agent and controlled retrieval conditions
+- calculate reliability and time-to-adoption metrics
+
+### Phase 3 — Public observatory
+
+- publish methodology and benchmark versions
+- publish model/agent leaderboard
+- provide per-case drill-down with evidence
+- expose downloadable result data
+- chart API freshness longitudinally
+- rerun new frontier systems and new API-change cohorts continuously
+
+### Phase 4 — Longitudinal research asset
+
+- study API-change characteristics and documentation evolution over time
+- quantify which classes of changes cause the most agent failures
+- measure how agent tooling changes knowledge lag
+- publish reproducible analyses and benchmark reports
 
 ---
 
-## ❤️ Acknowledgments
+## What UpdAPI is *not*
 
-We thank all API providers for publishing robust documentation and fostering developer-friendly ecosystems. Your contributions make projects like this possible!
-Special thanks to:
+UpdAPI is not trying to become:
 
-- [Crawlee](https://github.com/apify/crawlee): A powerful web scraping and crawling library that simplifies the extraction of structured data from websites.
-- [OpenAPI](https://github.com/APIs-guru/openapi-directory): For setting the standard in API specifications and enabling better interoperability and accessibility.
+- another generic API directory
+- another documentation search engine
+- another RAG wrapper over public docs
+- another MCP directory
+- a benchmark designed to prove that UpdAPI itself improves scores
 
+The benchmark should remain useful even if its eventual conclusion is that frontier coding agents have almost completely solved stale API knowledge.
 
-## Questions?
+That result would itself be valuable.
 
-Send emails to support@updapi.com
+---
+
+## Related work and signals
+
+The problem is active, and UpdAPI should explicitly build on rather than ignore prior work.
+
+- Cursor's removal of `@Docs` is a concrete product signal that general-purpose agents are increasingly capable of finding their own documentation: [Cursor Community Forum](https://forum.cursor.com/t/cursor-3-14-2-sunsetting-docs/167423/7)
+- SotaDocs publishes a benchmark focused on API correctness/freshness and documentation assistance: [SotaDocs Benchmarks](https://sotadocs.com/benchmarks/)
+- Academic work on API evolution, deprecated API use, and temporal coding evaluation should be tracked in the benchmark methodology and related-work notes as the corpus matures.
+
+UpdAPI's intended differentiation is a **continuously refreshed, timestamped, independently reproducible benchmark built from real API evolution and evaluated on full coding-agent systems**.
+
+---
+
+## Contributing
+
+The highest-value contributions are no longer bulk additions of API names.
+
+Useful contributions include:
+
+- verified recent API change events
+- authoritative provenance sources
+- executable before/after fixtures
+- deterministic validators
+- agent-runner adapters
+- benchmark methodology review
+- contamination and leakage analysis
+- reproducibility improvements
+- public visualization and result exploration
+
+A small number of excellent cases is more valuable than thousands of weakly verified rows.
+
+---
+
+## License
+
+This repository is licensed under the [Apache License 2.0](LICENSE).

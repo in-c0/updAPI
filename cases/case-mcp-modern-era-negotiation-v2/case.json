@@ -1,0 +1,31 @@
+{
+  "schema_version": "0.1.0",
+  "case_id": "case-mcp-modern-era-negotiation-v2",
+  "event_id": "modelcontextprotocol.client.2026-07-27.opt-in-version-negotiation",
+  "case_version": 1,
+  "task": "The workspace pins @modelcontextprotocol/client and @modelcontextprotocol/server at 2.0.0. src/server-harness.mjs serves a local, current-generation MCP endpoint entirely in-process and exports its URL plus a fetch implementation that reaches it. Implement getServerIdentity({ url, fetch }) in src/solution.mjs: connect an MCP client to that endpoint (route all HTTP through the provided fetch), obtain the server's declared identity from the connection exchange, close cleanly, and return { name, version }. No sockets, no network, no credentials.",
+  "workspace_fixture": "fixture",
+  "solution_path": "src/solution.mjs",
+  "target_environment": {
+    "runtime": "node",
+    "runtime_version": ">=22",
+    "dependencies": {
+      "@modelcontextprotocol/client": "2.0.0",
+      "@modelcontextprotocol/server": "2.0.0"
+    }
+  },
+  "setup": {
+    "install_command": "npm install --no-audit --no-fund"
+  },
+  "validator": {
+    "kind": "command",
+    "command": "node validator/validate.mjs",
+    "timeout_ms": 90000
+  },
+  "controls": {
+    "known_stale_fixture": "controls/stale",
+    "known_current_fixture": "controls/current"
+  },
+  "expected_stale_failure": "Hard connect failure, observed: connect() rejects with SdkHttpError carrying JSON-RPC error -32022 'Unsupported protocol version: 2025-11-25' with data {supported: ['2026-07-28'], requested: '2025-11-25'} - the plain 2025 initialize handshake (the v2 client's DEFAULT; version negotiation is opt-in) against the modern-only strict endpoint. No identity is ever readable on this path.",
+  "notes": "Empirically grounded design, all observed against the GA 2.0.0 packages: (1) the high-level McpServer over a raw in-memory transport still serves the LEGACY era - a default client connects via initialize and receives serverInfo in the result body, and server/discover answers -32601 - so the modern 2026-07-28 wire lives on the createMcpHandler HTTP surface; (2) this fixture's endpoint uses legacy:'reject' (modern-only strict), the deployment posture the release notes' hard-connect-failure warning describes, served fully in-process via an injected fetch; (3) the stale control is the idiomatic 2025 pattern (default client), current code opts into versionNegotiation mode 'auto'. The sources' apparent disagreement (migration guide: graceful anonymous identity; release notes: hard connect failure) resolves by layer: identity-read within an established modern connection degrades gracefully, era mismatch against a strict endpoint hard-fails. This case exercises the era mismatch, with the identity read verified on the passing path."
+}
