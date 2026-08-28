@@ -30,7 +30,7 @@ function runRunner(casesDir, outDir, args) {
   }
 }
 
-function writeSyntheticCase(root, { breakValidator = false } = {}) {
+function writeSyntheticCase(root, { breakValidator = false, setupCommand = 'node -e "process.exit(0)"', validatorBody = null } = {}) {
   const caseDir = path.join(root, 'case-synthetic-runner');
   fs.mkdirSync(path.join(caseDir, 'fixture', 'src'), { recursive: true });
   fs.mkdirSync(path.join(caseDir, 'controls', 'stale', 'src'), { recursive: true });
@@ -41,7 +41,7 @@ function writeSyntheticCase(root, { breakValidator = false } = {}) {
   fs.writeFileSync(path.join(caseDir, 'fixture', 'src', 'impl.txt'), 'STUB\n');
   fs.writeFileSync(path.join(caseDir, 'controls', 'stale', 'src', 'impl.txt'), 'OLD\n');
   fs.writeFileSync(path.join(caseDir, 'controls', 'current', 'src', 'impl.txt'), 'NEW\n');
-  fs.writeFileSync(path.join(caseDir, 'validator', 'check.cjs'), `
+  fs.writeFileSync(path.join(caseDir, 'validator', 'check.cjs'), validatorBody ?? `
     const fs = require('node:fs');
     const path = require('node:path');
     const ws = process.env.UPDAPI_WORKSPACE || path.join(__dirname, '..', 'fixture');
@@ -59,7 +59,7 @@ function writeSyntheticCase(root, { breakValidator = false } = {}) {
     workspace_fixture: 'fixture',
     solution_path: 'src/impl.txt',
     target_environment: { runtime: 'node', runtime_version: '>=22', dependencies: {} },
-    setup: { install_command: 'node -e "process.exit(0)"' },
+    setup: { install_command: setupCommand },
     validator: {
       kind: 'command',
       command: breakValidator ? 'node validator/does-not-exist.cjs' : 'node validator/check.cjs',
@@ -160,6 +160,135 @@ describe('bench benchmark runner', function () {
     } finally {
       fs.rmSync(root, { recursive: true, force: true });
       fs.rmSync(outDir, { recursive: true, force: true });
+    }
+  });
+
+  it('executes case setup INSIDE the workspace (round-3 fix 1)', function () {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'updapi-runner-setup-'));
+    const outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'updapi-runner-out4-'));
+    try {
+      // The validator demands a marker file the fixture does NOT contain; only
+      // the setup command, executed in the workspace, creates it.
+      writeSyntheticCase(root, {
+        setupCommand: `node -e "require('node:fs').writeFileSync('setup-marker.txt','ready')"`,
+        validatorBody: `
+          const fs = require('node:fs');
+          const path = require('node:path');
+          const ws = process.env.UPDAPI_WORKSPACE || path.join(__dirname, '..', 'fixture');
+          const impl = fs.readFileSync(path.join(ws, 'src', 'impl.txt'), 'utf8').trim();
+          const setupRan = fs.existsSync(path.join(ws, 'setup-marker.txt'));
+          if (impl === 'NEW' && setupRan) { console.log('RESULT PASS'); process.exit(0); }
+          console.log('RESULT FAIL (impl=' + impl + ' setupRan=' + setupRan + ')');
+          process.exit(1);
+        `
+      });
+      const r = runRunner(root, outDir, ['--case', 'case-synthetic-runner', '--condition', 'control_current']);
+      assert.strictEqual(r.code, 0, r.output);
+      const res = JSON.parse(fs.readFileSync(path.join(findRunDirs(outDir)[0], 'result.json'), 'utf8'));
+      assert.strictEqual(res.attempt_status, 'scored');
+      assert.strictEqual(res.verified_success, true, 'setup must have run inside the workspace');
+      assert.ok(res.artifacts.includes('artifacts/setup.log'), 'setup.log must be captured');
+    } finally {
+      fs.rmSync(root, { recursive: true, force: true });
+      fs.rmSync(outDir, { recursive: true, force: true });
+    }
+  });
+
+  it('classifies setup failure as INVALID and never invokes the implementation (round-3 fix 1)', function () {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'updapi-runner-setupfail-'));
+    const outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'updapi-runner-out5-'));
+    try {
+      writeSyntheticCase(root, { setupCommand: 'node -e "process.exit(1)"' });
+      const r = runRunner(root, outDir, ['--case', 'case-synthetic-runner', '--condition', 'control_current']);
+      assert.strictEqual(r.code, 3, `expected invalid exit 3:\n${r.output}`);
+      const res = JSON.parse(fs.readFileSync(path.join(findRunDirs(outDir)[0], 'result.json'), 'utf8'));
+      assert.strictEqual(res.attempt_status, 'invalid');
+      assert.strictEqual(res.failure_class, 'environment_error');
+      assert.match(res.invalid_reason, /setup failed/);
+      assert.ok(!res.artifacts.includes('artifacts/validator.log'), 'validator must never run after setup failure');
+    } finally {
+      fs.rmSync(root, { recursive: true, force: true });
+      fs.rmSync(outDir, { recursive: true, force: true });
+    }
+  });
+
+  it('rejects exit 0 with no verdict marker as INVALID (round-3 fix 3)', function () {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'updapi-runner-vm1-'));
+    const outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'updapi-runner-out6-'));
+    try {
+      writeSyntheticCase(root, { validatorBody: `console.log('looks fine'); process.exit(0);` });
+      const r = runRunner(root, outDir, ['--case', 'case-synthetic-runner', '--condition', 'control_current']);
+      assert.strictEqual(r.code, 3, `a markerless exit 0 must not become a pass:\n${r.output}`);
+      const res = JSON.parse(fs.readFileSync(path.join(findRunDirs(outDir)[0], 'result.json'), 'utf8'));
+      assert.strictEqual(res.attempt_status, 'invalid');
+      assert.strictEqual(res.verified_success, false);
+      assert.match(res.invalid_reason, /no consistent verdict/);
+    } finally {
+      fs.rmSync(root, { recursive: true, force: true });
+      fs.rmSync(outDir, { recursive: true, force: true });
+    }
+  });
+
+  it('rejects a contradictory exit/verdict combination as INVALID (round-3 fix 3)', function () {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'updapi-runner-vm2-'));
+    const outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'updapi-runner-out7-'));
+    try {
+      writeSyntheticCase(root, { validatorBody: `console.log('RESULT PASS'); process.exit(1);` });
+      const r = runRunner(root, outDir, ['--case', 'case-synthetic-runner', '--condition', 'control_current']);
+      assert.strictEqual(r.code, 3, `PASS marker with non-zero exit must be invalid:\n${r.output}`);
+      const res = JSON.parse(fs.readFileSync(path.join(findRunDirs(outDir)[0], 'result.json'), 'utf8'));
+      assert.strictEqual(res.attempt_status, 'invalid');
+      assert.match(res.invalid_reason, /no consistent verdict/);
+    } finally {
+      fs.rmSync(root, { recursive: true, force: true });
+      fs.rmSync(outDir, { recursive: true, force: true });
+    }
+  });
+
+  it('normalizes agent infrastructure failures to INVALID, never scored (round-3 fix 2)', async function () {
+    const { classifyOutput } = await import('../tools/bench/adapters/claude-code.mjs');
+    assert.strictEqual(classifyOutput({ subtype: 'success' }), 'completed');
+    assert.strictEqual(classifyOutput({ is_error: false, terminal_reason: 'completed' }), 'completed');
+    assert.strictEqual(classifyOutput({ subtype: 'error_max_turns' }), 'agent_budget_exhausted');
+    assert.strictEqual(classifyOutput({ subtype: 'error_max_budget_usd' }), 'agent_budget_exhausted');
+    assert.strictEqual(classifyOutput({ subtype: 'error_during_execution' }), 'infrastructure_error');
+    assert.strictEqual(classifyOutput({ is_error: true }), 'infrastructure_error');
+    assert.strictEqual(classifyOutput(null), 'malformed_output');
+
+    // And end-to-end: a fake adapter that spawns fine but reports an
+    // execution error must yield an INVALID run, not a scored model failure.
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'updapi-runner-adap-'));
+    const outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'updapi-runner-out8-'));
+    const adapterDir = fs.mkdtempSync(path.join(os.tmpdir(), 'updapi-runner-adapters-'));
+    try {
+      writeSyntheticCase(root);
+      fs.writeFileSync(path.join(adapterDir, 'fake-err.mjs'), `
+        export const name = 'fake-err';
+        export function describeAgent() { return { product: 'fake', product_version: '0', model: 'none', available: true }; }
+        export async function run() {
+          return { invoked: true, exitCode: 0, timedOut: false, classification: 'infrastructure_error',
+                   output: { subtype: 'error_during_execution' }, durationMs: 5 };
+        }
+      `);
+      const r = (() => {
+        try {
+          const stdout = execFileSync(process.execPath, [runner, '--case', 'case-synthetic-runner', '--condition', 'agent_default', '--adapter', 'fake-err', '--allow-dirty', '--out', outDir], {
+            encoding: 'utf8',
+            stdio: ['ignore', 'pipe', 'pipe'],
+            env: { ...process.env, UPDAPI_CASES_DIR: root, UPDAPI_ADAPTER_DIR: adapterDir }
+          });
+          return { code: 0, output: stdout };
+        } catch (err) { return { code: err.status, output: `${err.stdout ?? ''}${err.stderr ?? ''}` }; }
+      })();
+      assert.strictEqual(r.code, 3, `infrastructure error must be invalid:\n${r.output}`);
+      const res = JSON.parse(fs.readFileSync(path.join(findRunDirs(outDir)[0], 'result.json'), 'utf8'));
+      assert.strictEqual(res.attempt_status, 'invalid');
+      assert.strictEqual(res.failure_class, 'adapter_error');
+      assert.match(res.invalid_reason, /infrastructure/);
+    } finally {
+      fs.rmSync(root, { recursive: true, force: true });
+      fs.rmSync(outDir, { recursive: true, force: true });
+      fs.rmSync(adapterDir, { recursive: true, force: true });
     }
   });
 

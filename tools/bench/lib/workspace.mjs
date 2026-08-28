@@ -64,18 +64,19 @@ function copyTree(src, dest, { includeNodeModules }) {
 }
 
 /**
- * Materialize a fresh run workspace from a case fixture.
+ * Materialize a fresh run workspace from a case fixture: the authored tree
+ * only. Dependencies are NOT copied from the fixture - the runner executes
+ * the case's setup command inside the workspace so the runnable environment
+ * is realized deterministically from the committed lockfile rather than
+ * inherited from whatever node_modules the host happened to have.
  * Returns { workspaceDir, runRoot, startingManifest, workspaceHash }.
  */
 export function materializeWorkspace({ fixtureDir, runId, baseDir }) {
   const runRoot = path.join(baseDir ?? path.join(os.tmpdir(), 'updapi-bench-runs'), runId);
   const workspaceDir = path.join(runRoot, 'workspace');
   if (fs.existsSync(workspaceDir)) throw new Error(`workspace already exists: ${workspaceDir}`);
-  // Authored tree first (hashed), then dependencies (attributed via lockfile).
   copyTree(fixtureDir, workspaceDir, { includeNodeModules: false });
   const startingManifest = hashManifest(workspaceDir);
-  const nm = path.join(fixtureDir, 'node_modules');
-  if (fs.existsSync(nm)) copyTree(nm, path.join(workspaceDir, 'node_modules'), { includeNodeModules: true });
   return { workspaceDir, runRoot, startingManifest, workspaceHash: manifestDigest(startingManifest) };
 }
 

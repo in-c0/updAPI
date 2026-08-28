@@ -31,6 +31,29 @@ function killTree(child) {
   } catch { /* already gone */ }
 }
 
+/**
+ * Normalize the product's own result contract so infrastructure failures can
+ * never be scored as model failures (round-3 review, blocker 2):
+ *   completed               -> scored, judged by the case validator
+ *   agent_budget_exhausted  -> scored failure (the product ran out of its own
+ *                              turn/budget limits while correctly invoked)
+ *   infrastructure_error    -> INVALID (auth/provider/CLI/internal execution
+ *                              failure - the agent never got a fair attempt)
+ *   malformed_output        -> INVALID (JSON was contractually requested and
+ *                              not returned; not proven to be a completed task)
+ */
+export function classifyOutput(parsed, { timedOut = false, exitCode = null } = {}) {
+  if (timedOut) return 'harness_timeout';
+  if (!parsed || typeof parsed !== 'object') return 'malformed_output';
+  const subtype = parsed.subtype ?? null;
+  if (subtype === 'error_max_turns' || subtype === 'error_max_budget_usd') return 'agent_budget_exhausted';
+  if (typeof subtype === 'string' && subtype.startsWith('error')) return 'infrastructure_error';
+  if (parsed.is_error === true) return 'infrastructure_error';
+  if (subtype === 'success' || parsed.is_error === false || parsed.terminal_reason === 'completed') return 'completed';
+  if (exitCode !== null && exitCode !== 0) return 'infrastructure_error';
+  return 'completed';
+}
+
 export function run({ workspaceDir, prompt, timeoutMs, log = () => {} }) {
   return new Promise((resolve) => {
     const started = Date.now();
@@ -58,6 +81,7 @@ export function run({ workspaceDir, prompt, timeoutMs, log = () => {} }) {
         invoked: true,
         exitCode: timedOut ? null : code,
         timedOut,
+        classification: classifyOutput(parsed, { timedOut, exitCode: timedOut ? null : code }),
         output: parsed,
         rawOutput: parsed ? null : out.slice(-100_000),
         stderr: err.slice(-20_000),

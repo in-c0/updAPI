@@ -51,9 +51,26 @@ const log = (line) => console.log(`[${runId}] ${line}`);
 // ---- provenance ----
 const git = spawnSync('git rev-parse HEAD', { cwd: repoRoot, shell: true, encoding: 'utf8' });
 const benchmarkCommit = git.status === 0 ? git.stdout.trim() : 'unknown';
+// A commit SHA cannot identify a dirty worktree: record dirtiness plus a hash
+// of the uncommitted diff, and refuse scored agent runs on a dirty tree
+// unless explicitly allowed for development.
+const dirtyProbe = spawnSync('git status --porcelain', { cwd: repoRoot, shell: true, encoding: 'utf8' });
+const benchmarkDirty = dirtyProbe.status === 0 ? dirtyProbe.stdout.trim().length > 0 : true;
+let benchmarkDiffSha = null;
+if (benchmarkDirty) {
+  const diff = spawnSync('git diff HEAD', { cwd: repoRoot, shell: true, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+  benchmarkDiffSha = diff.status === 0 ? sha256Text(diff.stdout) : 'unhashable';
+}
+if (benchmarkDirty && condition === 'agent_default' && !args.includes('--allow-dirty')) {
+  console.error('refusing an agent_default run from a dirty benchmark worktree (pass --allow-dirty for a development run)');
+  process.exit(2);
+}
 const npmProbe = spawnSync('npm --version', { shell: true, encoding: 'utf8', timeout: 60000 });
-const adapterPath = path.join(repoRoot, 'tools', 'bench', 'adapters', `${adapterName}.mjs`);
-const adapter = await import(new URL(`./adapters/${adapterName}.mjs`, import.meta.url));
+const adapterDir = process.env.UPDAPI_ADAPTER_DIR
+  ? path.resolve(process.env.UPDAPI_ADAPTER_DIR)
+  : path.join(repoRoot, 'tools', 'bench', 'adapters');
+const adapterPath = path.join(adapterDir, `${adapterName}.mjs`);
+const adapter = await import(new URL(`file:///${adapterPath.replaceAll('\\', '/')}`));
 const adapterHash = sha256File(adapterPath);
 const agentInfo = adapter.describeAgent();
 
@@ -82,6 +99,7 @@ const writeArtifact = (name, content) => {
   return p;
 };
 
+let setupOk = true;
 try {
   // 1. Fresh isolated workspace (outside the repo, per contract).
   workspace = materializeWorkspace({ fixtureDir, runId });
@@ -90,8 +108,27 @@ try {
   writeArtifact('task-prompt.md', taskText);
   writeArtifact('starting-hashes.json', JSON.stringify(workspace.startingManifest, null, 2));
 
+  // 1b. Execute the case's setup command INSIDE the workspace so the runnable
+  // environment is realized deterministically (npm ci from the committed
+  // lockfile for node fixtures), never inherited from host residue. Setup
+  // failure is an INVALID experiment; the control/agent is never invoked.
+  if (caseSpec.setup?.install_command) {
+    log(`setup: ${caseSpec.setup.install_command}`);
+    const setup = await runCommand(caseSpec.setup.install_command, workspace.workspaceDir, 900000, {});
+    writeArtifact('setup.log', setup.output || '(no output)');
+    if (setup.spawnError || setup.exitCode !== 0) {
+      attemptStatus = 'invalid';
+      invalidReason = `setup failed (exit ${setup.exitCode ?? 'spawn-error'}): ${setup.spawnError ?? 'see setup.log'}`;
+      failureClass = 'environment_error';
+      setupOk = false;
+      log(`INVALID: ${invalidReason}`);
+    }
+  }
+
   // 2. Produce the implementation under test.
-  if (condition === 'control_stale' || condition === 'control_current') {
+  if (!setupOk) {
+    // setup failed - nothing else may run
+  } else if (condition === 'control_stale' || condition === 'control_current') {
     const controlKey = condition === 'control_stale' ? 'known_stale_fixture' : 'known_current_fixture';
     overlayControl(path.join(caseDir, caseSpec.controls[controlKey]), workspace.workspaceDir);
     log(`overlaid ${condition} implementation`);
@@ -104,9 +141,25 @@ try {
       invalidReason = `adapter did not invoke: ${adapterOutcome.spawnError ?? 'unavailable'}`;
       failureClass = 'adapter_error';
     } else if (adapterOutcome.timedOut) {
-      // Contract: a timeout of a correctly invoked agent is a SCORED failure,
-      // even if the partial workspace would subsequently validate.
+      // Contract: a HARNESS timeout of a correctly invoked agent is a SCORED
+      // failure, even if the partial workspace would subsequently validate.
       failureClass = 'budget_exhausted';
+    } else {
+      // Normalize the product's own result contract (round-3 review blocker
+      // 2): infrastructure failures are invalid experiments, never scored.
+      const classification = adapterOutcome.classification ?? 'completed';
+      if (classification === 'infrastructure_error') {
+        attemptStatus = 'invalid';
+        invalidReason = `agent infrastructure failure (product reported ${adapterOutcome.output?.subtype ?? adapterOutcome.output?.terminal_reason ?? 'error'})`;
+        failureClass = 'adapter_error';
+      } else if (classification === 'malformed_output') {
+        attemptStatus = 'invalid';
+        invalidReason = 'agent produced no parseable result payload although JSON output was contractually requested';
+        failureClass = 'adapter_error';
+      } else if (classification === 'agent_budget_exhausted') {
+        // The product exhausted its own turn/budget limits: scored failure.
+        failureClass = 'budget_exhausted';
+      }
     }
   }
 
@@ -116,25 +169,30 @@ try {
       UPDAPI_WORKSPACE: workspace.workspaceDir
     });
     writeArtifact('validator.log', v.output);
+    validatorExit = v.exitCode;
+    // Symmetric verdict-marker contract (round-3 review blocker 3): exactly
+    // one internally consistent verdict is accepted.
+    //   exit 0   + RESULT PASS (and not FAIL) -> scored pass
+    //   non-zero + RESULT FAIL (and not PASS) -> scored fail
+    //   anything else (either exit without its marker, contradictory
+    //   exit/marker, both markers, timeout, spawn failure) -> INVALID
+    //   validator malfunction, never a scored model outcome.
+    const sawPass = /RESULT PASS/.test(v.output);
+    const sawFail = /RESULT FAIL/.test(v.output);
+    const consistentPass = v.exitCode === 0 && sawPass && !sawFail;
+    const consistentFail = v.exitCode !== null && v.exitCode !== 0 && sawFail && !sawPass;
     if (v.spawnError) {
       attemptStatus = 'invalid';
       invalidReason = `validator could not run: ${v.spawnError}`;
       failureClass = 'validator_error';
-    } else if (v.exitCode !== 0 && !/RESULT FAIL/.test(v.output)) {
-      // Verdict-marker contract: a validator that judges prints RESULT
-      // PASS/FAIL. A non-zero exit with no rendered verdict is a validator
-      // malfunction (crash, missing file, unhandled error) - an INVALID
-      // experiment, never a scored model failure.
+    } else if (!consistentPass && !consistentFail) {
       attemptStatus = 'invalid';
-      invalidReason = `validator exited ${v.exitCode ?? 'timeout'} without rendering a verdict`;
+      invalidReason = `validator rendered no consistent verdict (exit ${v.timedOut ? 'timeout' : v.exitCode}, RESULT PASS=${sawPass}, RESULT FAIL=${sawFail})`;
       failureClass = 'validator_error';
-      validatorExit = v.exitCode;
     } else {
-      validatorExit = v.exitCode;
-      const validatorPassed = v.exitCode === 0;
       const timedOutAgent = adapterOutcome?.timedOut === true;
-      verifiedSuccess = validatorPassed && !timedOutAgent;
-      if (timedOutAgent && validatorPassed) log('validator passed AFTER agent timeout - scored as failure per contract');
+      verifiedSuccess = consistentPass && !timedOutAgent;
+      if (timedOutAgent && consistentPass) log('validator passed AFTER agent timeout - scored as failure per contract');
       if (!verifiedSuccess && failureClass === null) {
         failureClass = condition === 'control_stale' ? 'stale_api_use' : 'unknown';
       }
@@ -163,6 +221,8 @@ const manifest = {
   schema_version: '0.2.0',
   benchmark_version: benchmarkVersion,
   benchmark_commit: benchmarkCommit,
+  benchmark_dirty: benchmarkDirty,
+  benchmark_diff_sha256: benchmarkDiffSha,
   run_id: runId,
   case_id: caseSpec.case_id,
   case_version: caseSpec.case_version,
@@ -203,6 +263,12 @@ const manifest = {
     : undefined
 };
 if (manifest.usage === undefined) delete manifest.usage;
+if (condition === 'agent_default') {
+  // Honest condition labeling until the read-isolation + clean-context
+  // boundary lands (round-3 review, blocker 4): host-context runs are
+  // development-only evidence.
+  manifest.notes = 'host-context development run: OS-level read isolation and clean agent-context suppression are not yet enforced for this condition';
+}
 assertValid(validators.runManifest, manifest, 'run manifest');
 fs.writeFileSync(path.join(runDir, 'manifest.json'), JSON.stringify(manifest, null, 2));
 

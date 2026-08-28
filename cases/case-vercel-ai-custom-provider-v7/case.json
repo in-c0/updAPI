@@ -14,7 +14,7 @@
     }
   },
   "setup": {
-    "install_command": "npm install --no-audit --no-fund"
+    "install_command": "npm ci --no-audit --no-fund"
   },
   "validator": {
     "kind": "command",

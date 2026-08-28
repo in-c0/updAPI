@@ -30,6 +30,14 @@
       "type": "string",
       "description": "Git commit SHA of the benchmark repository that authored this run."
     },
+    "benchmark_dirty": {
+      "type": "boolean",
+      "description": "true when the benchmark worktree carried uncommitted changes at run time; a bare commit SHA cannot identify a dirty tree."
+    },
+    "benchmark_diff_sha256": {
+      "type": ["string", "null"],
+      "description": "SHA-256 of `git diff HEAD` when benchmark_dirty, so a dirty-tree run is still content-addressable."
+    },
     "adapter": {
       "type": "object",
       "additionalProperties": false,
