@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-28T01:49:04.712Z",
+  "generatedAt": "2026-08-28T02:29:34.788Z",
   "csv": "api-docs-urls.csv",
   "rows": 562,
   "columns": [
@@ -26,18 +26,18 @@
   },
   "totals": {
     "checked": 2984,
-    "ok": 2790,
-    "moved": 17,
+    "ok": 2801,
+    "moved": 3,
     "dead": 105,
-    "blocked": 26,
+    "blocked": 29,
     "error": 6,
     "other": 40
   },
   "byColumn": {
     "Official_Documentation_URL": {
       "checked": 415,
-      "ok": 360,
-      "moved": 11,
+      "ok": 369,
+      "moved": 2,
       "dead": 30,
       "blocked": 7,
       "error": 0,
@@ -63,8 +63,8 @@
     },
     "Rate Limiting Policy": {
       "checked": 309,
-      "ok": 286,
-      "moved": 6,
+      "ok": 291,
+      "moved": 1,
       "dead": 8,
       "blocked": 7,
       "error": 0,
@@ -81,44 +81,34 @@
     },
     "Security Policy": {
       "checked": 434,
-      "ok": 419,
+      "ok": 417,
       "moved": 0,
       "dead": 4,
-      "blocked": 3,
+      "blocked": 5,
       "error": 0,
       "other": 8
     },
     "Developer Community/Forum": {
       "checked": 501,
-      "ok": 487,
+      "ok": 486,
       "moved": 0,
       "dead": 0,
-      "blocked": 1,
+      "blocked": 2,
       "error": 6,
       "other": 7
     }
   },
   "llmsTxt": {
     "hostsProbed": 167,
-    "hostsServing": 79,
-    "share": 0.4731,
+    "hostsServing": 78,
+    "share": 0.4671,
     "byHost": {
       "developers.openai.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "platform.openai.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
       "www.microsoft.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "aws.amazon.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -128,12 +118,17 @@
         "serves": true,
         "outcome": "ok"
       },
-      "login.microsoftonline.com": {
+      "aws.amazon.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "developers.google.com": {
+      "platform.openai.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "login.microsoftonline.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -153,12 +148,22 @@
         "serves": true,
         "outcome": "ok"
       },
+      "openai.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
       "community.openai.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "openai.com": {
+      "developers.google.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "learn.microsoft.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -173,37 +178,12 @@
         "serves": false,
         "outcome": "dead"
       },
-      "learn.microsoft.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
+      "www.zendesk.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "slackcommunity.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "community.hubspot.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "docs.slack.dev": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "docs.stripe.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "stripe.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "support.stripe.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -213,27 +193,32 @@
         "serves": false,
         "outcome": "dead"
       },
-      "community.zendesk.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
+      "docs.slack.dev": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "support.stripe.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "docs.stripe.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "api.slack.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "devcenter.heroku.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developers.hubspot.com": {
+      "community.hubspot.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "www.heroku.com": {
+      "devcenter.heroku.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -243,17 +228,17 @@
         "serves": false,
         "outcome": "dead"
       },
-      "www.zendesk.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
       "www.dropboxforum.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "adobedocs.github.io": {
+      "stripe.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "community.zendesk.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -262,6 +247,21 @@
         "status": 400,
         "serves": false,
         "outcome": "other"
+      },
+      "developers.hubspot.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "developers.facebook.com": {
+        "status": 400,
+        "serves": false,
+        "outcome": "other"
+      },
+      "adobedocs.github.io": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
       },
       "www.salesforce.com": {
         "status": 200,
@@ -273,17 +273,12 @@
         "serves": false,
         "outcome": "dead"
       },
-      "developers.facebook.com": {
-        "status": 400,
+      "www.box.com": {
+        "status": 403,
         "serves": false,
-        "outcome": "other"
+        "outcome": "blocked"
       },
-      "developer.box.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.yelp.com": {
+      "www.uber.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -293,7 +288,12 @@
         "serves": false,
         "outcome": "dead"
       },
-      "www.twilio.com": {
+      "www.eventbrite.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.heroku.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -303,27 +303,27 @@
         "serves": false,
         "outcome": "dead"
       },
-      "www.intuit.com": {
-        "status": 400,
-        "serves": false,
-        "outcome": "other"
-      },
       "developer.intuit.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "www.eventbrite.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
+      "www.twilio.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
-      "www.uber.com": {
-        "status": 404,
+      "www.intuit.com": {
+        "status": 400,
         "serves": false,
-        "outcome": "dead"
+        "outcome": "other"
       },
       "community.box.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.yelp.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -333,57 +333,57 @@
         "serves": true,
         "outcome": "ok"
       },
-      "developer.zendesk.com": {
-        "status": 404,
+      "www.zillow.com": {
+        "status": 403,
         "serves": false,
-        "outcome": "dead"
+        "outcome": "blocked"
       },
       "firebase.google.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "www.zillow.com": {
-        "status": 403,
-        "serves": false,
-        "outcome": "blocked"
-      },
-      "www.paypal.com": {
+      "developer.box.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
-      },
-      "techcommunity.microsoft.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "developer.paypal.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "support.google.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "moved"
       },
       "docs.cloud.google.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "x.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
+      "techcommunity.microsoft.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
       },
       "policy.pinterest.com": {
         "status": 403,
         "serves": false,
         "outcome": "blocked"
       },
-      "www.box.com": {
+      "developer.zendesk.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.shopify.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "x.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "www.paypal.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "developer.paypal.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -408,15 +408,15 @@
         "serves": false,
         "outcome": "other"
       },
+      "www.ibm.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
       "www.facebook.com": {
         "status": 400,
         "serves": false,
         "outcome": "other"
-      },
-      "www.shopify.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
       },
       "developer.zoominfo.com": {
         "status": 404,
@@ -428,27 +428,17 @@
         "serves": true,
         "outcome": "ok"
       },
-      "www.ibm.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
       "shopify.dev": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
-      },
-      "help.twilio.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
       },
       "www.wix.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "trello.com": {
+      "help.twilio.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -463,42 +453,17 @@
         "serves": true,
         "outcome": "ok"
       },
-      "developer.atlassian.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
       "help.twitter.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
+      "trello.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
       "developers.asana.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.zoominfo.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.youtube.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "developer.payoneer.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developers.intercom.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.reddit.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -508,7 +473,27 @@
         "serves": true,
         "outcome": "ok"
       },
+      "developers.intercom.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
       "www.intercom.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "developer.payoneer.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "developer.atlassian.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "plaid.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -518,47 +503,32 @@
         "serves": false,
         "outcome": "dead"
       },
+      "www.reddit.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "www.youtube.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
       "docs.github.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "plaid.com": {
+      "support.google.com": {
         "status": 200,
         "serves": true,
-        "outcome": "ok"
+        "outcome": "moved"
       },
       "github.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "developers.tiktok.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "core.telegram.org": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.notion.so": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "privacycenter.instagram.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "telegram.org": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "community.intercom.com": {
+      "advertising.amazon.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -568,20 +538,60 @@
         "serves": false,
         "outcome": "other"
       },
-      "www.tiktok.com": {
+      "core.telegram.org": {
         "status": 200,
         "serves": true,
-        "outcome": "moved"
-      },
-      "advertising.amazon.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
+        "outcome": "ok"
       },
       "github.blog": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
+      },
+      "privacycenter.instagram.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "community.intercom.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "calendly.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "www.tiktok.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "moved"
+      },
+      "redditinc.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "telegram.org": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "www.notion.so": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "community.withairbnb.com": {
+        "status": 403,
+        "serves": false,
+        "outcome": "blocked"
+      },
+      "developers.notion.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "developer.withairbnb.com": {
         "status": 404,
@@ -593,32 +603,7 @@
         "serves": false,
         "outcome": "dead"
       },
-      "developers.notion.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "community.withairbnb.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "redditinc.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "security.medium.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
       "policy.medium.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "calendly.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -628,57 +613,57 @@
         "serves": false,
         "outcome": "dead"
       },
-      "community.etsy.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "medium.engineering": {
-        "status": 200,
-        "serves": true,
-        "outcome": "moved"
-      },
-      "docs.foursquare.com": {
+      "developers.tiktok.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "dev.twitch.tv": {
-        "status": 403,
-        "serves": false,
-        "outcome": "blocked"
+      "security.medium.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "community.etsy.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "www.airbnb.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "discuss.dev.twitch.com": {
+      "developer.calendly.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "docs.foursquare.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
+      },
+      "medium.engineering": {
+        "status": 200,
+        "serves": true,
+        "outcome": "moved"
+      },
+      "dev.twitch.tv": {
+        "status": 403,
+        "serves": false,
+        "outcome": "blocked"
       },
       "www.zoom.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "foursquare.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "www.twitch.tv": {
+      "www.zoominfo.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "www.klarna.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "help.netflix.com": {
+      "discuss.dev.twitch.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -688,10 +673,35 @@
         "serves": true,
         "outcome": "ok"
       },
+      "foursquare.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.klarna.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
       "community.adobe.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
+      },
+      "www.twitch.tv": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "developer.spotify.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "about.gitlab.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "devforum.zoom.us": {
         "status": 404,
@@ -703,52 +713,17 @@
         "serves": true,
         "outcome": "ok"
       },
-      "about.gitlab.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developer.spotify.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "bitly.com": {
+      "help.netflix.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
-      },
-      "community.sendbird.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "legal.twitch.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "www.spotify.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "moved"
-      },
-      "secure.na1.adobesign.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "docs.gitlab.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
       },
       "netflixtechblog.com": {
         "status": 200,
         "serves": true,
         "outcome": "moved"
       },
-      "community.dynamics.com": {
+      "bitly.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -758,37 +733,62 @@
         "serves": false,
         "outcome": "dead"
       },
-      "forum.gitlab.com": {
+      "www.spotify.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "moved"
+      },
+      "community.sendbird.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "cloudinary.com": {
+      "developers.hellosign.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
+      },
+      "legal.twitch.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "docs.gitlab.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "secure.na1.adobesign.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "community.dynamics.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
       },
       "www.ringcentral.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
+      "forum.gitlab.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
       "jira.atlassian.com": {
         "status": 200,
         "serves": true,
         "outcome": "moved"
-      },
-      "developers.docusign.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
       },
       "community.ringcentral.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "trust.okta.com": {
+      "developers.docusign.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -808,7 +808,17 @@
         "serves": false,
         "outcome": "dead"
       },
-      "openweather.co.uk": {
+      "trust.okta.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.docusign.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "www.mongodb.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -818,10 +828,25 @@
         "serves": true,
         "outcome": "ok"
       },
-      "www.docusign.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
+      "openweather.co.uk": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "docs.discord.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "www.okta.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "developers.cloudflare.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
       },
       "support.okta.com": {
         "status": 401,
@@ -833,62 +858,7 @@
         "serves": false,
         "outcome": "dead"
       },
-      "support.docusign.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "moved"
-      },
-      "developers.cloudflare.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.okta.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
       "www.cloudflare.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developer.ebay.com": {
-        "status": 403,
-        "serves": false,
-        "outcome": "blocked"
-      },
-      "discord.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "docs.discord.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "mailchimp.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "community.cloudflare.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.mongodb.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "www.xero.com": {
-        "status": 200,
-        "serves": true,
-        "outcome": "ok"
-      },
-      "developers.figma.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -898,7 +868,42 @@
         "serves": true,
         "outcome": "ok"
       },
+      "mailchimp.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "developers.figma.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
       "www.figma.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "discord.com": {
+        "status": 404,
+        "serves": false,
+        "outcome": "dead"
+      },
+      "developer.ebay.com": {
+        "status": 403,
+        "serves": false,
+        "outcome": "blocked"
+      },
+      "community.cloudflare.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "community.ebay.com": {
+        "status": 200,
+        "serves": true,
+        "outcome": "ok"
+      },
+      "developer.xero.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
@@ -908,27 +913,22 @@
         "serves": false,
         "outcome": "dead"
       },
-      "community.ebay.com": {
+      "support.docusign.com": {
         "status": 200,
         "serves": true,
-        "outcome": "ok"
+        "outcome": "moved"
       },
       "developer.adobe.com": {
         "status": 404,
         "serves": false,
         "outcome": "dead"
       },
-      "developer.xero.com": {
-        "status": 404,
-        "serves": false,
-        "outcome": "dead"
-      },
-      "developers.hellosign.com": {
+      "cloudinary.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
       },
-      "developer.calendly.com": {
+      "www.xero.com": {
         "status": 200,
         "serves": true,
         "outcome": "ok"
@@ -941,6 +941,14 @@
     }
   },
   "findings": [
+    {
+      "api": "Airbnb API",
+      "column": "Developer Community/Forum",
+      "url": "https://community.withairbnb.com/t5/Community-Center/ct-p/community-center",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://community.withairbnb.com/t5/Community-Center/ct-p/community-center"
+    },
     {
       "api": "Amazon Advertising API",
       "column": "Official_Documentation_URL",
@@ -1022,12 +1030,36 @@
       "finalUrl": "https://www.box.com/legal/privacypolicy"
     },
     {
+      "api": "Box API",
+      "column": "Security Policy",
+      "url": "https://www.box.com/security-compliance",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://www.box.com/security-compliance"
+    },
+    {
       "api": "Box Content API",
       "column": "Privacy Policy",
       "url": "https://www.box.com/legal/privacypolicy",
       "outcome": "blocked",
       "status": 403,
       "finalUrl": "https://www.box.com/legal/privacypolicy"
+    },
+    {
+      "api": "Box Content API",
+      "column": "Security Policy",
+      "url": "https://www.box.com/security-compliance",
+      "outcome": "blocked",
+      "status": 403,
+      "finalUrl": "https://www.box.com/security-compliance"
+    },
+    {
+      "api": "Calendly API",
+      "column": "Official_Documentation_URL",
+      "url": "https://developer.calendly.com/",
+      "outcome": "moved",
+      "status": 200,
+      "finalUrl": "https://developer.calendly.com/docs/getting-started/overview"
     },
     {
       "api": "Dropbox Activity API",
@@ -1582,36 +1614,12 @@
       "finalUrl": "https://www.figma.com/developers/changelog/"
     },
     {
-      "api": "Firebase API",
-      "column": "Official_Documentation_URL",
-      "url": "https://firebase.google.com/docs",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://firebase.google.com/docs?hl=ja"
-    },
-    {
-      "api": "Google BigQuery API",
-      "column": "Rate Limiting Policy",
-      "url": "https://docs.cloud.google.com/bigquery/quotas",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://docs.cloud.google.com/bigquery/quotas?hl=ja"
-    },
-    {
       "api": "Google BigQuery API",
       "column": "Release Notes",
       "url": "https://cloud.google.com/bigquery/release-notes",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://cloud.google.com/bigquery/release-notes"
-    },
-    {
-      "api": "Google Cloud BigQuery API",
-      "column": "Rate Limiting Policy",
-      "url": "https://docs.cloud.google.com/bigquery/quotas",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://docs.cloud.google.com/bigquery/quotas?hl=ja"
     },
     {
       "api": "Google Cloud BigQuery API",
@@ -1639,43 +1647,11 @@
     },
     {
       "api": "Google Cloud Pub/Sub API",
-      "column": "Rate Limiting Policy",
-      "url": "https://docs.cloud.google.com/pubsub/quotas",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://docs.cloud.google.com/pubsub/quotas?hl=id"
-    },
-    {
-      "api": "Google Cloud Pub/Sub API",
       "column": "Release Notes",
       "url": "https://cloud.google.com/pubsub/release-notes",
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://cloud.google.com/pubsub/release-notes"
-    },
-    {
-      "api": "Google Cloud Run API",
-      "column": "Official_Documentation_URL",
-      "url": "https://docs.cloud.google.com/run/docs",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://docs.cloud.google.com/run/docs?hl=fr"
-    },
-    {
-      "api": "Google Cloud Run API",
-      "column": "Rate Limiting Policy",
-      "url": "https://docs.cloud.google.com/run/quotas",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://docs.cloud.google.com/run/quotas?hl=de"
-    },
-    {
-      "api": "Google Cloud Speech-to-Text API",
-      "column": "Rate Limiting Policy",
-      "url": "https://docs.cloud.google.com/speech-to-text/docs/v1/quotas",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://docs.cloud.google.com/speech-to-text/docs/v1/quotas?hl=pt-br"
     },
     {
       "api": "Google Cloud Speech-to-Text API",
@@ -1700,14 +1676,6 @@
       "outcome": "dead",
       "status": 404,
       "finalUrl": "https://cloud.google.com/vision/release-notes"
-    },
-    {
-      "api": "Google People API",
-      "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/people",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/people?hl=zh-tw"
     },
     {
       "api": "Google Translate API",
@@ -2032,18 +2000,18 @@
     {
       "api": "Medium API",
       "column": "Official_Documentation_URL",
-      "url": "https://medium.engineering/?gi=3a0cda371a6b",
+      "url": "https://medium.engineering/?gi=610082dfd8d2",
       "outcome": "moved",
       "status": 200,
-      "finalUrl": "https://medium.engineering/?gi=610082dfd8d2"
+      "finalUrl": "https://medium.engineering/?gi=376729a62546"
     },
     {
       "api": "Netflix API",
       "column": "Rate Limiting Policy",
-      "url": "https://netflixtechblog.com/?gi=9cd173bbda48",
+      "url": "https://netflixtechblog.com/?gi=0b3f2cdbfda2",
       "outcome": "moved",
       "status": 200,
-      "finalUrl": "https://netflixtechblog.com/?gi=0b3f2cdbfda2"
+      "finalUrl": "https://netflixtechblog.com/?gi=615959a9e4f5"
     },
     {
       "api": "Notion API",
@@ -2378,62 +2346,6 @@
       "outcome": "other",
       "status": 400,
       "finalUrl": "https://developers.facebook.com/community"
-    },
-    {
-      "api": "YouTube Caption Tracks API",
-      "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/v3/docs/captions",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/docs/captions?hl=es-419"
-    },
-    {
-      "api": "YouTube Captions API",
-      "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/v3/docs/captions",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/docs/captions?hl=es-419"
-    },
-    {
-      "api": "YouTube Data API",
-      "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/v3",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3?hl=pt-br"
-    },
-    {
-      "api": "YouTube Data API v3",
-      "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/v3",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3?hl=pt-br"
-    },
-    {
-      "api": "YouTube Data v3 API",
-      "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/v3",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3?hl=pt-br"
-    },
-    {
-      "api": "YouTube Partner API",
-      "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/partner/",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/partner?hl=bn"
-    },
-    {
-      "api": "YouTube Thumbnails API",
-      "column": "Official_Documentation_URL",
-      "url": "https://developers.google.com/youtube/v3/docs/thumbnails",
-      "outcome": "moved",
-      "status": 200,
-      "finalUrl": "https://developers.google.com/youtube/v3/docs/thumbnails?hl=ar"
     },
     {
       "api": "Zillow API",
