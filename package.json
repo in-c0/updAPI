@@ -9,6 +9,7 @@
     "bench:validate": "node tools/bench/validate-data.mjs",
     "bench:controls": "node tools/bench/run-controls.mjs",
     "bench:run": "node tools/bench/run-benchmark.mjs",
+    "bench:cohort:validate": "node tools/bench/validate-cohort.mjs",
     "bench:evidence": "node tools/bench/capture-registry-evidence.mjs",
     "check-links": "node tools/check-links.mjs",
     "check-links:fix": "node tools/check-links.mjs --fix",
