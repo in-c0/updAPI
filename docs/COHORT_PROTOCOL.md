@@ -135,6 +135,15 @@ Schema validity alone does not authorize a cohort. The orchestrator must refuse 
 
 Failure of any preflight condition is apparatus failure, not a model score.
 
+The repository exposes the host-independent portion of this gate as:
+
+```sh
+npm run bench:cohort:validate -- path/to/plan.json \
+  --canary path/to/isolation-canary.json
+```
+
+The command schema-validates the plan/evidence, checks schedule counts, binds each agent cell to canary evidence by exact SHA-256, verifies adapter/product/model/context/execution/isolation equality, and prints the SHA-256 of the exact plan bytes. The repeated-trial orchestrator should call the same library/gate rather than reimplement weaker checks.
+
 ## Portability
 
 The cohort plan is independent of GitHub Actions and must be locally executable. Future XUXI supervision may schedule or launch the same cohort semantics, but may not alter the frozen plan after results begin.
