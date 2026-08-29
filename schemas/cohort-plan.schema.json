@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/in-c0/updAPI/blob/main/schemas/cohort-plan.schema.json",
   "title": "UpdAPI preregistered cohort plan",
-  "description": "Immutable-before-results contract for a repeated-trial benchmark cohort. A plan fixes membership, budgets, ordering, retry/replacement policy, isolation provenance, and aggregation before the first scored agent attempt so results cannot change the experiment design. schema_version 0.1.0.",
+  "description": "Immutable-before-results contract for a repeated-trial benchmark cohort. The plan fixes membership, execution policy, budgets, exact attempt schedule, replacement policy, isolation qualification and aggregation before the first scored agent attempt. schema_version 0.2.0.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -20,7 +20,7 @@
     "freeze_policy"
   ],
   "properties": {
-    "schema_version": { "const": "0.1.0" },
+    "schema_version": { "const": "0.2.0" },
     "cohort_id": {
       "type": "string",
       "minLength": 8,
@@ -56,6 +56,7 @@
           "condition",
           "adapter",
           "agent_context_mode",
+          "execution_policy",
           "isolation",
           "target_scored_attempts",
           "max_invalid_replacements"
@@ -80,18 +81,67 @@
           "adapter": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["name", "source_sha256"],
+            "required": [
+              "name",
+              "source_sha256",
+              "expected_product",
+              "expected_product_version",
+              "model_configuration"
+            ],
             "properties": {
               "name": { "type": "string", "minLength": 1 },
-              "source_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
-              "expected_product": { "type": "string" },
-              "expected_product_version": { "type": "string" },
-              "expected_model": { "type": "string" }
+              "source_sha256": { "$ref": "#/$defs/sha256" },
+              "expected_product": { "type": "string", "minLength": 1 },
+              "expected_product_version": { "type": "string", "minLength": 1 },
+              "model_configuration": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Exact requested model/configuration identifier, or an explicit product-default token if that is the preregistered condition. A material observed change aborts/splits the cohort."
+              }
             }
           },
           "agent_context_mode": {
-            "enum": ["bare", "sterile_config", "host_context", "not_applicable"],
-            "description": "Standardized benchmark cells must not use host_context. Controls use not_applicable."
+            "enum": ["bare", "sterile_config", "not_applicable"],
+            "description": "Standardized benchmark cells use bare or sterile_config. Controls use not_applicable."
+          },
+          "execution_policy": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "invocation_template_sha256",
+              "context_profile_sha256",
+              "web_search",
+              "repository_access",
+              "execution",
+              "package_install",
+              "retrieval_mcp",
+              "external_network",
+              "configured_mcp_sha256"
+            ],
+            "properties": {
+              "invocation_template_sha256": {
+                "$ref": "#/$defs/sha256",
+                "description": "Hash of the normalized exact CLI/invocation template after redacting secret values and replacing per-run paths/IDs with canonical placeholders."
+              },
+              "context_profile_sha256": {
+                "$ref": "#/$defs/sha256",
+                "description": "Hash of the normalized non-secret agent context/settings profile."
+              },
+              "web_search": { "$ref": "#/$defs/capability" },
+              "repository_access": { "$ref": "#/$defs/capability" },
+              "execution": { "$ref": "#/$defs/capability" },
+              "package_install": { "$ref": "#/$defs/capability" },
+              "retrieval_mcp": { "$ref": "#/$defs/capability" },
+              "external_network": { "$ref": "#/$defs/capability" },
+              "configured_mcp_sha256": {
+                "oneOf": [
+                  { "$ref": "#/$defs/sha256" },
+                  { "const": "none" }
+                ],
+                "description": "Hash of normalized configured MCP server identities/configuration with secrets removed, or none."
+              },
+              "notes": { "type": "string" }
+            }
           },
           "isolation": {
             "type": "object",
@@ -100,17 +150,12 @@
             "properties": {
               "mode": {
                 "enum": ["wsl2_claude_sandbox", "container", "vm", "none"],
-                "description": "OS-enforced execution boundary for agent cells; none is valid only for non-agent controls."
+                "description": "OS-enforced execution boundary for agent cells; none is valid only for controls."
               },
-              "profile_sha256": {
-                "type": "string",
-                "pattern": "^[0-9a-f]{64}$",
-                "description": "Hash of the normalized sandbox/container/VM policy actually used."
-              },
+              "profile_sha256": { "$ref": "#/$defs/sha256" },
               "canary_evidence_sha256": {
-                "type": "string",
-                "pattern": "^[0-9a-f]{64}$",
-                "description": "Hash of retained evidence proving allowed reads succeed and forbidden/context reads fail for the exact standardized profile."
+                "$ref": "#/$defs/sha256",
+                "description": "SHA-256 of a schema-valid isolation-canary evidence record qualified for the exact adapter/context/execution/isolation profile."
               },
               "canary_passed_at": { "type": "string", "format": "date-time" }
             }
@@ -142,8 +187,8 @@
                 "isolation": {
                   "properties": {
                     "mode": { "enum": ["wsl2_claude_sandbox", "container", "vm"] },
-                    "profile_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
-                    "canary_evidence_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+                    "profile_sha256": { "$ref": "#/$defs/sha256" },
+                    "canary_evidence_sha256": { "$ref": "#/$defs/sha256" },
                     "canary_passed_at": { "type": "string", "format": "date-time" }
                   },
                   "required": ["mode", "profile_sha256", "canary_evidence_sha256", "canary_passed_at"]
@@ -166,21 +211,42 @@
     "budgets": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["timeout_ms"],
+      "required": ["timeout_ms", "max_turns", "max_tokens", "max_cost_usd"],
       "properties": {
         "timeout_ms": { "type": "integer", "minimum": 1000 },
         "max_turns": { "type": ["integer", "null"], "minimum": 1 },
         "max_tokens": { "type": ["integer", "null"], "minimum": 1 },
         "max_cost_usd": { "type": ["number", "null"], "minimum": 0 }
-      }
+      },
+      "description": "Every budget dimension is explicit. null means deliberately unsupported/unbounded for this cohort; omission is not permitted."
     },
     "ordering": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["strategy", "seed"],
+      "required": ["strategy", "algorithm", "seed", "generated_schedule"],
       "properties": {
         "strategy": { "enum": ["randomized_interleaved", "randomized", "sequential"] },
+        "algorithm": {
+          "enum": ["sha256_fisher_yates_v1", "explicit_v1"],
+          "description": "Versioned deterministic schedule-generation algorithm. The generated schedule remains the execution authority."
+        },
         "seed": { "type": "string", "minLength": 1 },
+        "generated_schedule": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["ordinal", "cell_id", "slot_kind", "slot_index"],
+            "properties": {
+              "ordinal": { "type": "integer", "minimum": 1 },
+              "cell_id": { "type": "string", "minLength": 4 },
+              "slot_kind": { "enum": ["primary", "invalid_replacement"] },
+              "slot_index": { "type": "integer", "minimum": 1 }
+            }
+          },
+          "description": "Exact ordered candidate attempt slots. Replacement slots execute only when a prior apparatus-invalid attempt in that cell requires replacement; otherwise they are skipped and recorded as unused."
+        },
         "description": { "type": "string" }
       }
     },
@@ -224,6 +290,15 @@
         "material_config_change_action": { "const": "abort_or_new_cohort" },
         "posthoc_plan_edits": { "const": "forbidden" }
       }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "capability": {
+      "enum": ["allowed", "denied", "unavailable"]
     }
   }
 }
