@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/in-c0/updAPI/blob/main/schemas/cohort-plan.schema.json",
+  "title": "UpdAPI preregistered cohort plan",
+  "description": "Immutable-before-results contract for a repeated-trial benchmark cohort. A plan fixes membership, budgets, ordering, retry/replacement policy, and aggregation before the first scored agent attempt so results cannot change the experiment design. schema_version 0.1.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "cohort_id",
+    "plan_version",
+    "created_at",
+    "benchmark",
+    "cells",
+    "budgets",
+    "ordering",
+    "replacement_policy",
+    "aggregation",
+    "planned_exclusions",
+    "freeze_policy"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "cohort_id": {
+      "type": "string",
+      "minLength": 8,
+      "pattern": "^[a-z0-9][a-z0-9._-]+$"
+    },
+    "plan_version": { "type": "integer", "minimum": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "description": { "type": "string" },
+    "benchmark": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commit", "clean_tree_required"],
+      "properties": {
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$",
+          "description": "Exact UpdAPI commit that defines the cases, runner, validators, schemas and adapter used by this cohort."
+        },
+        "clean_tree_required": { "const": true },
+        "benchmark_version": { "type": "string" }
+      }
+    },
+    "cells": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "cell_id",
+          "case_id",
+          "case_version",
+          "condition",
+          "adapter",
+          "agent_context_mode",
+          "target_scored_attempts",
+          "max_invalid_replacements"
+        ],
+        "properties": {
+          "cell_id": { "type": "string", "minLength": 4 },
+          "case_id": { "type": "string", "minLength": 4 },
+          "case_version": { "type": "integer", "minimum": 1 },
+          "condition": {
+            "enum": [
+              "agent_default",
+              "no_web",
+              "no_external_retrieval",
+              "authoritative_docs_supplied",
+              "updapi_mcp",
+              "no_execution",
+              "control_stale",
+              "control_current",
+              "control_human_fixed"
+            ]
+          },
+          "adapter": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "source_sha256"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "source_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+              "expected_product": { "type": "string" },
+              "expected_product_version": { "type": "string" },
+              "expected_model": { "type": "string" }
+            }
+          },
+          "agent_context_mode": {
+            "enum": ["bare", "sterile_config", "host_context", "not_applicable"],
+            "description": "Standardized leaderboard cells must not use host_context. Controls use not_applicable."
+          },
+          "target_scored_attempts": { "type": "integer", "minimum": 1 },
+          "max_invalid_replacements": { "type": "integer", "minimum": 0 },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "budgets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["timeout_ms"],
+      "properties": {
+        "timeout_ms": { "type": "integer", "minimum": 1000 },
+        "max_turns": { "type": ["integer", "null"], "minimum": 1 },
+        "max_tokens": { "type": ["integer", "null"], "minimum": 1 },
+        "max_cost_usd": { "type": ["number", "null"], "minimum": 0 }
+      }
+    },
+    "ordering": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strategy", "seed"],
+      "properties": {
+        "strategy": { "enum": ["randomized_interleaved", "randomized", "sequential"] },
+        "seed": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" }
+      }
+    },
+    "replacement_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["replace_apparatus_invalid", "replace_scored_failure", "retain_invalid_attempts", "on_replacement_cap_exceeded"],
+      "properties": {
+        "replace_apparatus_invalid": { "const": true },
+        "replace_scored_failure": { "const": false },
+        "retain_invalid_attempts": { "const": true },
+        "on_replacement_cap_exceeded": { "const": "mark_cell_incomplete" }
+      }
+    },
+    "aggregation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attempt_to_case", "case_to_event", "event_to_family", "family_to_overall", "invalid_handling", "integrity_violation_handling"],
+      "properties": {
+        "attempt_to_case": { "const": "mean_verified_success_over_scored_attempts" },
+        "case_to_event": { "const": "mean_case_score" },
+        "event_to_family": { "const": "mean_event_score" },
+        "family_to_overall": { "const": "macro_mean_family_score" },
+        "invalid_handling": { "const": "exclude_from_capability_score_but_report" },
+        "integrity_violation_handling": { "const": "scored_failure_and_report" }
+      }
+    },
+    "planned_exclusions": {
+      "type": "array",
+      "items": { "enum": ["apparatus_invalid"] },
+      "uniqueItems": true,
+      "maxItems": 1,
+      "description": "No post-hoc exclusions are permitted. For v0, only attempts classified apparatus-invalid by the committed result contract may be excluded from capability scoring."
+    },
+    "freeze_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["immutable_before_first_agent_attempt", "material_config_change_action", "posthoc_plan_edits"],
+      "properties": {
+        "immutable_before_first_agent_attempt": { "const": true },
+        "material_config_change_action": { "const": "abort_or_new_cohort" },
+        "posthoc_plan_edits": { "const": "forbidden" }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "cells": {
+            "contains": {
+              "type": "object",
+              "properties": { "condition": { "const": "agent_default" } },
+              "required": ["condition"]
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "cells": {
+            "items": {
+              "if": {
+                "properties": { "condition": { "const": "agent_default" } },
+                "required": ["condition"]
+              },
+              "then": {
+                "properties": {
+                  "agent_context_mode": { "enum": ["bare", "sterile_config"] }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
