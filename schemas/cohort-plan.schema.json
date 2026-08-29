@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/in-c0/updAPI/blob/main/schemas/cohort-plan.schema.json",
   "title": "UpdAPI preregistered cohort plan",
-  "description": "Immutable-before-results contract for a repeated-trial benchmark cohort. A plan fixes membership, budgets, ordering, retry/replacement policy, and aggregation before the first scored agent attempt so results cannot change the experiment design. schema_version 0.1.0.",
+  "description": "Immutable-before-results contract for a repeated-trial benchmark cohort. A plan fixes membership, budgets, ordering, retry/replacement policy, isolation provenance, and aggregation before the first scored agent attempt so results cannot change the experiment design. schema_version 0.1.0.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -56,6 +56,7 @@
           "condition",
           "adapter",
           "agent_context_mode",
+          "isolation",
           "target_scored_attempts",
           "max_invalid_replacements"
         ],
@@ -90,12 +91,76 @@
           },
           "agent_context_mode": {
             "enum": ["bare", "sterile_config", "host_context", "not_applicable"],
-            "description": "Standardized leaderboard cells must not use host_context. Controls use not_applicable."
+            "description": "Standardized benchmark cells must not use host_context. Controls use not_applicable."
+          },
+          "isolation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["mode"],
+            "properties": {
+              "mode": {
+                "enum": ["wsl2_claude_sandbox", "container", "vm", "none"],
+                "description": "OS-enforced execution boundary for agent cells; none is valid only for non-agent controls."
+              },
+              "profile_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$",
+                "description": "Hash of the normalized sandbox/container/VM policy actually used."
+              },
+              "canary_evidence_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$",
+                "description": "Hash of retained evidence proving allowed reads succeed and forbidden/context reads fail for the exact standardized profile."
+              },
+              "canary_passed_at": { "type": "string", "format": "date-time" }
+            }
           },
           "target_scored_attempts": { "type": "integer", "minimum": 1 },
           "max_invalid_replacements": { "type": "integer", "minimum": 0 },
           "notes": { "type": "string" }
-        }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "condition": {
+                  "enum": [
+                    "agent_default",
+                    "no_web",
+                    "no_external_retrieval",
+                    "authoritative_docs_supplied",
+                    "updapi_mcp",
+                    "no_execution"
+                  ]
+                }
+              },
+              "required": ["condition"]
+            },
+            "then": {
+              "properties": {
+                "agent_context_mode": { "enum": ["bare", "sterile_config"] },
+                "isolation": {
+                  "properties": {
+                    "mode": { "enum": ["wsl2_claude_sandbox", "container", "vm"] },
+                    "profile_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+                    "canary_evidence_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+                    "canary_passed_at": { "type": "string", "format": "date-time" }
+                  },
+                  "required": ["mode", "profile_sha256", "canary_evidence_sha256", "canary_passed_at"]
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "agent_context_mode": { "const": "not_applicable" },
+                "isolation": {
+                  "properties": { "mode": { "const": "none" } },
+                  "required": ["mode"]
+                }
+              }
+            }
+          }
+        ]
       }
     },
     "budgets": {
@@ -160,37 +225,5 @@
         "posthoc_plan_edits": { "const": "forbidden" }
       }
     }
-  },
-  "allOf": [
-    {
-      "if": {
-        "properties": {
-          "cells": {
-            "contains": {
-              "type": "object",
-              "properties": { "condition": { "const": "agent_default" } },
-              "required": ["condition"]
-            }
-          }
-        }
-      },
-      "then": {
-        "properties": {
-          "cells": {
-            "items": {
-              "if": {
-                "properties": { "condition": { "const": "agent_default" } },
-                "required": ["condition"]
-              },
-              "then": {
-                "properties": {
-                  "agent_context_mode": { "enum": ["bare", "sterile_config"] }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  ]
+  }
 }
