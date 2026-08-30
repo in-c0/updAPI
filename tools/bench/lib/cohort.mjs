@@ -91,6 +91,20 @@ export function assertCanaryQualifiesCell(cell, evidence, evidenceBytes = null) 
   if (evidence.qualification.status !== 'passed') throw new Error('canary qualification is not passed');
   if (evidence.passes.length !== 2) throw new Error('canary qualification must contain exactly two passes');
 
+  const [firstPass, secondPass] = evidence.passes;
+  for (const field of [
+    'pass_id',
+    'executed_at',
+    'allowed_nonce_sha256',
+    'forbidden_nonce_sha256',
+    'context_nonce_sha256',
+    'artifact_index_sha256'
+  ]) {
+    if (firstPass[field] === secondPass[field]) {
+      throw new Error(`canary passes must be independent: duplicate ${field}`);
+    }
+  }
+
   if (evidenceBytes !== null) {
     const observedEvidenceSha = sha256(evidenceBytes);
     mismatch('canary_evidence_sha256', cell.isolation.canary_evidence_sha256, observedEvidenceSha);
