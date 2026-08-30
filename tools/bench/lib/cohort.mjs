@@ -31,6 +31,9 @@ export function assertCohortSemantics(plan) {
 
   const seenOrdinals = new Set();
   const counts = new Map([...cells.keys()].map((id) => [id, { primary: 0, invalid_replacement: 0 }]));
+  const slotIndices = new Map(
+    [...cells.keys()].map((id) => [id, { primary: new Set(), invalid_replacement: new Set() }])
+  );
 
   plan.ordering.generated_schedule.forEach((slot, index) => {
     const expectedOrdinal = index + 1;
@@ -41,6 +44,7 @@ export function assertCohortSemantics(plan) {
     seenOrdinals.add(slot.ordinal);
     if (!cells.has(slot.cell_id)) throw new Error(`schedule references unknown cell_id: ${slot.cell_id}`);
     counts.get(slot.cell_id)[slot.slot_kind] += 1;
+    slotIndices.get(slot.cell_id)[slot.slot_kind].add(slot.slot_index);
   });
 
   for (const [id, cell] of cells) {
@@ -50,6 +54,23 @@ export function assertCohortSemantics(plan) {
     }
     if (count.invalid_replacement !== cell.max_invalid_replacements) {
       throw new Error(`${id}: replacement schedule slots ${count.invalid_replacement} != max_invalid_replacements ${cell.max_invalid_replacements}`);
+    }
+
+    for (const [slotKind, expectedCount] of [
+      ['primary', cell.target_scored_attempts],
+      ['invalid_replacement', cell.max_invalid_replacements]
+    ]) {
+      const observed = slotIndices.get(id)[slotKind];
+      const expected = Array.from({ length: expectedCount }, (_, index) => index + 1);
+      const observedSorted = [...observed].sort((a, b) => a - b);
+      if (
+        observedSorted.length !== expected.length
+        || observedSorted.some((value, index) => value !== expected[index])
+      ) {
+        throw new Error(
+          `${id}: ${slotKind} slot_index set ${JSON.stringify(observedSorted)} != expected ${JSON.stringify(expected)}`
+        );
+      }
     }
   }
 
