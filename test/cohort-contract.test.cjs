@@ -170,6 +170,16 @@ describe('bench cohort preregistration contract', function () {
     assert.throws(() => assertCohortSemantics(plan), /primary schedule slots 4 != target_scored_attempts 5/);
   });
 
+  it('rejects duplicate or missing logical slot indices even when schedule counts still match', function () {
+    const plan = makePlan();
+    plan.ordering.generated_schedule[1].slot_index = 1;
+    assertValid(validators.cohortPlan, plan, 'cohort plan');
+    assert.throws(
+      () => assertCohortSemantics(plan),
+      /primary slot_index set \[1,3,4,5\] != expected \[1,2,3,4,5\]/
+    );
+  });
+
   it('requires a standardized agent cell rather than host-context execution', function () {
     const plan = makePlan();
     plan.cells[0].agent_context_mode = 'host_context';
