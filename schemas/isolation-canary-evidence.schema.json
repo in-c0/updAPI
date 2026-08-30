@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/in-c0/updAPI/blob/main/schemas/isolation-canary-evidence.schema.json",
+  "title": "UpdAPI isolation canary evidence",
+  "description": "Machine-readable qualification evidence for one standardized agent execution profile. Two fresh-nonce passes must prove allowed workspace reads work, answer-bearing paths are denied through built-in and shell channels, inherited host context is absent, and isolation fails closed when unavailable. schema_version 0.1.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "canary_id",
+    "created_at",
+    "adapter",
+    "agent_context_mode",
+    "context_profile_sha256",
+    "execution_policy_sha256",
+    "isolation",
+    "passes",
+    "qualification"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.1.0" },
+    "canary_id": {
+      "type": "string",
+      "minLength": 8,
+      "pattern": "^[a-z0-9][a-z0-9._-]+$"
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "adapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "source_sha256", "product", "product_version", "model_configuration"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "source_sha256": { "$ref": "#/$defs/sha256" },
+        "product": { "type": "string", "minLength": 1 },
+        "product_version": { "type": "string", "minLength": 1 },
+        "model_configuration": { "type": "string", "minLength": 1 }
+      }
+    },
+    "agent_context_mode": {
+      "enum": ["bare", "sterile_config"]
+    },
+    "context_profile_sha256": {
+      "$ref": "#/$defs/sha256",
+      "description": "SHA-256 of the normalized non-secret agent context/configuration profile used for the canary."
+    },
+    "execution_policy_sha256": {
+      "$ref": "#/$defs/sha256",
+      "description": "SHA-256 of the normalized invocation/tool/network policy used for both the canary and the benchmark cohort."
+    },
+    "isolation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "profile_sha256", "fail_closed"],
+      "properties": {
+        "mode": { "enum": ["wsl2_claude_sandbox", "container", "vm"] },
+        "profile_sha256": { "$ref": "#/$defs/sha256" },
+        "fail_closed": { "const": true }
+      }
+    },
+    "passes": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "pass_id",
+          "executed_at",
+          "allowed_nonce_sha256",
+          "forbidden_nonce_sha256",
+          "context_nonce_sha256",
+          "checks",
+          "artifact_index_sha256"
+        ],
+        "properties": {
+          "pass_id": { "type": "string", "minLength": 1 },
+          "executed_at": { "type": "string", "format": "date-time" },
+          "allowed_nonce_sha256": { "$ref": "#/$defs/sha256" },
+          "forbidden_nonce_sha256": { "$ref": "#/$defs/sha256" },
+          "context_nonce_sha256": { "$ref": "#/$defs/sha256" },
+          "checks": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "allowed_builtin_read",
+              "allowed_shell_read",
+              "forbidden_builtin_read_denied",
+              "forbidden_shell_read_denied",
+              "context_nonce_absent",
+              "isolation_unavailable_fails_closed"
+            ],
+            "properties": {
+              "allowed_builtin_read": { "const": true },
+              "allowed_shell_read": { "const": true },
+              "forbidden_builtin_read_denied": { "const": true },
+              "forbidden_shell_read_denied": { "const": true },
+              "context_nonce_absent": { "const": true },
+              "isolation_unavailable_fails_closed": { "const": true }
+            }
+          },
+          "artifact_index_sha256": {
+            "$ref": "#/$defs/sha256",
+            "description": "Hash of the retained artifact index containing raw tool attempts/outputs and their per-file hashes."
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "qualification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "qualified_at"],
+      "properties": {
+        "status": { "const": "passed" },
+        "qualified_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
