@@ -186,6 +186,15 @@ describe('bench cohort preregistration contract', function () {
     assert.strictEqual(assertCanaryQualifiesCell(cell, evidence, evidenceBytes), true);
   });
 
+  it('rejects a duplicated first canary pass instead of accepting fake two-pass freshness', function () {
+    const cell = makeCell();
+    const evidence = makeCanary(cell);
+    evidence.passes[1] = structuredClone(evidence.passes[0]);
+
+    assertValid(validators.isolationCanaryEvidence, evidence, 'isolation canary evidence');
+    assert.throws(() => assertCanaryQualifiesCell(cell, evidence), /canary passes must be independent/);
+  });
+
   it('rejects canary evidence from a different execution policy even when both records are schema-valid', function () {
     const cell = makeCell();
     const evidence = makeCanary(cell);
