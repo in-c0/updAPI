@@ -18,7 +18,9 @@ export const validators = {
   changeEvent: compile('change-event.schema.json'),
   benchmarkCase: compile('benchmark-case.schema.json'),
   runManifest: compile('run-manifest.schema.json'),
-  runResult: compile('run-result.schema.json')
+  runResult: compile('run-result.schema.json'),
+  cohortPlan: compile('cohort-plan.schema.json'),
+  isolationCanaryEvidence: compile('isolation-canary-evidence.schema.json')
 };
 
 export function assertValid(validator, data, label) {
