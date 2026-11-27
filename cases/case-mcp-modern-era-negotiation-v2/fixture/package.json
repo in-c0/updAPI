@@ -1,0 +1,10 @@
+{
+  "name": "case-mcp-serverinfo-discover-v2-fixture",
+  "private": true,
+  "type": "module",
+  "description": "Benchmark workspace. See ../task.md for the objective.",
+  "dependencies": {
+    "@modelcontextprotocol/client": "2.0.0",
+    "@modelcontextprotocol/server": "2.0.0"
+  }
+}

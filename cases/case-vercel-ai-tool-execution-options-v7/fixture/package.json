@@ -1,0 +1,12 @@
+{
+  "name": "case-vercel-ai-tool-execution-options-v7-fixture",
+  "private": true,
+  "type": "module",
+  "description": "Benchmark workspace. See ../task.md for the objective.",
+  "dependencies": {
+    "ai": "7.0.0"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2"
+  }
+}

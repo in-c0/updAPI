@@ -1,0 +1,9 @@
+{
+  "name": "case-vercel-ai-custom-provider-v7-fixture",
+  "private": true,
+  "type": "module",
+  "description": "Benchmark workspace. See ../task.md for the objective.",
+  "dependencies": {
+    "ai": "7.0.0"
+  }
+}

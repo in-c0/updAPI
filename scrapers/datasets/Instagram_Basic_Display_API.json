@@ -1,0 +1,6 @@
+{
+  "apiName": "Instagram Basic Display API",
+  "url": "https://developers.facebook.com/docs/instagram-basic-display-api",
+  "title": "Error",
+  "content": "Sorry, something went wrong.We're working on getting this fixed as soon as we can.Go back Meta © 2024 · Help\n              document.getElementById(\"back\").onclick = function() {\n                if (history.length > 1) {\n                  history.back();\n                  return false;\n                }\n              };"
+}
