@@ -1,0 +1,72 @@
+# Owner decision 2026-11-07: Claude's pull requests merge themselves once every other check
+# on the same commit has passed, so no Claude session has to hand a merge back to the owner.
+# Scope: branches named claude/*, opened from this repository by the repository owner's account,
+# not drafts. A failing check, a commit status that is not success, or a 20-minute wait stops the
+# merge and leaves the PR open. Remove this file to turn it off for this repository.
+name: claude-auto-merge
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  checks: read
+  statuses: read
+
+concurrency:
+  group: claude-auto-merge-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  claude-auto-merge:
+    if: >-
+      startsWith(github.head_ref, 'claude/') &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.user.login == github.repository_owner &&
+      !github.event.pull_request.draft
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO: ${{ github.repository }}
+      SHA: ${{ github.event.pull_request.head.sha }}
+      PR: ${{ github.event.pull_request.number }}
+      BASE: ${{ github.event.pull_request.base.ref }}
+    steps:
+      - name: Wait until every other check on this commit has passed
+        run: |
+          sleep 30   # let other workflows and apps register their checks first
+          deadline=$((SECONDS + 1200))
+          while :; do
+            runs=$(gh api "repos/$REPO/commits/$SHA/check-runs?per_page=100" \
+              --jq '[.check_runs[] | select(.name != "claude-auto-merge")]')
+            pending=$(jq '[.[] | select(.status != "completed")] | length' <<<"$runs")
+            failed=$(jq -r '[.[] | select(.status == "completed" and ((.conclusion == "success" or .conclusion == "neutral" or .conclusion == "skipped") | not)) | .name] | join(", ")' <<<"$runs")
+            status=$(gh api "repos/$REPO/commits/$SHA/status" --jq 'if .total_count == 0 then "none" else .state end')
+            if [ -n "$failed" ] || [ "$status" = failure ] || [ "$status" = error ]; then
+              echo "::error::Not merging: failed checks [$failed], commit status $status"; exit 1
+            fi
+            if [ "$pending" = 0 ] && { [ "$status" = success ] || [ "$status" = none ]; }; then break; fi
+            if [ $SECONDS -gt $deadline ]; then echo "::error::Not merging: checks still pending after 20 minutes"; exit 1; fi
+            sleep 20
+          done
+          echo "All checks passed on $SHA"
+
+      - name: Merge
+        run: gh pr merge "$PR" --repo "$REPO" --squash --delete-branch --match-head-commit "$SHA"
+
+      # A merge made with GITHUB_TOKEN does not fire `push` workflows, so deploys that run on push
+      # would be skipped. Dispatch the ones that also accept workflow_dispatch, as a human merge would have run them.
+      - name: Run push-triggered workflows that a token merge would skip
+        run: |
+          for f in $(gh api "repos/$REPO/contents/.github/workflows?ref=$BASE" --jq '.[] | select(.type == "file") | .name' 2>/dev/null); do
+            [ "$f" = claude-auto-merge.yml ] && continue
+            body=$(gh api "repos/$REPO/contents/.github/workflows/$f?ref=$BASE" --jq .content | base64 -d)
+            if grep -qE '^[[:space:]]*workflow_dispatch' <<<"$body" && grep -qE '^[[:space:]]*push[[:space:]]*:' <<<"$body"; then
+              echo "dispatching $f on $BASE"
+              gh workflow run "$f" --repo "$REPO" --ref "$BASE" || echo "::warning::could not dispatch $f"
+            fi
+          done

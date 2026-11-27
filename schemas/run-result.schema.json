@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/in-c0/updAPI/blob/main/schemas/run-result.schema.json",
+  "title": "UpdAPI run result",
+  "description": "Outcome of one benchmark run. attempt_status separates a legitimately scored attempt from an invalid experiment (harness/setup/validator malfunction) so apparatus failures can never be counted as model failures. verified_success is decided by the case validator, never an LLM judge. See docs/BENCHMARK_SPEC.md sections 5.4 and 8. schema_version 0.2.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "case_id",
+    "attempt_status",
+    "verified_success",
+    "validator_exit_code",
+    "initial_stale_use",
+    "recovered",
+    "duration_ms",
+    "artifacts"
+  ],
+  "properties": {
+    "schema_version": { "const": "0.2.0" },
+    "run_id": { "type": "string", "minLength": 8 },
+    "case_id": { "type": "string" },
+    "attempt_status": {
+      "enum": ["scored", "invalid"],
+      "description": "scored = the agent/control was correctly invoked against a correctly materialized workspace and the validator ran to a verdict (a timeout of a correctly invoked agent is scored=failure). invalid = the experiment itself malfunctioned (corrupted fixture, adapter/wrapper failure, benchmark-side setup missing, validator malfunction); excluded from any score."
+    },
+    "invalid_reason": {
+      "type": ["string", "null"],
+      "description": "Required human-readable cause when attempt_status is invalid."
+    },
+    "verified_success": {
+      "type": "boolean",
+      "description": "Meaningful only when attempt_status is scored; must be false on invalid runs."
+    },
+    "validator_exit_code": { "type": ["integer", "null"] },
+    "initial_stale_use": {
+      "type": ["boolean", "null"],
+      "description": "true only when evidence in the implementation/trajectory shows use of the obsolete interface relevant to THIS case. null = not classified. Never inferred from generic failure."
+    },
+    "recovered": {
+      "type": ["boolean", "null"],
+      "description": "Among runs that demonstrably entered a stale state: did the run end in verified success? null when initial_stale_use is null/false."
+    },
+    "failure_class": {
+      "type": ["string", "null"],
+      "enum": [
+        "stale_api_use",
+        "general_coding_error",
+        "environment_error",
+        "budget_exhausted",
+        "validator_error",
+        "adapter_error",
+        "unknown",
+        null
+      ]
+    },
+    "tool_trace_summary": {
+      "type": "object",
+      "additionalProperties": { "type": "integer" },
+      "description": "Counts by tool family (web_search, docs_fetch, shell, edit, ...) when observable."
+    },
+    "duration_ms": { "type": ["integer", "null"] },
+    "artifacts": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Run-relative paths: task prompt, starting hash manifest, final patch, validator log, adapter output, artifact SHA-256 index."
+    },
+    "notes": { "type": "string" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "attempt_status": { "const": "invalid" } }, "required": ["attempt_status"] },
+      "then": {
+        "properties": {
+          "invalid_reason": { "type": "string", "minLength": 5 },
+          "verified_success": { "const": false }
+        },
+        "required": ["invalid_reason"]
+      }
+    }
+  ]
+}

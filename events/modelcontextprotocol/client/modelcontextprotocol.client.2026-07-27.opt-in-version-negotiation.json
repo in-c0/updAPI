@@ -1,0 +1,53 @@
+{
+  "schema_version": "0.1.0",
+  "id": "modelcontextprotocol.client.2026-07-27.opt-in-version-negotiation",
+  "provider": "modelcontextprotocol",
+  "ecosystem": "npm",
+  "package": "@modelcontextprotocol/client",
+  "interface": "Client.connect / ClientOptions.versionNegotiation",
+  "version_before": null,
+  "version_after": "2.0.0",
+  "published_at": "2026-07-27T23:55:22.113Z",
+  "first_observed_at": "2026-08-28T04:22:27Z",
+  "verified_at": "2026-08-28T04:28:36Z",
+  "change": {
+    "type": "version_migration",
+    "secondary_types": ["configuration_change", "error_behavior_change"],
+    "summary": "Entering the MCP 2026-07-28 protocol era is opt-in on the GA v2 client: ClientOptions.versionNegotiation (mode 'auto' probes with server/discover; { pin } is strict) with the DEFAULT remaining the plain 2025 initialize handshake. Against a modern-only strict endpoint (createMcpHandler with legacy:'reject' - a supported deployment posture) the default handshake is rejected with JSON-RPC -32022 Unsupported protocol version, a hard connect failure. Code written with 2025-era MCP knowledge therefore fails to connect to modern-only servers at all.",
+    "old": "await new Client(info).connect(transport)  // plain 2025 initialize handshake (still the default)",
+    "new": "await new Client(info, { versionNegotiation: { mode: 'auto' } }).connect(transport)"
+  },
+  "sources": [
+    {
+      "kind": "official_release",
+      "url": "https://github.com/modelcontextprotocol/typescript-sdk/releases/tag/%40modelcontextprotocol%2Fserver%402.0.0",
+      "retrieved_at": "2026-08-28T03:35:00Z",
+      "note": "Release notes describe the probe/negotiation behaviour and the hard connect failure a pre-final peer hits against a modern-only server."
+    },
+    {
+      "kind": "migration_guide",
+      "url": "https://github.com/modelcontextprotocol/typescript-sdk/blob/main/docs/migration/support-2026-07-28.md",
+      "retrieved_at": "2026-08-28T03:20:00Z"
+    },
+    {
+      "kind": "source_diff",
+      "url": "https://unpkg.com/@modelcontextprotocol/client@2.0.0/dist/index.d.mts",
+      "retrieved_at": "2026-08-28T04:22:00Z",
+      "note": "Published typings document VersionNegotiationOptions: default 'legacy' ('the default is legacy: absent, connect() runs the plain 2025 sequence'), 'auto' probe semantics, and { pin } strictness."
+    },
+    {
+      "kind": "package_registry",
+      "url": "https://registry.npmjs.org/@modelcontextprotocol/client",
+      "retrieved_at": "2026-08-28T03:44:00Z",
+      "note": "time['2.0.0'] = 2026-07-27T23:55:22.113Z."
+    }
+  ],
+  "verification": {
+    "kind": "executable_fixture",
+    "fixture": "cases/case-mcp-modern-era-negotiation-v2",
+    "notes": "Executable both-sides verification on the GA packages: the default-client control is rejected by a modern-only strict endpoint with -32022 (requested 2025-11-25, supported ['2026-07-28']) while the versionNegotiation:'auto' control connects, negotiates the modern era, and reads the server identity. Additionally observed: over a raw in-memory transport the default pair still connects legacy-style and McpServer answers server/discover with -32601, so the era mechanism is endpoint-surface-specific."
+  },
+  "status": "case_validated",
+  "revision": 1,
+  "notes": "version_before is null because @modelcontextprotocol/client is a new package introduced by the v2 split: the pre-change state is the 2025-era handshake as implemented by any pre-2026-07-28 client, including @modelcontextprotocol/sdk <= 1.30.0. Split from modelcontextprotocol.server.2026-07-27.serverinfo-into-result-meta after methodology review (PR #25 round 1): the two changes shipped together, but era negotiation and the serverInfo field relocation are distinct causal interventions, and the executable case discriminates the former."
+}

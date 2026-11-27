@@ -1,0 +1,47 @@
+# Forgets archived rule files that nobody has needed for 90 days (owner decision 2026-11-08).
+# docs/archive/rules/** holds the agent rule files this repo carried before policy moved to
+# in-c0/Project-harness/POLICY.md. A file whose last git change is older than 90 days is removed;
+# it stays in history. Touching a file (or promoting it into CLAUDE.md) resets its clock.
+# Remove this workflow to turn the forgetting off for this repository.
+name: rules-archive-expiry
+
+on:
+  schedule:
+    - cron: '17 3 1 * *'   # monthly, 1st, 03:17 UTC (~14:17 Sydney)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  expire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Delete archived rule files untouched for 90 days
+        run: |
+          set -e
+          [ -d docs/archive/rules ] || { echo "no archive"; exit 0; }
+          cutoff=$(date -u -d '90 days ago' +%s)
+          removed=0
+          while IFS= read -r f; do
+            [ "$(basename "$f")" = README.md ] && continue
+            last=$(git log -1 --format=%ct -- "$f")
+            if [ -n "$last" ] && [ "$last" -lt "$cutoff" ]; then
+              git rm -q "$f"; removed=$((removed+1)); echo "forgot $f"
+            fi
+          done < <(git ls-files docs/archive/rules)
+          # drop README + empty dirs once nothing else is left
+          if [ "$removed" -gt 0 ] && [ -z "$(git ls-files docs/archive/rules | grep -v '/README\.md$')" ]; then
+            git ls-files docs/archive/rules | xargs -r git rm -q
+          fi
+          if [ "$removed" -gt 0 ]; then
+            git config user.name "rules-archive-expiry"
+            git config user.email "noreply@github.com"
+            git commit -q -m "chore: forget $removed archived rule file(s) untouched for 90 days"
+            git push
+          else
+            echo "nothing expired"
+          fi
